@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 3: Micronutrients and Daily Percent Value — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 3: Reading Food Labels / Lesson 3
+    </div>
+
+    <div class="lesson">
+      <h1>Micronutrients and Daily Percent Value</h1>
+      <div class="meta">High School Course 3, Lesson 3</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Micronutrients and Daily Percent Value <span class="module-time">2 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/g_34GhHhgWI" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Micronutrients and Daily Percent Value <span class="module-time">10 min</span></h2>
+                <p><strong>How Micronutrients and Daily Percent Value Fuel You</strong></p>
+        <p>You grab a granola bar between classes because you’re late, scroll through your phone between homework problems, and lace up for practice without thinking about what you ate. That quick choice can change how you feel in the next hour: clutching your chest because you’re shaky before a test, zoning out during study hall, or fading in the fourth quarter. Small nutrients—vitamins and minerals—hidden in everyday foods influence that immediate energy, mood, and athletic performance more than you might expect. Reading the Nutrition Facts label and understanding the % Daily Value helps you turn those random snacks into predictable fuel for focus and resilience.</p>
+        <p>What micronutrients do and why they matter for you</p>
+        <ul>
+          <li>Vitamins and minerals are micronutrients: your body needs them in small amounts, but they have big effects on mental and physical performance. For example, iron carries oxygen to muscles and the brain; low iron means tiredness and poor concentration during class or practice.</li>
+          <li>Vitamin B12 supports nerve signals and energy metabolism; without enough, you may feel slow, forgetful, or less motivated.</li>
+          <li>Vitamin D and calcium strengthen bones—important for appearance and preventing stress fractures that bench you during the season.</li>
+          <li>Each micronutrient links directly to how you think, move, and look.</li>
+        </ul>
+        <p>How % Daily Value on the label translates to real-life outcomes</p>
+        <ul>
+          <li>The % Daily Value (%DV) on a food label tells you how much one serving contributes to the recommended daily amount. A higher %DV for a micronutrient means that serving will more strongly support the related function. For example, a cereal that lists 50% DV of iron gives half the daily iron you need in one bowl—helping sustain oxygen delivery for better focus on long exams or endurance during morning runs. Conversely, a snack with 0% DV of key nutrients may fill you up without supporting energy or recovery, leaving you wired but nutritionally empty.</li>
+        </ul>
+        <p>Practical label reading: choose for focus and endurance</p>
+        <ul>
+          <li>Look for vitamin B-complex and iron to support sustained attention and stamina. If the label shows meaningful %DVs—say 25% DV or higher—you’re making a choice that contributes to steady energy and clearer thinking. For recovery and bone health, aim for foods with higher %DVs of vitamin D and calcium; after weight-bearing practice, those percentages signal better long-term performance and reduced injury risk. For immune-related mood stability, vitamin C and zinc at reasonable %DVs help you bounce back from colds so you don’t miss tests or training.</li>
+        </ul>
+        <p>Balancing immediate needs and long-term appearance</p>
+        <ul>
+          <li>Some foods offer high %DVs of a single nutrient but little else. A fortified drink might give 100% DV of vitamin C, which can help mood and immune defense today, but if it’s also high in added sugars you may experience a later crash that harms focus and energy. Whole-food choices—fruits, vegetables, nuts, dairy, lean proteins—tend to provide a range of micronutrients at useful %DVs and help skin, hair, and overall appearance by supporting cell repair and hydration. Thinking about %DV alongside sugar and sodium helps you pick items that maintain both performance and appearance.</li>
+        </ul>
+        <p>Putting it into action: small habits that change your day</p>
+        <ul>
+          <li>Before a big test, pick a snack or meal with moderate %DVs of iron and B vitamins to promote steady mental energy. After practice, choose something with calcium and vitamin D for recovery and bone strength. If you’re often irritable or unfocused midday, check labels for magnesium and vitamin B6 %DVs—these support mood regulation and cognitive function.</li>
+          <li>Keep a quick checklist in your phone:</li>
+          <li>Iron/B vitamins for focus</li>
+          <li>Vitamin D/Calcium for recovery</li>
+          <li>Vitamin C/Zinc for immune resilience</li>
+        </ul>
+        <ul>
+          <li>Over weeks, these choices add up to better grades, fewer injuries, and a more energetic presence.</li>
+        </ul>
+        <p>A final note on supplements and variety</p>
+        <ul>
+          <li>Supplements can fill gaps when foods don’t provide enough %DV, but whole foods supply combinations of micronutrients that work together to improve energy, mood, and performance. Relying solely on pills can miss that synergy and sometimes cause imbalances that hurt sleep or focus. Use the %DV as a tool to track what your food gives you, and aim for variety across meals so your daily totals support the habits you want: clearer thinking, stronger athletic output, stable mood, and healthier appearance.</li>
+        </ul>
+        <p>Habit Formation:</p>
+        <p>Read the label with purpose. When you choose foods that give useful %DVs of the right micronutrients, you’re not just eating—you’re fueling better attention in class, faster recovery after practice, steadier moods, and a stronger, healthier you.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Daily Percent Detective <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+                  <p>Directions</p>
+        <p>Gather the nutrition labels from 5–8 foods you regularly eat.</p>
+        <ul>
+          <li>Serving size</li>
+          <li>Vitamin D %DV</li>
+          <li>Calcium %DV</li>
+          <li>Iron %DV</li>
+          <li>Potassium %DV</li>
+          <li>Sodium %DV</li>
+          <li>Added sugars</li>
+        </ul>
+        <p>Then you will answer:</p>
+        <ul>
+          <li>Which micronutrients do I get enough of?</li>
+          <li>Which ones appear very low?</li>
+          <li>Which foods provide the highest %DV?</li>
+          <li>Which foods provide very little nutrition despite lots of calories?</li>
+        </ul>
+        <p>Rate yourself from 1–5 for how balanced your food choices are.</p>
+        <p>Finally, complete the following sentence:</p>
+        <p>Because I usually eat __________, I probably get too little __________.</p>
+        <p>This may affect my:</p>
+        <ul>
+          <li>Energy</li>
+          <li>Focus</li>
+          <li>Exercise performance</li>
+          <li>Recovery</li>
+          <li>Overall health</li>
+        </ul>
+        <p>Habit Commitment</p>
+        <p>Complete:</p>
+        <p>"This week I will replace one low-micronutrient food with __________________ because it provides more __________."</p>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Micronutrients and DV% Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. A student drinks a glass of orange juice that lists vitamin C as 20% daily value on the nutrition label. What does this mean?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is getting 80% of their daily vitamin C from the juice.</li>
+            <li><span class="letter">B.</span> The student is getting all their daily vitamin C from the juice.</li>
+            <li><span class="letter">C.</span> The student is getting 20 milligrams of vitamin C from the juice.</li>
+            <li class="correct"><span class="letter">D.</span> The student is getting 20% of their daily recommended intake of vitamin C from the juice. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student eats a meal with a nutrition label showing iron at 50% daily value. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student is consuming 50% of the daily recommended amount of iron. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student is consuming 50 milligrams of iron.</li>
+            <li><span class="letter">C.</span> The student is consuming 100% of the daily recommended amount of iron.</li>
+            <li><span class="letter">D.</span> The student is consuming 25% of the daily recommended amount of iron.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. A student chooses a yogurt with 30% daily value for calcium. What does this indicate?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is getting no calcium from the yogurt.</li>
+            <li><span class="letter">B.</span> The student is getting less than 10% of their daily calcium from the yogurt.</li>
+            <li><span class="letter">C.</span> The student is getting all their daily calcium from the yogurt.</li>
+            <li class="correct"><span class="letter">D.</span> The student is getting a significant portion of their daily calcium from the yogurt. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. A student eats a snack with 15% daily value for vitamin D. What does this mean about their intake?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is consuming more than the recommended daily amount of vitamin</li>
+            <li><span class="letter">B.</span> The student is consuming twice the recommended daily amount of vitamin D.</li>
+            <li class="correct"><span class="letter">C.</span> The student is consuming less than the recommended daily amount of vitamin D. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is consuming exactly the recommended daily amount of vitamin D.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A student drinks a smoothie with a nutrition label showing potassium at 100% daily value. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is getting 50% of their daily recommended intake of potassium.</li>
+            <li><span class="letter">B.</span> The student is getting 10% of their daily recommended intake of potassium.</li>
+            <li class="correct"><span class="letter">C.</span> The student is getting 100% of their daily recommended intake of potassium from the smoothie. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is getting 200% of their daily recommended intake of potassium.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A student eats a granola bar with 40% daily value for magnesium. What does this indicate?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student is consuming less than half of the daily recommended amount of magnesium. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student is consuming no magnesium at all.</li>
+            <li><span class="letter">C.</span> The student is consuming more than the daily recommended amount of magnesium.</li>
+            <li><span class="letter">D.</span> The student is consuming exactly the daily recommended amount of magnesium.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. A student selects a snack with 8% daily value for zinc. What does this mean?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student is getting a small portion of their daily recommended intake of zinc from the snack. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student is getting more than their daily recommended intake of zinc from the snack.</li>
+            <li><span class="letter">C.</span> The student is getting none of their daily recommended intake of zinc from the snack.</li>
+            <li><span class="letter">D.</span> The student is getting all their daily recommended intake of zinc from the snack.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A student chooses a carrot snack with 70% daily value for vitamin A. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is consuming a food that provides a low amount of vitamin A compared to their daily needs.</li>
+            <li class="correct"><span class="letter">B.</span> The student is consuming a food that provides a high amount of vitamin A compared to their daily needs. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The student is consuming a food that provides no vitamin A.</li>
+            <li><span class="letter">D.</span> The student is consuming a food that provides exactly half of their daily vitamin A needs.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student eats a breakfast cereal with 25% daily value for folate. What does this indicate?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is getting 75% of their daily recommended intake of folate from the cereal.</li>
+            <li class="correct"><span class="letter">B.</span> The student is getting 25% of their daily recommended intake of folate from the cereal. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The student is getting all their daily recommended intake of folate from the cereal.</li>
+            <li><span class="letter">D.</span> The student is getting no folate from the cereal.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. A student reads a nutrition label and sees vitamin E listed at 10% daily value. What does this mean?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is consuming a food that provides no vitamin E.</li>
+            <li><span class="letter">B.</span> The student is consuming a food that provides twice their daily vitamin E needs.</li>
+            <li class="correct"><span class="letter">C.</span> The student is consuming a food that contributes to their daily intake of vitamin E. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is consuming a food that provides all their daily vitamin E needs.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. True or False: If a student eats several foods with low daily percent values for iron, they may not meet their daily iron needs.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. False</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> True</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. True or False: A food with a 100% daily value for a micronutrient always provides more than you need for the day.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. A student eats an energy bar with 60% daily value for vitamin B6. What does this indicate?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is getting 30% of their daily recommended intake of vitamin B6 from the energy bar.</li>
+            <li><span class="letter">B.</span> The student is getting all their daily recommended intake of vitamin B6 from the energy bar.</li>
+            <li class="correct"><span class="letter">C.</span> The student is getting 60% of their daily recommended intake of vitamin B6 from the energy bar. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is getting no vitamin B6 from the energy bar.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. A student selects foods with daily percent values for micronutrients on the nutrition label. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student is consuming a food that helps them meet their daily needs for micronutrients. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student is consuming a food that is unhealthy.</li>
+            <li><span class="letter">C.</span> The student is consuming a food that provides only macronutrients.</li>
+            <li><span class="letter">D.</span> The student is consuming a food that provides no nutrients.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. A student eats a salad with 5% daily value for vitamin K. What does this mean?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is getting 50% of their daily recommended intake of vitamin K from the salad.</li>
+            <li><span class="letter">B.</span> The student is getting no vitamin K from the salad.</li>
+            <li><span class="letter">C.</span> The student is getting all their daily recommended intake of vitamin K from the salad.</li>
+            <li class="correct"><span class="letter">D.</span> The student is getting 5% of their daily recommended intake of vitamin K from the salad. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+3%2C+Lesson+3%3A+Micronutrients%20and%20Daily%20Percent%20Value" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-3-2.html" class="prev">← Previous Lesson</a>
+        <a href="hs-3-4.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

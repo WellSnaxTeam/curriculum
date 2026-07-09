@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 4: Reading Ingredient Lists — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 3: Reading Food Labels / Lesson 4
+    </div>
+
+    <div class="lesson">
+      <h1>Reading Ingredient Lists</h1>
+      <div class="meta">High School Course 3, Lesson 4</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Reading Ingredient Lists <span class="module-time">3 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/G4u2nVZLvps" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Reading Ingredient Lists <span class="module-time">5 min</span></h2>
+                <p>You’ve got ten minutes before class ends or practice begins. Do you grab a granola bar, a bag of chips, or an apple from your backpack? That choice can change how you feel in the next hour — sharper, slower, or crash-and-burn. Small snack choices add up and directly affect your energy, focus, mood, and how well you perform on the field or in the classroom.</p>
+        <p>What the Ingredient List Tells You:</p>
+        <p>The ingredient list shows every ingredient in a food, starting with the one present in the largest amount and ending with the smallest. If sugar or corn syrup is listed first or second, that snack will likely give you a quick energy spike followed by a crash — which hurts concentration and athletic endurance. When whole foods like oats, nuts, or fruit are listed first, the snack delivers more stable energy and better focus throughout practice or study.</p>
+        <p>Look for Whole Food Ingredients:</p>
+        <p>Choose snacks whose first ingredients are recognizable whole foods: apples, bananas, oats, almonds, beans, or whole-grain wheat. These ingredients release energy slowly, helping you sustain attention during long classes and maintain steady athletic performance. Whole foods also support clearer skin and better mood because they provide vitamins and minerals your body needs.</p>
+        <p>Limit Added Sugars:</p>
+        <p>Added sugars (look for words like sugar, high-fructose corn syrup, cane syrup, or maltose) give fast but brief energy. That burst often causes irritability and difficulty concentrating afterward. Snacks with limited added sugars keep blood sugar steadier, which supports better focus for tests and less fatigue during workouts.</p>
+        <p>Avoid Trans Fats and Hydrogenated Oils:</p>
+        <p>Ingredients labeled “partially hydrogenated” or “hydrogenated” indicate trans fats. Trans fats can make you feel sluggish and harm long-term heart health, which undermines stamina in sports and everyday energy. Choosing snacks without these oils helps maintain energy levels and supports a healthy appearance over time.</p>
+        <p>Check for Hidden Ingredients:</p>
+        <p>Some ingredient names hide added sugars or processed fats. Maltodextrin, dextrose, and syrup are forms of sugar; vegetable shortening or margarine may indicate hydrogenation. Identifying these helps you avoid foods that reduce mental clarity and lead to faster tiredness.</p>
+        <p>Practical Tips for Smart Snacking:</p>
+        <ul>
+          <li>Read from top to bottom: the first three ingredients matter most for steady energy and focus.</li>
+          <li>Prefer snacks with whole foods listed first to support sustained concentration and athletic output.</li>
+          <li>If sugar appears among the top two ingredients, expect a quick energy spike and likely crash — bad for tests or games.</li>
+          <li>Avoid “partially hydrogenated” on labels to protect long-term stamina and general health.</li>
+          <li>When in doubt, choose fresh fruit, plain yogurt with nuts, or whole-grain toast with peanut butter for reliable energy and better mood.</li>
+        </ul>
+        <p>Habit Formation:</p>
+        <p>Every snack is a small decision that shapes how you think, move, and look all day. Learning to read ingredient lists helps you choose foods that keep your energy steady, sharpen your focus, improve athletic performance, and support a healthy appearance. Next time you reach into your bag, take a few seconds to read — your body and mind will thank you.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Ingredient Habits Investigation <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+                  <p>Objective: Examine personal eating habits through ingredient lists.</p>
+        <ol>
+          <li>Make a list of 10 foods you eat most often.</li>
+          <li>Look up or examine each ingredient list.</li>
+          <li>Sort foods into:</li>
+          <li>Mostly whole-food ingredients</li>
+          <li>Some processed ingredients</li>
+          <li>Highly processed ingredients</li>
+          <li>Identify patterns.</li>
+        </ol>
+        <p>5. - Do most of the foods you eat have whole-food ingredients, some processed ingredients, or highly processed ingredients?</p>
+        <ol>
+          <li>- Do you choose foods high in added sugars?</li>
+          <li>- Do you choose foods high in calories and trans fats?</li>
+        </ol>
+        <p>8. Calculate how many of your foods have added sugars listed within the first five ingredients.</p>
+        <p>Reflection</p>
+        <ul>
+          <li>What pattern do you notice?</li>
+          <li>Which foods keep you energized?</li>
+          <li>Which foods leave you tired or hungry soon afterward?</li>
+        </ul>
+        <p>Healthy Habit Commitment</p>
+        <p>Create a simple goal to make one healthy change this week to form a new habit. Building good habits with small changes at a time can lead to a healthier lifestyle.</p>
+        <p>Example: "I will replace one highly processed snack with a whole-food option this week."</p>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Ingredient List Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. A student reads the ingredient list on a granola bar to see if it contains added sugars. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They are looking for the serving size.</li>
+            <li class="correct"><span class="letter">B.</span> They are checking for added sugars to make healthier choices. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> They are trying to find the expiration date.</li>
+            <li><span class="letter">D.</span> They are searching for the brand name.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student looks for 'whole wheat' as the first ingredient on a bread label. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They are searching for the manufacturer's address.</li>
+            <li class="correct"><span class="letter">B.</span> They are identifying if whole grains are present for better nutrition. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> They are checking for artificial colors.</li>
+            <li><span class="letter">D.</span> They are looking for the calorie count.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. A student compares the ingredient lists of two snack foods and chooses the one with fewer artificial ingredients. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They are searching for foods with the most calories.</li>
+            <li><span class="letter">B.</span> They are looking for the largest package.</li>
+            <li><span class="letter">C.</span> They are trying to find the cheapest option.</li>
+            <li class="correct"><span class="letter">D.</span> They are comparing ingredient lists to choose foods with fewer additives. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. A student with a peanut allergy reads the ingredient list before buying a protein bar. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They are trying to find the price.</li>
+            <li><span class="letter">B.</span> They are looking for the product's barcode.</li>
+            <li><span class="letter">C.</span> They are searching for the store location.</li>
+            <li class="correct"><span class="letter">D.</span> They are checking for allergens to avoid a reaction. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A student notices that 'sugar' is the first ingredient on a soda label. What are they most likely learning about ingredient lists?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They are learning that ingredients are listed by color.</li>
+            <li><span class="letter">B.</span> They are learning that ingredients are listed alphabetically.</li>
+            <li><span class="letter">C.</span> They are learning that ingredients are listed by nutritional value.</li>
+            <li class="correct"><span class="letter">D.</span> They are learning that ingredients are listed in order of quantity. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A student reads the ingredient list to see if a snack contains preservatives. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They are looking for the product's flavor.</li>
+            <li><span class="letter">B.</span> They are searching for the package size.</li>
+            <li class="correct"><span class="letter">C.</span> They are checking for preservatives to make a healthier choice. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> They are trying to find the manufacturer's logo.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. A student reads the ingredient list and chooses a cereal without high fructose corn syrup. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They are trying to find foods with more salt.</li>
+            <li><span class="letter">B.</span> They are searching for foods with less protein.</li>
+            <li><span class="letter">C.</span> They are looking for foods with more fat.</li>
+            <li class="correct"><span class="letter">D.</span> They are trying to avoid foods with high fructose corn syrup. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A student reads the ingredient list before buying a snack to help increase their energy and focus. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They are using the ingredient list to find cooking instructions.</li>
+            <li><span class="letter">B.</span> They are using the ingredient list to check the product's popularity.</li>
+            <li><span class="letter">C.</span> They are using the ingredient list to locate the store aisle.</li>
+            <li class="correct"><span class="letter">D.</span> They are using the ingredient list to make informed food choices. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student decides not to buy a drink because the ingredient list contains many unfamiliar chemicals. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They are learning to choose foods with the longest ingredient list.</li>
+            <li><span class="letter">B.</span> They are learning to select foods based on advertisements.</li>
+            <li class="correct"><span class="letter">C.</span> They are learning to avoid foods with ingredients they can't pronounce. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> They are learning to pick foods with the most colorful packaging.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. A student reads the ingredient list to see if a yogurt contains syrups or sweeteners. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> They are checking for hidden sources of sugar in the ingredient list. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> They are searching for the product's expiration date.</li>
+            <li><span class="letter">C.</span> They are trying to find the store's phone number.</li>
+            <li><span class="letter">D.</span> They are looking for the product's weight.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. True or False: Ingredients are listed in order from the greatest amount to the least amount on nutrition facts labels.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. True or False: The ingredient list on a food label shows only the vitamins in the product.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. A student chooses a snack with a short ingredient list containing only recognizable items. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They are learning to pick foods with the highest price.</li>
+            <li><span class="letter">B.</span> They are learning to select foods based on their color.</li>
+            <li><span class="letter">C.</span> They are learning to choose foods with more artificial flavors.</li>
+            <li class="correct"><span class="letter">D.</span> They are learning to identify foods with fewer processed ingredients. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. A student reads the ingredient list to see if a salad dressing contains olive oil or avocado oil. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> They are checking for sources of healthy fats in the ingredient list. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> They are looking for foods with more sugar.</li>
+            <li><span class="letter">C.</span> They are searching for foods with less fiber.</li>
+            <li><span class="letter">D.</span> They are trying to find foods with more sodium.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. A student reads the ingredient list to check for sodium compounds like 'monosodium glutamate' in a frozen meal. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They are learning how to find the product's barcode.</li>
+            <li class="correct"><span class="letter">B.</span> They are learning how to spot hidden sources of salt in foods. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> They are learning how to identify the product's color.</li>
+            <li><span class="letter">D.</span> They are learning how to select foods based on their packaging.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+3%2C+Lesson+4%3A+Reading%20Ingredient%20Lists" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-3-3.html" class="prev">← Previous Lesson</a>
+        <a href="hs-4-1.html" class="next">Next Course →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

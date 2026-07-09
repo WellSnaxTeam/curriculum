@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 4: Key Minerals — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 2: Micronutrients / Lesson 4
+    </div>
+
+    <div class="lesson">
+      <h1>Key Minerals</h1>
+      <div class="meta">High School Course 2, Lesson 4</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Key Minerals <span class="module-time">12 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/uRQB8wwAVBo" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Key Minerals <span class="module-time">15 min</span></h2>
+                <p>Ever wonder why you crash during 6th period? Or why your skin breaks out before a big game? Or why some days you can focus in class and other days your brain feels like mush? Minerals.</p>
+        <p>Your body uses 40 different minerals every single day to keep you energized, focused, and performing at your best (You will learn about the main 16 that your body uses). Without them, you're basically running on empty. The good news? You control this. The choices you make today—what you eat for lunch, what you grab for a snack—directly impact how you feel, how you perform, and how you look in the next few hours, not just years down the road.</p>
+        <p><strong>Let's break down which minerals actually matter and why they matter to you.</strong></p>
+        <p>Macrominerals:</p>
+        <p>They are the minerals that your body requires the greatest amount of.</p>
+        <p>Calcium</p>
+        <p>Why you need it:</p>
+        <ul>
+          <li>Builds strong bones and teeth so you don't break something mid-game or end up with dental work that costs thousands</li>
+          <li>Powers muscle contraction and relaxation so your muscles can actually fire when you need them to</li>
+          <li>Keeps your heart beating and nerves firing so you don't pass out during that intense workout or stressful test</li>
+          <li>Helps blood clot so minor cuts don't turn into disasters</li>
+        </ul>
+        <p><strong>Where to get it:</strong></p>
+        <p><strong>Dairy products, dark leafy greens, fish, almonds</strong></p>
+        <p>Phosphorus</p>
+        <p>Why you need it:</p>
+        <ul>
+          <li>Works with calcium to build strong bones and teeth so you're not sidelined with an injury</li>
+          <li>Helps carry fat in your body so your energy stays steady instead of crashing</li>
+          <li>Essential for cell membranes and genetic material so your cells can actually do their job and keep you functioning</li>
+        </ul>
+        <p><strong>Where to get it:</strong></p>
+        <p><strong>Meat, poultry, dairy, fish, nuts, seeds, legumes, cereal</strong></p>
+        <p>Magnesium</p>
+        <p>Why you need it:</p>
+        <ul>
+          <li>Powers muscle contraction so your muscles respond when you want them to (especially important for athletes)</li>
+          <li>Supports nerve function so you can focus during tests and important moments</li>
+          <li>Helps enzyme reactions happen so your body can actually process the food you eat for energy</li>
+          <li>Regulates blood sugar so you don't get those energy crashes that make you irritable and unfocused</li>
+        </ul>
+        <p><strong>Where to get it:</strong></p>
+        <p><strong>Seeds, nuts, legumes, dark leafy greens, dark chocolate, whole grains, meat</strong></p>
+        <p>Sodium</p>
+        <p>Why you need it:</p>
+        <ul>
+          <li>Maintains fluid balance so you don't get dehydrated during sports or sweating through class</li>
+          <li>Transmits nerve impulses so your brain can send signals to your body</li>
+          <li>Contracts muscles so you can move, run, and perform</li>
+        </ul>
+        <p><strong>Where to get it:</strong></p>
+        <p>Table salt, condiments and sauces, grain products, processed meats, restaurant foods</p>
+        <p><strong>(Note: Most people get plenty of sodium—sometimes too much. Balance is key.)</strong></p>
+        <p>Potassium</p>
+        <p>Why you need it:</p>
+        <ul>
+          <li>Works with sodium to maintain fluid balance so your body runs smoothly</li>
+          <li>Regulates heart rhythm so your heart doesn't skip a beat during stress or exercise</li>
+          <li>Controls nerve signals so your reflexes are sharp and your brain stays alert</li>
+        </ul>
+        <p><strong>Where to get it:</strong></p>
+        <p><strong>Potatoes and yams, tomatoes, avocados, melons, bananas, beans, lentils, nuts</strong></p>
+        <p>Chloride</p>
+        <p>Why you need it:</p>
+        <ul>
+          <li>Regulates fluid and pH balance so your body chemistry stays in check</li>
+          <li>Helps your stomach break down food so you actually absorb the nutrients you need for energy and growth</li>
+          <li>Powers nerve signaling and muscle contraction so you can move and think</li>
+          <li>Helps red blood cells exchange oxygen and carbon dioxide so your muscles get the oxygen they need during intense activity</li>
+        </ul>
+        <p><strong>Where to get it:</strong></p>
+        <p><strong>Table salt, seafood and meats, dairy, seaweed, vegetables, whole grains</strong></p>
+        <p>Sulfur</p>
+        <p>Why you need it:</p>
+        <ul>
+          <li>Builds proteins so your muscles can actually grow and repair after workouts</li>
+          <li>Protects cells from free radicals so your skin stays clear and your body stays healthy</li>
+          <li>Helps your liver detoxify so your body can process and eliminate toxins</li>
+          <li>Synthesizes collagen and connective tissue so your joints stay healthy and your skin looks good</li>
+          <li>Powers energy metabolism so you have sustained energy throughout the day</li>
+          <li>Regulates hormones and genes so your mood stays balanced and your body functions properly</li>
+        </ul>
+        <p><strong>Where to get it:</strong></p>
+        <p>Animal proteins, dairy, cruciferous vegetables (broccoli, cauliflower, brussels sprouts), allium vegetables (garlic, onion, shallots), legumes and nuts</p>
+        <p>Trace Minerals:</p>
+        <p>Your body requires these in smaller amounts.</p>
+        <p>Iron</p>
+        <p>Two types:</p>
+        <ul>
+          <li>Heme iron → absorbed easily from animal sources</li>
+          <li>Non-heme iron → from plant sources (pair with vitamin C for better absorption)</li>
+        </ul>
+        <p>Why you need it:</p>
+        <ul>
+          <li>Produces hemoglobin and myoglobin so your blood and muscles can carry oxygen and keep you energized during sports and daily activities</li>
+          <li>Converts food into energy so you don't feel exhausted by mid-afternoon</li>
+          <li>Supports brain function so you can focus, remember information, and stay sharp</li>
+          <li>Powers your immune system so you don't get sick and miss school or games</li>
+        </ul>
+        <p><strong>Where to get it:</strong></p>
+        <p><strong>Clams, chicken, oysters, beef, pumpkin seeds, soybeans, lentils</strong></p>
+        <p>Zinc</p>
+        <p>Why you need it:</p>
+        <ul>
+          <li>Required for nearly 100 enzyme reactions so basically everything in your body works</li>
+          <li>Boosts immune function so you don't catch every cold going around</li>
+          <li>Speeds up wound healing so cuts and scrapes don't linger</li>
+          <li>Powers cell division and DNA so you grow and develop properly</li>
+          <li>Supports sensory function so you can taste, smell, and see clearly</li>
+          <li>Keeps eyes healthy so your vision stays sharp</li>
+        </ul>
+        <p><strong>Where to get it:</strong></p>
+        <p><strong>Oysters, red meat, seafood, poultry, dairy, eggs, legumes, nuts</strong></p>
+        <p>Iodine</p>
+        <p>Why you need it:</p>
+        <ul>
+          <li>Powers your thyroid which controls how fast or slow your metabolism runs (basically how much energy you have)</li>
+          <li>Supports growth and development of your skeleton and nervous system (especially important if you're still growing)</li>
+          <li>Dictates how your body uses energy so you don't feel constantly tired or wired</li>
+          <li>Affects mood and mental clarity so you feel balanced, not anxious or foggy</li>
+        </ul>
+        <p><strong>Where to get it:</strong></p>
+        <p><strong>Iodized table salt, seaweed, cod, shellfish, dairy, eggs</strong></p>
+        <p>Fluoride</p>
+        <p>Why you need it:</p>
+        <ul>
+          <li>Protects and strengthens teeth so you have a killer smile and don't need expensive dental work</li>
+          <li>Makes teeth resistant to acid so they don't decay from sugary drinks and snacks</li>
+          <li>Supports bone health by strengthening bones so you're less likely to break something</li>
+          <li>Fights bacteria so your mouth stays healthier</li>
+        </ul>
+        <p><strong>Where to get it:</strong></p>
+        <p>Brewed black and green tea, grape juice, canned seafood and shellfish, raisins, potatoes</p>
+        <p>Selenium</p>
+        <p>Why you need it:</p>
+        <ul>
+          <li>Powers your thyroid so your energy and metabolism stay balanced</li>
+          <li>Protects cells from free radicals and inflammation so your skin looks better and your body stays healthier</li>
+          <li>Boosts immune function so you can fight off illness and stay in the game</li>
+          <li>Supports reproductive health as you develop</li>
+        </ul>
+        <p><strong>Where to get it:</strong></p>
+        <p><strong>Brazil nuts, seafood, meat and poultry, dairy, eggs</strong></p>
+        <p>Copper</p>
+        <p>Why you need it:</p>
+        <ul>
+          <li>Produces energy so your cells can make ATP (the fuel your body runs on) and you don't crash</li>
+          <li>Helps your body absorb iron so you get the oxygen and energy you need</li>
+          <li>Builds and stabilizes collagen so your skin, tendons, and ligaments stay strong and healthy</li>
+          <li>Defends against free radicals so your body stays protected</li>
+          <li>Produces white blood cells so your immune system can fight off infections</li>
+          <li>Supports brain function by helping create neurotransmitters so you can think clearly and stay focused</li>
+        </ul>
+        <p><strong>Where to get it:</strong></p>
+        <p><strong>Organ meats, shellfish, nuts and seeds, potatoes, grains</strong></p>
+        <p>Manganese</p>
+        <p>Why you need it:</p>
+        <ul>
+          <li>Breaks down nutrients so your body can actually use carbs, proteins, and fats for energy</li>
+          <li>Protects cells from damage so your body stays healthy</li>
+          <li>Builds cartilage and bone so your joints stay strong and you can move without pain</li>
+          <li>Speeds up wound healing so injuries don't slow you down</li>
+          <li>Supports brain and hormone function so your mood and focus stay balanced</li>
+        </ul>
+        <p><strong>Where to get it:</strong></p>
+        <p><strong>Seafood, whole grains, nuts and seeds, legumes, teas and spices</strong></p>
+        <p>Chromium</p>
+        <p>Why you need it:</p>
+        <ul>
+          <li>Stabilizes blood sugar so you don't get energy crashes or mood swings</li>
+          <li>Works with insulin so your body can use the food you eat efficiently</li>
+          <li>Powers nutrient metabolism so carbs, fats, and proteins actually get used for energy instead of stored as fat</li>
+          <li>Supports healthy cholesterol levels so your heart stays strong</li>
+        </ul>
+        <p><strong>Where to get it:</strong></p>
+        <p><strong>Grape juice, beef, orange juice, apples, green beans, bananas</strong></p>
+        <p>Molybdenum</p>
+        <p>Why you need it:</p>
+        <ul>
+          <li>Converts dangerous sulfites into harmless sulfates so toxins don't build up and damage your nervous system</li>
+          <li>Processes waste so your body can eliminate toxins through urine</li>
+          <li>Helps your liver detoxify alcohol, medications, and other harmful substances</li>
+          <li>Supports cellular metabolism so your body runs smoothly</li>
+        </ul>
+        <p><strong>Where to get it:</strong></p>
+        <p><strong>Legumes, dairy, organ meats, grains, potatoes, bananas, leafy greens</strong></p>
+        <p>The Bottom Line</p>
+        <p>Your body needs minerals today to feel good, perform well, and look your best right now. You're not eating for some distant future version of yourself—you're eating to have energy in your next class, to crush it at practice, to focus on that test, and to feel confident in how you look.</p>
+        <p><strong>Make the mineral-smart choice. Your body will thank you immediately.</strong></p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Key Mineral Problem Solving <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+                  <p>Investigate how your mineral intake habits may connect to how you feel physically and mentally.</p>
+        <ul>
+          <li>record everything you typically eat in a “usual day” (not a perfect day—an honest one)</li>
+          <li>highlight foods that contain key minerals (you may have to look up a simple mineral-food list)</li>
+          <li>rate your energy, focus, mood, and physical performance at different points in the day (morning, afternoon, evening)</li>
+          <li>draw a simple “energy curve” that shows highs and lows across the day</li>
+          <li>circle moments where you feel tired, crampy, unfocused, or have low energy</li>
+        </ul>
+        <p>After:</p>
+        <ul>
+          <li>write a reflection connecting possible mineral gaps (like iron or magnesium) to how you feel</li>
+          <li>identify one mineral you may not be getting consistently</li>
+          <li>commit to one specific behavior change (example: “I add one potassium-rich food to my lunch 3x per week”)</li>
+        </ul>
+        <p>Part 2: Problem-Solve My Plate: Mineral Upgrade Challenge</p>
+        <p>You will:</p>
+        <ul>
+          <li>Using the food list of food you would would typically eat in a usual day, identify missing mineral groups (calcium, iron, potassium, magnesium, zinc, sodium balance)</li>
+          <li>choose one meal or snack to improve</li>
+        </ul>
+        <p>Then:</p>
+        <ul>
+          <li>brainstorm 2–3 realistic upgrades (not replacements, just improvements)</li>
+          <li>select one upgrade they can actually do this week</li>
+          <li>write a step-by-step plan:</li>
+          <li>“When will I do this?”</li>
+          <li>“What will I add or adjust?”</li>
+          <li>“How will I know it worked?”</li>
+        </ul>
+        <p>Finish by:</p>
+        <ul>
+          <li>reflecting on how you think your energy, focus, or recovery might change</li>
+        </ul>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Mineral Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. Skipping breakfast and feeling tired and lightheaded during the morning is most likely connected to a mineral issue involving:</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Low iron affecting oxygen delivery <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> High calcium intake slowing absorption of nutrients</li>
+            <li><span class="letter">C.</span> Excess sodium causing dehydration</li>
+            <li><span class="letter">D.</span> High potassium improving energy regulation</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. Frequent muscle cramps during exercise combined with low fruit and vegetable intake most likely indicates low:</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Iron</li>
+            <li class="correct"><span class="letter">B.</span> Potassium <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Calcium</li>
+            <li><span class="letter">D.</span> Zinc</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. Drinking mostly soda instead of milk or fortified alternatives over time most directly impacts which mineral related to bone strength?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Iron</li>
+            <li><span class="letter">B.</span> Sodium</li>
+            <li class="correct"><span class="letter">C.</span> Calcium <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Magnesium</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. Feeling shaky and fatigued during workouts after several days of low iron-rich food intake is most likely related to:</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> High sodium disrupting hydration balance</li>
+            <li class="correct"><span class="letter">B.</span> Low iron affecting oxygen transport <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Excess calcium reducing muscle contraction efficiency</li>
+            <li><span class="letter">D.</span> High magnesium improving recovery too quickly</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A diet high in processed snacks and low in whole foods is most likely to affect hydration and energy balance due to changes in:</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Calcium and phosphorus balance</li>
+            <li><span class="letter">B.</span> Iron storage and absorption</li>
+            <li class="correct"><span class="letter">C.</span> Sodium and potassium balance <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Zinc and protein synthesis</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. Constant muscle tightness and poor recovery after workouts, combined with low intake of nuts, seeds, and whole grains, may indicate low:</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Sodium</li>
+            <li class="correct"><span class="letter">B.</span> Magnesium <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Calcium</li>
+            <li><span class="letter">D.</span> Iron</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. Frequent illness and slow healing from minor cuts is most closely connected to low intake of:</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Calcium</li>
+            <li class="correct"><span class="letter">B.</span> Zinc <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Potassium</li>
+            <li><span class="letter">D.</span> Sodium</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. Adequate water intake but continued muscle weakness during sports, especially with low fruit intake, is most likely linked to low:</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Magnesium</li>
+            <li class="correct"><span class="letter">B.</span> Potassium <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Iron</li>
+            <li><span class="letter">D.</span> Calcium</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. Strong short bursts of energy but quick fatigue during longer activity is often associated with low:</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Zinc affecting immune recovery</li>
+            <li><span class="letter">B.</span> Calcium improving muscle contraction too slowly</li>
+            <li class="correct"><span class="letter">C.</span> Iron affecting oxygen delivery <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Sodium increasing endurance too quickly</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. Excessive salt intake with frequent thirst and bloating is most likely connected to an imbalance in:</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> High sodium affecting fluid balance <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Low iron reducing oxygen transport</li>
+            <li><span class="letter">C.</span> Low calcium affecting bone density</li>
+            <li><span class="letter">D.</span> High zinc interfering with digestion</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. Eating a variety of fruits, vegetables, dairy, and lean proteins supports balanced mineral intake that improves energy and performance. True / False</p>
+          <ul class="options">
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. Avoiding dairy products automatically leads to low iron levels. True / False</p>
+          <ul class="options">
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. Muscle cramps during exercise may be linked to low potassium and magnesium intake. True / False</p>
+          <ul class="options">
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. High sodium intake combined with low potassium intake can negatively affect hydration and energy levels. True / False</p>
+          <ul class="options">
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. Improving mineral intake habits can influence energy, recovery, focus, and physical performance over time. True / False</p>
+          <ul class="options">
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+2%2C+Lesson+4%3A+Key%20Minerals" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-2-3.html" class="prev">← Previous Lesson</a>
+        <a href="hs-3-1.html" class="next">Next Course →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

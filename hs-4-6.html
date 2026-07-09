@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 6: Special Diets and Health Conditions — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 4: Making Smart Food Choices / Lesson 6
+    </div>
+
+    <div class="lesson">
+      <h1>Special Diets and Health Conditions</h1>
+      <div class="meta">High School Course 4, Lesson 6</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Special Diets and Health Conditions <span class="module-time">11 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/UGq62gqfc9I" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Special Diets and Health Conditions <span class="module-time">20 min</span></h2>
+                <p>Ever notice how you crash hard after eating a huge sugary lunch, or how certain foods make you feel bloated and uncomfortable right before a big game or test? Your body is constantly sending you signals through how you feel—your energy, your mood, your ability to focus, even how your skin looks. The truth is, what you eat doesn't just fill your stomach; it directly affects how you perform in school, how you feel emotionally, and how you show up for the people around you. For some people, these connections are even more important because their bodies have specific needs that require thoughtful food choices.</p>
+        <p>Understanding Health Conditions and Special Diets</p>
+        <p>Diabetes and the Diabetic Diet</p>
+        <p>What's happening: Diabetes is a condition where the body struggles to regulate blood sugar levels. This means glucose (sugar) builds up in the bloodstream instead of being used efficiently for energy.</p>
+        <p>Why the diet matters: When someone has diabetes, eating a diabetic diet—which focuses on balanced portions of whole grains, lean proteins, healthy fats, and limited refined sugars—keeps blood sugar stable. Without this balance, blood sugar spikes and crashes create energy rollercoasters that destroy focus and athletic performance. A student with diabetes who eats a donut for breakfast might feel energized for 20 minutes, then crash hard by the second period, making it impossible to concentrate on a test. By eating balanced meals with protein and fiber, they maintain steady energy throughout the day, stay sharp during classes, and have the stamina to excel in sports or activities.</p>
+        <p>The personal impact: Stable blood sugar = consistent energy, better mood, sharper focus, and the endurance to push through workouts without hitting the wall.</p>
+        <p>Celiac Disease and the Gluten-Free Diet</p>
+        <p>What's happening: Celiac disease is an autoimmune condition where eating gluten (a protein found in wheat, barley, and rye) triggers the immune system to attack the small intestine, damaging it over time.</p>
+        <p>Why the diet matters: People with celiac must eat a gluten-free diet, avoiding any food containing gluten. When they eat gluten, it causes inflammation in their digestive system, which leads to bloating, cramping, and nutrient absorption problems. This means their body can't properly absorb the vitamins and minerals needed for energy and focus. A student with undiagnosed celiac eating regular pasta might experience brain fog during class, feel exhausted after sports, and struggle with mood swings throughout the day. Once they switch to gluten-free alternatives, they notice clearer thinking, better athletic recovery, improved mood, and skin that clears up as inflammation decreases.</p>
+        <p>The personal impact: Avoiding gluten = better energy, sharper mental focus, improved athletic performance, clearer skin, and a more stable mood.</p>
+        <p>Heart Disease and the Heart-Healthy Diet</p>
+        <p>What's happening: Heart disease develops when arteries become clogged with plaque, limiting blood flow to the heart. This can lead to heart attacks or strokes.</p>
+        <p>Why the diet matters: A heart-healthy diet emphasizes lean proteins, whole grains, fruits, vegetables, and healthy fats (like those in olive oil and fish) while limiting saturated fat, trans fat, and sodium. This diet keeps arteries clear and reduces inflammation, allowing blood to flow efficiently throughout the body—including to the brain. Better blood flow means more oxygen reaching your muscles and brain. Students following a heart-healthy diet report better focus during long study sessions, improved athletic endurance, and more stable moods because their brain and heart are getting the oxygen they need. Plus, a heart-healthy diet often leads to improved appearance as excess weight decreases and skin looks healthier.</p>
+        <p>The personal impact: A heart-healthy diet = better oxygen delivery to your brain and muscles, sharper focus, improved athletic performance, sustained energy, better mood, and a healthier appearance.</p>
+        <p>Food Allergies and Modified Diets</p>
+        <p>What's happening: A food allergy occurs when the immune system mistakenly treats a harmless food (like peanuts, shellfish, milk, or eggs) as a threat and triggers an allergic reaction.</p>
+        <p>Why the diet matters: People with food allergies must avoid their allergen completely. Even small amounts can cause reactions ranging from mild itching to severe breathing problems. By following an elimination diet (removing the allergen), they protect their health and maintain consistent well-being. A student with a peanut allergy who accidentally eats peanuts might experience swelling, difficulty breathing, or anaphylaxis—a life-threatening emergency. By being vigilant about reading labels and avoiding their allergen, they stay healthy, maintain their energy, keep their focus sharp, and can fully participate in school and sports without fear.</p>
+        <p>The personal impact: Avoiding allergens = safety, consistent energy, mental peace, the ability to focus without health anxiety, and reliable athletic performance.</p>
+        <p>GERD (Acid Reflux) and Trigger-Avoiding Diets</p>
+        <p>What's happening: GERD (Gastroesophageal Reflux Disease) occurs when stomach acid frequently backs up into the esophagus, causing heartburn and discomfort.</p>
+        <p>Why the diet matters: People with GERD must avoid trigger foods—typically spicy foods, citrus, chocolate, caffeine, fatty foods, and carbonated drinks—that relax the valve between the stomach and esophagus or increase acid production. When someone with GERD eats pizza loaded with cheese and pepperoni right before bed, they experience painful heartburn that keeps them awake, leaving them exhausted and unfocused the next day. By eating smaller, balanced meals and avoiding triggers, they sleep better, wake refreshed, maintain energy throughout the day, and can focus during class and perform better athletically. Their mood also improves because they're not dealing with constant discomfort.</p>
+        <p>The personal impact: Avoiding GERD triggers = better sleep, consistent energy, improved focus, better athletic performance, and a significantly improved mood.</p>
+        <p>Alpha-Gal Syndrome and the Modified Diet</p>
+        <p>What's happening: Alpha-gal syndrome is an allergic reaction to a carbohydrate found in red meat and other mammal products (beef, pork, lamb, dairy from mammals). It's typically triggered by a tick bite.</p>
+        <p>Why the diet matters: People with alpha-gal must avoid red meat and mammal dairy products, instead eating poultry, fish, plant-based proteins, and non-mammal dairy alternatives. When someone with alpha-gal eats a hamburger, they might experience itching, hives, or gastrointestinal distress hours later, which disrupts their sleep and leaves them tired and unfocused the next day. By eating chicken, fish, beans, and alternatives instead, they maintain steady energy, sleep well, stay focused in class, perform better in sports, and avoid the appearance issues (like hives) that come with allergic reactions.</p>
+        <p>The personal impact: Avoiding mammal products = stable energy, better sleep, sharp focus, improved athletic performance, and clearer skin without allergic reactions.</p>
+        <p>Lifestyle Diets: By Choice</p>
+        <p>Some people choose specific diets for ethical, environmental, or personal health reasons—not because of a medical condition. Here's how these diets work:</p>
+        <p>Vegetarian Diet</p>
+        <p>What it is: A vegetarian diet excludes meat, poultry, and fish but includes eggs and dairy products.</p>
+        <p>Why people choose it: Many choose vegetarianism for ethical or environmental reasons. When done well, a vegetarian diet provides plenty of protein from eggs, dairy, legumes, nuts, and seeds. Students who eat vegetarian meals often report sustained energy, better focus, and improved mood because plant-based foods are rich in fiber and nutrients. Athletic performance improves when vegetarians combine proteins properly (like beans with rice) to get all amino acids needed for muscle recovery.</p>
+        <p>The personal impact: A well-planned vegetarian diet = sustained energy, clear focus, stable mood, and strong athletic performance.</p>
+        <p>Vegan Diet</p>
+        <p>What it is: A vegan diet excludes all animal products—meat, poultry, fish, eggs, dairy, and even honey.</p>
+        <p>Why people choose it: Vegans choose this diet for ethical, environmental, or health reasons. A well-planned vegan diet provides all necessary nutrients through plant-based sources like legumes, tofu, tempeh, nuts, seeds, whole grains, and vegetables. Students following a vegan diet often experience better digestion, clearer skin, sustained energy, and improved mood. Athletic performance thrives when vegans eat adequate protein and carbohydrates for muscle recovery and fuel.</p>
+        <p>The personal impact: A well-planned vegan diet = sustained energy, improved digestion and skin clarity, stable mood, sharp focus, and reliable athletic performance.</p>
+        <p>Pescatarian Diet</p>
+        <p>What it is: A pescatarian diet excludes meat and poultry but includes fish, seafood, eggs, and dairy.</p>
+        <p>Why people choose it: Many choose pescatarianism as a middle ground between vegetarian and omnivorous diets, often for health or environmental reasons. Fish is rich in omega-3 fatty acids, which support brain function and mood. Students eating pescatarian meals often report excellent focus, improved mood, and sustained energy from the combination of fish protein and plant-based foods. Athletic performance benefits from the amino acids in fish and the carbohydrates in whole grains and vegetables.</p>
+        <p>The personal impact: A pescatarian diet = excellent focus, improved mood, sustained energy, and strong athletic performance.</p>
+        <p>Making Informed Choices</p>
+        <p>Understanding why people eat certain ways—whether because of a health condition or a personal choice—helps you become a more informed and empathetic person. You now know that the student who brings a gluten-free lunch isn't being picky; they're protecting their health and energy. The friend who's vegan isn't just following a trend; they're making a deliberate choice about their values and health.</p>
+        <p>More importantly, you can use this knowledge about yourself. Pay attention to how different foods make you feel. Do you crash after sugary snacks? Does certain food make you feel bloated before a game? Does your focus improve after eating balanced meals? Your body is always communicating with you through your energy, mood, focus, athletic performance, and appearance. By understanding the connection between what you eat and how you feel, you gain the power to make choices that help you show up as your best self—in the classroom, on the field, and in your daily life.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Analyzing Nutrition Labels <span class="module-time">30 min</span></h2>
+        <div class="activity-box">
+                  <p>You will analyze nutrition labels from foods you regularly eat and connect ingredients to how your body feels.</p>
+        <ul>
+          <li>Choose 3–5 foods you eat often and examine the nutrition facts labels.</li>
+          <li>Focus on key components-- sugar, sodium, fiber, protein</li>
+          <li>Reflect on how you feel after eating those foods (energy spikes, crashes, fullness).</li>
+          <li>Identify one food that may not support steady energy or overall wellness.</li>
+          <li>Commit to one label-based change (example: “I will choose a lower-sugar version of my usual drink or snack at least twice this week.”)</li>
+        </ul>
+        <p>Answer these reflection questions:</p>
+        <ul>
+          <li>How might the foods you regularly choose support or challenge long-term health and energy levels?</li>
+          <li>If someone with a specific health condition (like diabetes, high blood pressure, or gluten intolerance) looked at your typical food choices, what concerns might they have?</li>
+          <li>What is one small change you can make this week that would improve your energy or overall wellness?</li>
+          <li>What barrier might make that change difficult, and how will you work around it?</li>
+          <li>How will you know if your change is helping your body feel better?</li>
+        </ul>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Special Diets and Health Conditions Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. A student chooses to eat only gluten-free foods at lunch. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She is increasing her protein intake.</li>
+            <li><span class="letter">B.</span> She is following a vegan diet.</li>
+            <li class="correct"><span class="letter">C.</span> She may be managing celiac disease by avoiding gluten. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> She is trying to lose weight quickly.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student carefully measures the amount of carbohydrates in each meal. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He is avoiding dairy products.</li>
+            <li class="correct"><span class="letter">B.</span> He is controlling his blood sugar levels due to diabetes. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> He is trying to build muscle mass.</li>
+            <li><span class="letter">D.</span> He is preparing for a sports competition.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. A student always checks food labels for sodium content before purchasing snacks. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She is avoiding sugar to prevent cavities.</li>
+            <li class="correct"><span class="letter">B.</span> She is following a low-sodium diet to manage high blood pressure. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> She is eating more fiber for digestive health.</li>
+            <li><span class="letter">D.</span> She is increasing her calcium intake for bone strength.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. A student skips milk and cheese but eats fruits and vegetables. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He is eating more meat for iron.</li>
+            <li><span class="letter">B.</span> He is avoiding gluten for celiac disease.</li>
+            <li class="correct"><span class="letter">C.</span> He is avoiding animal products to manage lactose intolerance. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> He is following a paleo diet.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A student refuses to eat meat but enjoys eggs and dairy. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She is managing diabetes.</li>
+            <li class="correct"><span class="letter">B.</span> She is following a vegetarian diet for ethical reasons. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> She is eating low-fat foods for heart health.</li>
+            <li><span class="letter">D.</span> She is avoiding gluten for celiac disease.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A student chooses small portions of meat and avoids high-protein foods. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He is following a ketogenic diet.</li>
+            <li class="correct"><span class="letter">B.</span> He is managing kidney disease by limiting protein intake. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> He is trying to gain weight.</li>
+            <li><span class="letter">D.</span> He is avoiding sugar for diabetes.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. A student eats foods low in saturated fat and high in fiber. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She is increasing vitamin C intake.</li>
+            <li><span class="letter">B.</span> She is avoiding gluten for celiac disease.</li>
+            <li><span class="letter">C.</span> She is eating more carbohydrates for energy.</li>
+            <li class="correct"><span class="letter">D.</span> She is following a diet to lower cholesterol. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A student avoids all animal products, including eggs and dairy. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He is eating high-protein foods for muscle growth.</li>
+            <li><span class="letter">B.</span> He is avoiding gluten for celiac disease.</li>
+            <li><span class="letter">C.</span> He is managing diabetes with low-carb meals.</li>
+            <li class="correct"><span class="letter">D.</span> He is following a vegan diet. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student checks ingredient lists for peanuts and tree nuts before eating snacks. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She is trying to lose weight.</li>
+            <li><span class="letter">B.</span> She is following a vegetarian diet.</li>
+            <li><span class="letter">C.</span> She is avoiding sodium for high blood pressure.</li>
+            <li class="correct"><span class="letter">D.</span> She is managing food allergies. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. A student eats lots of fruits, vegetables, whole grains, and olive oil. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> He is following a Mediterranean diet for heart health. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> He is eating only raw foods.</li>
+            <li><span class="letter">C.</span> He is avoiding dairy for lactose intolerance.</li>
+            <li><span class="letter">D.</span> He is following a ketogenic diet.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. True or False: Someone with celiac disease must avoid foods containing wheat, barley, and rye.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. False</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> True</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. True or False: A person with lactose intolerance can safely drink regular cow's milk without any symptoms.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. A student avoids foods like onions, garlic, and beans because they cause discomfort. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She is avoiding sugar for diabetes.</li>
+            <li><span class="letter">B.</span> She is eating more calcium for bone health.</li>
+            <li><span class="letter">C.</span> She is trying to gain muscle mass.</li>
+            <li class="correct"><span class="letter">D.</span> She is following a diet to manage irritable bowel syndrome (IBS). <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. A student increases his intake of iron-rich foods like spinach and red meat. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He is avoiding gluten for celiac disease.</li>
+            <li class="correct"><span class="letter">B.</span> He is following a diet to manage anemia. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> He is eating low-fat foods for heart health.</li>
+            <li><span class="letter">D.</span> He is avoiding dairy for lactose intolerance.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. A student eats several small meals throughout the day instead of three large meals. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She is avoiding gluten for celiac disease.</li>
+            <li><span class="letter">B.</span> She is following a ketogenic diet.</li>
+            <li><span class="letter">C.</span> She is eating high-protein foods for muscle growth.</li>
+            <li class="correct"><span class="letter">D.</span> She is managing diabetes by eating frequent small meals. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+4%2C+Lesson+6%3A+Special%20Diets%20and%20Health%20Conditions" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-4-5.html" class="prev">← Previous Lesson</a>
+        <a href="hs-5-1.html" class="next">Next Course →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

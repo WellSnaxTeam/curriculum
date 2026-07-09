@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 3: Individual Dietary Needs — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 4: Making Smart Food Choices / Lesson 3
+    </div>
+
+    <div class="lesson">
+      <h1>Individual Dietary Needs</h1>
+      <div class="meta">High School Course 4, Lesson 3</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Individual Dietary Needs <span class="module-time">5 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/NqV1Ig4_nfI" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Individual Dietary Needs <span class="module-time">10 min</span></h2>
+                <p>Why Your Nutrition Needs Aren't the Same as Your Best Friend's</p>
+        <p>You're sitting in your third-period exam, and your brain feels foggy. Your classmate next to you is sharp as a tack. Meanwhile, your teammate crushed practice this morning while you hit a wall halfway through. What gives?</p>
+        <p>The answer isn't willpower or intelligence—it's fuel. Your body is like a phone with a custom battery. What charges your friend's phone completely might only give you 30% power. The same goes for nutrition. Two students can eat the exact same breakfast and experience totally different results because their bodies have different needs.</p>
+        <p>The truth is, there's no one-size-fits-all diet. Your nutrition needs depend on who you are, what you do, and what your body needs to perform. Understanding this changes everything about how you fuel yourself.</p>
+        <p>Why Everyone's Nutritional Needs Are Different</p>
+        <p>Your nutritional needs depend on several factors working together:</p>
+        <p>Activity Level: An athlete training 10+ hours per week needs significantly more calories and protein than a student who sits in class most of the day. That extra fuel directly impacts muscle recovery, endurance during competition, and whether you have energy left over for homework. A soccer player might need 500+ extra calories on game days just to maintain performance and focus.</p>
+        <p>Metabolism: Some people naturally burn calories faster than others. A faster metabolism means you might need more frequent meals to maintain steady energy and concentration. If you crash without eating every few hours, your metabolism is telling you something—listen to it. Skipping meals when you metabolize quickly leads to brain fog, irritability, and poor athletic performance.</p>
+        <p>Age and Growth: Teenagers are still growing, which means your caloric and nutrient needs are higher than an adult's. Your body is literally building new tissue. If you're not eating enough, you'll feel constantly tired, struggle to focus in class, and won't recover well from sports or workouts.</p>
+        <p>Goals: An athlete trying to build muscle needs different nutrition than someone focused on endurance. A student prepping for college entrance exams might need different meal timing than someone working a late shift. Your goals shape what your body needs to succeed.</p>
+        <p>Lifestyle and Schedule: A student who wakes up at 6 a.m. for early practice has different hunger patterns than someone whose first class is at 10 a.m. Night owls studying until midnight need different nutrition timing than early risers. Your schedule affects when and how much you should eat.</p>
+        <p>The Three Macronutrients: What Each One Does for You</p>
+        <p>Every food contains three main nutrients that fuel your body and brain. Each one has a specific job:</p>
+        <p>Carbohydrates = Your Quick Energy and Focus Fuel</p>
+        <p>Carbs are your brain's preferred energy source. When you eat carbs, your body converts them into glucose, which powers your thinking, concentration, and athletic performance. This is why carbs matter for test day. Whole grains, fruits, and starchy vegetables give you steady energy that lasts through your morning classes. Refined carbs (like sugary snacks) give you a quick spike followed by a crash that leaves you foggy and irritable by lunch.</p>
+        <p>If you're studying for a major exam or competing in sports, adequate carbs mean better focus and faster reaction times. Without enough carbs, your brain literally can't perform at its best.</p>
+        <p>Protein = Muscle Building, Recovery, and Steady Energy</p>
+        <p>Protein repairs muscle tissue after workouts, builds new muscle, and keeps you feeling full and energized. Athletes especially need protein to recover from training and build strength. But protein isn't just for athletes. It slows down digestion, which means you stay satisfied longer and your energy stays steady through afternoon classes. Protein also affects your mood—it helps your body produce neurotransmitters that regulate emotions and motivation.</p>
+        <p>If you're sore after practice or feel shaky and unfocused mid-afternoon, you might not be eating enough protein. Adding protein to breakfast or lunch can transform your afternoon focus and mood.</p>
+        <p>Fats = Brain Function, Hormone Balance, and Sustained Energy</p>
+        <p>Fats aren't the enemy. Your brain is made partly of fat, and healthy fats are essential for concentration, mood regulation, and athletic performance. Fats also help you absorb vitamins and provide long-lasting energy. Healthy fats from nuts, avocados, olive oil, and fish support everything from your skin's appearance to your ability to focus during back-to-back classes.</p>
+        <p>Without adequate healthy fats, you might experience brain fog, mood swings, and difficulty concentrating—especially during stressful periods like exam week.</p>
+        <p>How to Identify Your Personal Nutrition Needs</p>
+        <p>Start paying attention to how you feel:</p>
+        <ul>
+          <li>Energy levels: Do you crash mid-afternoon? You might need more protein or complex carbs at lunch.</li>
+          <li>Focus and concentration: Can't focus in class or during studying? Skipping meals or eating too many refined carbs might be the culprit.</li>
+          <li>Athletic or physical performance: Hitting a wall during practice? You might need more overall calories or better pre-workout timing.</li>
+          <li>Mood: Irritable or anxious? Poor nutrition directly affects neurotransmitters that regulate mood.</li>
+          <li>Recovery: Sore for days after workouts? Your body might need more protein.</li>
+          <li>Appearance and skin: Breakouts or dull skin can signal nutritional imbalances.</li>
+        </ul>
+        <p>The key is experimenting. Try adding more protein to breakfast and notice how you feel in the third period. Eat a balanced snack before practice and pay attention to your performance. Track not just what you eat, but how you feel afterward.</p>
+        <p>The Bottom Line</p>
+        <p>Nutrition isn't about restriction or looking a certain way. It's about fueling yourself to perform, focus, and feel good.Your body is constantly sending you signals about what it needs. The students who succeed—in academics, athletics, and life—are the ones who listen to those signals and eat accordingly.</p>
+        <p>Your best friend's ideal diet might be completely wrong for you. And that's okay. Your job is to figure out what your body needs to thrive, then make it happen. That's the foundation of healthy habits that will last long after high school.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Fuel Your Goals <span class="module-time">30 min</span></h2>
+        <div class="activity-box">
+                  <p>You will align food choices with a personal goal (sports performance, focus, strength, endurance) of your choice.</p>
+        <ol>
+          <li>Identify one personal goal you are currently working toward</li>
+          <li>Analyze how nutrition will support that goal</li>
+          <li>Reflect on one food habit that helps or hinders progress</li>
+          <li>Design a simple “fuel upgrade” for one meal or snack</li>
+          <li>Commit to implementing that change for one week</li>
+        </ol>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Individual Needs Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. Two classmates eat the exact same lunch every day. One feels energized all afternoon, while the other is still hungry before the last class. What is the most likely reason?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Everyone has identical nutrition needs.</li>
+            <li class="correct"><span class="letter">B.</span> Individual calorie and nutrient needs can differ from person to person. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Hunger is unrelated to nutrition.</li>
+            <li><span class="letter">D.</span> Everyone should eat the same amount of food.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student begins training for a marathon and starts eating more nutritious meals and snacks than before. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Physical activity lowers nutrient needs.</li>
+            <li><span class="letter">B.</span> Active people should skip meals more often.</li>
+            <li><span class="letter">C.</span> Exercise removes the need for carbohydrates.</li>
+            <li class="correct"><span class="letter">D.</span> Increased activity often increases energy and nutrient needs. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. A student who recently had a growth spurt notices feeling hungry more often than before. What is the most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The body may need more energy and nutrients to support growth. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Hunger always means the student is dehydrated.</li>
+            <li><span class="letter">C.</span> Growth decreases nutrient needs.</li>
+            <li><span class="letter">D.</span> Teenagers should ignore hunger during growth.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. Two siblings are the same age, but one plays sports every day while the other is much less active. What is most likely true?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Both should always eat identical portions.</li>
+            <li class="correct"><span class="letter">B.</span> Activity level can affect how much energy and nutrients a person needs. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Exercise eliminates the need for healthy fats.</li>
+            <li><span class="letter">D.</span> Physical activity does not change nutrition needs.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A student notices they feel more focused after eating a balanced breakfast instead of skipping it. What is the most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Breakfast only benefits athletes.</li>
+            <li class="correct"><span class="letter">B.</span> Eating a balanced meal can provide energy that supports concentration. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Skipping breakfast improves mental performance.</li>
+            <li><span class="letter">D.</span> Breakfast has no effect on energy.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A student compares their lunch to a friend's larger meal and worries they are eating too little. What is the best explanation?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Everyone should eat the same amount at every meal.</li>
+            <li><span class="letter">B.</span> Larger meals are always healthier.</li>
+            <li class="correct"><span class="letter">C.</span> Healthy portion sizes depend on each person's individual needs. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Portion size never matters.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. A student recovering from an illness begins eating balanced meals with enough protein, fruits, vegetables, and fluids. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Recovery reduces the need for nutrients.</li>
+            <li><span class="letter">B.</span> Healthy foods only help athletes.</li>
+            <li><span class="letter">C.</span> Water slows recovery.</li>
+            <li class="correct"><span class="letter">D.</span> The body uses nutrients and fluids to support recovery and healing. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A student increases strength training and begins including more protein throughout the day while continuing to eat carbohydrates and healthy fats. What is the most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student is supporting muscle repair while maintaining a balanced diet. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Protein replaces all other nutrients.</li>
+            <li><span class="letter">C.</span> Carbohydrates are unnecessary for active people.</li>
+            <li><span class="letter">D.</span> Healthy fats should always be avoided.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student with a food allergy works with their family to choose safe foods that still provide important nutrients. What is the most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Food allergies eliminate the need for balanced nutrition.</li>
+            <li><span class="letter">B.</span> Everyone should avoid the same foods.</li>
+            <li class="correct"><span class="letter">C.</span> Individual health conditions can influence food choices while still meeting nutrition needs. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Food allergies prevent healthy eating.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. A student drinks plenty of water during hot weather while practicing outside. What is the most likely benefit?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Water only helps after exercise.</li>
+            <li class="correct"><span class="letter">B.</span> Hydration supports normal body function, especially during heat and activity. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Water replaces the need for healthy meals.</li>
+            <li><span class="letter">D.</span> Hydration has little effect on performance.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. A student chooses foods rich in iron after learning they are not getting enough of the mineral. What is the most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Everyone should increase iron regardless of need.</li>
+            <li><span class="letter">B.</span> Vitamins and minerals never vary between people.</li>
+            <li><span class="letter">C.</span> Iron is only important during childhood.</li>
+            <li class="correct"><span class="letter">D.</span> Individual nutrient needs can vary based on personal health and body requirements. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. A student begins tracking meals and notices they rarely eat fruits or vegetables. They decide to include them every day. What is the most likely result?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Fruits and vegetables only improve athletic ability.</li>
+            <li><span class="letter">B.</span> The student will no longer need protein.</li>
+            <li class="correct"><span class="letter">C.</span> The student is improving nutrient intake by adding a wider variety of foods. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Variety reduces nutritional quality.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. Two classmates have different heights, body sizes, and activity levels. What is the most likely reason they should not compare how much they eat?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Nutrition needs vary based on factors such as body size, growth, and activity level. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Everyone should eat identical meals.</li>
+            <li><span class="letter">C.</span> Portion sizes never change.</li>
+            <li><span class="letter">D.</span> Healthy eating means eating the same amount as friends.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. A student begins eating regular meals instead of skipping lunch and notices better energy during after-school activities. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Meal timing does not affect energy.</li>
+            <li><span class="letter">B.</span> Regular meals decrease energy.</li>
+            <li><span class="letter">C.</span> Lunch only matters for athletes.</li>
+            <li class="correct"><span class="letter">D.</span> Consistent meals help provide fuel throughout the day. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. A student meets with a healthcare professional to adjust their eating plan because of a medical condition. What is the most likely reason?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Everyone should follow the exact same eating plan.</li>
+            <li><span class="letter">B.</span> Healthy eating is only for people with medical conditions.</li>
+            <li class="correct"><span class="letter">C.</span> Individual health needs sometimes require personalized nutrition plans. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Medical conditions never affect nutrition.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+4%2C+Lesson+3%3A+Individual%20Dietary%20Needs" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-4-2.html" class="prev">← Previous Lesson</a>
+        <a href="hs-4-4.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

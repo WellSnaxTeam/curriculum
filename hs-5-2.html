@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 2: Macronutrients as Fuel — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 5: Daily Fueling Basics / Lesson 2
+    </div>
+
+    <div class="lesson">
+      <h1>Macronutrients as Fuel</h1>
+      <div class="meta">High School Course 5, Lesson 2</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Macronutrients as Fuel <span class="module-time">11 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/Dup-K8Qs5UI" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Macronutrients as Fuel: How the body uses it for energy <span class="module-time">10 min</span></h2>
+                <p>It's 2 p.m. on a Wednesday, and you're sitting in your hardest class. Your eyelids feel heavy, your thoughts are foggy, and you can't focus on what the teacher is saying—even though you slept fine last night. Meanwhile, your friend sitting next to you is alert and engaged. The difference between you isn't willpower or intelligence; it's likely what you ate for breakfast and lunch. The food you consume is literally the fuel your body uses to think, move, and feel. Understanding macronutrients—the three major nutrients your body needs in large quantities—is essential to understanding why you perform well some days and struggle on others.</p>
+        <p>What Are Macronutrients?</p>
+        <p>Macronutrients are carbohydrates, proteins, and fats. They are measured in grams. Unlike vitamins and minerals, which your body needs in small amounts, macronutrients are the primary source of energy for every activity you do, from studying to playing sports to simply existing. Your body breaks down these nutrients through digestion and converts them into glucose (a type of sugar) and other molecules that cells can use for fuel. Think of macronutrients as the gasoline in a car—without them, your body cannot function.</p>
+        <p>How Macronutrients Become Usable Energy</p>
+        <p>Before carbohydrates, proteins, and fats can power your body, they must be digested into smaller parts that can be absorbed into the bloodstream. Digestion begins in the mouth and continues in the stomach and small intestine, where enzymes break carbohydrates into simple sugars, proteins into amino acids, and fats into fatty acids and glycerol. These smaller molecules are then transported to cells throughout the body, where they can be used immediately for energy or stored for later use.</p>
+        <p>Once inside cells, these molecules enter chemical pathways that produce ATP (adenosine triphosphate), the main form of usable energy in the body. ATP powers nearly every cellular activity, including muscle contraction, nerve signaling, active transport, and the basic processes that keep you alive. In other words, the food you eat does not directly give you energy until your body has converted it into ATP that cells can actually use.</p>
+        <p>This process has real consequences for daily performance. When digestion and energy production provide a steady supply of fuel, students are more likely to feel alert, focused, and physically capable. When fuel is limited or poorly timed, the result can be low energy, slower thinking, reduced attention, and weaker athletic performance. Each macronutrient contributes to this process in a different way, which is why it is helpful to examine carbohydrates, proteins, and fats separately.</p>
+        <p>Carbohydrates: Your Body's Preferred Fuel</p>
+        <p>Carbohydrates are your body's go-to energy source, especially for your brain and muscles. When you eat carbohydrates—whether from bread, rice, fruit, or vegetables—your digestive system breaks them down into glucose. This glucose enters your bloodstream and travels to your cells, where it's converted into ATP (adenosine triphosphate), the energy currency your cells use. Carbohydrates provide the body with 4 calories per gram.</p>
+        <p>This is why carbohydrates have the most direct impact on your focus and mental performance. Your brain alone uses about 20% of your body's energy, and it strongly prefers glucose as its fuel. When you skip carbohydrates or eat too few, your brain doesn't have enough fuel, which explains that 2 p.m. fog. Students who eat a balanced breakfast with carbohydrates—like oatmeal with fruit or whole-grain toast—typically perform better on tests and stay more alert throughout the day. Conversely, a diet low in carbohydrates often leads to difficulty concentrating, irritability, and reduced academic performance.</p>
+        <p>Carbohydrates also affect your mood and energy levels. When carbohydrate intake is adequate, your body produces serotonin, a neurotransmitter that regulates mood and promotes feelings of well-being. This is why people often feel more positive and energized after eating a satisfying meal with carbohydrates, while skipping meals or restricting carbs can lead to mood swings and fatigue.</p>
+        <p>Proteins: Building and Sustaining Energy</p>
+        <p>Proteins are made up of amino acids, which your body uses to build and repair muscles, create enzymes, and produce hormones. While proteins can be used for energy, their primary role is structural and functional. However, proteins significantly impact your athletic performance and physical appearance.</p>
+        <p>When you exercise, you create tiny tears in muscle fibers. Protein provides the amino acids needed to repair these tears, which makes muscles stronger and larger over time. Without adequate protein intake, your muscles cannot recover effectively from workouts, leading to slower progress, increased soreness, and reduced athletic performance. This is why athletes and active students need more protein than sedentary peers—typically 1.2 to 2.0 grams per kilogram of body weight daily, depending on activity level. Proteins provide the body with 4 calories per gram.</p>
+        <p>Proteins also contribute to sustained energy levels throughout the day. Unlike carbohydrates, which provide quick energy, proteins digest slowly and help stabilize blood sugar levels. This means eating protein with your meals helps prevent the energy crashes that lead to afternoon fatigue. A lunch with protein (like chicken, beans, or Greek yogurt) will keep you feeling full and energized longer than a lunch of carbohydrates alone.</p>
+        <p>Fats: The Long-Term Energy Source</p>
+        <p>Fats are often misunderstood, but they are essential for health and energy. Your body stores fats and breaks them down for long-term energy, especially during extended activities or periods without food. Fats also support brain function, hormone production, and nutrient absorption.</p>
+        <p>Fats have the strongest impact on sustained energy and appearance. Gram for gram, fats provide more than twice the energy of carbohydrates or proteins (9 calories per gram versus 4 calories per gram). This makes fats an efficient fuel source for endurance activities like long-distance running or hiking. Additionally, healthy fats support clear skin, shiny hair, and overall physical appearance by promoting skin health and reducing inflammation.</p>
+        <p>Conclusion: Fuel Your Performance</p>
+        <p>Your body is not unlike a machine—it requires proper fuel to function optimally. Carbohydrates fuel your brain and provide immediate energy, proteins repair and build muscle while sustaining energy, and fats provide long-term fuel and support overall health. By understanding how macronutrients work and choosing balanced meals with all three, you can take control of your focus, mood, athletic performance, and appearance. The next time you feel that afternoon energy crash, remember: it's not a personal failing. It's your body telling you it needs the right fuel. What you eat directly determines how you perform, and that power is in your hands.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Daily Fuel Reflection <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+                  <p>Build your typical breakfast, lunch, and dinner using the foods you normally eat. Label the carbohydrate, protein, and healthy fat on your plate. Compare your meal to a balanced plate.</p>
+        <p>Reflection:</p>
+        <ul>
+          <li>Which macronutrient takes up most of your plate?</li>
+          <li>Which one is missing or limited?</li>
+          <li>How might this affect your energy throughout the day?</li>
+        </ul>
+        <p>Commitment:</p>
+        <p><strong>Add one food that improves the balance of your next meal.</strong></p>
+        <p>Part 2: Fueling for physical activity</p>
+        <p>Think about a recent practice, workout, game, or physically active day. Record what you ate beforehand and afterward. Analyze how those choices may have affected your energy, endurance, recovery, or performance.</p>
+        <p>Reflection:</p>
+        <ul>
+          <li>Did you feel prepared for activity?</li>
+          <li>Did you recover quickly afterward?</li>
+          <li>Which macronutrient might have improved your performance?</li>
+        </ul>
+        <p>Commitment:</p>
+        <p><strong>Choose one change you will make to your pre-activity or post-activity meal.</strong></p>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Macronutrients as Fuel Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. Before a big track meet, you eat a bowl of oatmeal and a banana about 90 minutes beforehand. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> His body is building new muscle tissue from dietary fat.</li>
+            <li class="correct"><span class="letter">B.</span> His body is breaking down carbohydrates to provide quick energy for the event. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> His body is storing the banana's nutrients as long-term fat immediately.</li>
+            <li><span class="letter">D.</span> His body is using proteins as the primary immediate fuel for sprinting.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. After skipping breakfast, a student feels shaky and has trouble concentrating in her first-period math test. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Her digestive system is overworking due to excess fiber.</li>
+            <li><span class="letter">B.</span> Her body has entered ketosis from too many carbs.</li>
+            <li class="correct"><span class="letter">C.</span> Her blood glucose is low because she hasn't had recent carbohydrate intake. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Her body has used up all protein stores and is breaking down organs.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. Your friend drinks a protein shake after lifting weights. What is most likely happening in his body during recovery?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Protein immediately raises blood glucose the same way a candy bar would.</li>
+            <li><span class="letter">B.</span> Protein prevents all muscle soreness by neutralizing lactic acid instantly.</li>
+            <li><span class="letter">C.</span> Protein is converted directly into glycogen for immediate energy.</li>
+            <li class="correct"><span class="letter">D.</span> Dietary protein provides amino acids to help repair and build muscle tissue. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. A student chooses avocado and nuts as snacks instead of chips most days. What is most likely happening for that student's nutrition?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> They are getting more unsaturated fats that support satiety and heart health. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> They are consuming trans fats that increase LDL cholesterol significantly.</li>
+            <li><span class="letter">C.</span> They are depriving their body of essential fatty acids by avoiding oils.</li>
+            <li><span class="letter">D.</span> They are ensuring fast spikes in blood sugar for immediate energy.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. During a long, moderate-intensity practice, a soccer player begins to feel fatigued after 75 minutes. Which habit would most likely help prevent this fatigue in future sessions?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Drinking only water and skipping pre-activity meals to reduce stomach discomfort.</li>
+            <li class="correct"><span class="letter">B.</span> Including carbohydrate-rich snacks or a sports drink before and during extended activity. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Avoiding carbohydrates entirely and eating only protein the morning of practice.</li>
+            <li><span class="letter">D.</span> Eating a high-fat fast-food meal immediately before practice for sustained energy.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. True or False: Eating extra protein in a single meal immediately turns into more muscle mass without any exercise.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. True or False: Staying hydrated helps the body regulate temperature and maintain energy during exercise.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A student often chooses sugary sodas and candy between classes and notices a cycle of energy bursts followed by crashes. What is most likely happening metabolically?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Sugary snacks improve long-term stamina by slowly releasing energy over hours.</li>
+            <li><span class="letter">B.</span> Eating sugar reduces the need for complex carbohydrates at meals.</li>
+            <li class="correct"><span class="letter">C.</span> Rapid blood glucose spikes from simple sugars are followed by insulin-driven drops, causing energy crashes. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Simple sugars convert directly into muscle glycogen without affecting blood glucose.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student wants to manage weight and chooses meals higher in fiber and lean protein. What is most likely happening to help her goals?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Fiber directly speeds up muscle growth without exercise.</li>
+            <li><span class="letter">B.</span> Lean protein always converts to fat if caloric intake is below maintenance.</li>
+            <li><span class="letter">C.</span> High fiber prevents absorption of all vitamins and minerals, causing weight loss.</li>
+            <li class="correct"><span class="letter">D.</span> Fiber and protein increase satiety, helping control total calorie intake and support weight management. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. A student reads nutrition labels and notices a cereal with high fiber, moderate protein, and low added sugars. Which health outcome is most likely supported by choosing this cereal regularly (as part of a balanced diet)?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> More stable blood glucose and longer-lasting energy for morning concentration. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Immediate and extreme weight gain because fiber has many calories.</li>
+            <li><span class="letter">C.</span> Rapid dehydration from fiber causing electrolyte imbalance.</li>
+            <li><span class="letter">D.</span> Complete elimination of the need for other food groups that day.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. During finals week, Luis sleeps only four hours per night and relies on high-caffeine energy bars. What is most likely happening to his nutritional status and performance?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Less sleep increases metabolic efficiency so he needs fewer nutrients.</li>
+            <li class="correct"><span class="letter">B.</span> Poor sleep plus stimulants can impair concentration, recovery, and appetite regulation despite short-term alertness. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Caffeine and energy bars permanently boost long-term memory consolidation.</li>
+            <li><span class="letter">D.</span> Sleep loss causes the body to only use fat for energy, improving endurance.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. A student who eats a balanced meal with complex carbs, lean protein, and vegetables notices they feel satisfied longer than after a donut. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Vegetables block carbohydrate absorption, causing immediate hunger.</li>
+            <li><span class="letter">B.</span> Donuts produce longer satiety because fats delay digestion more than fiber.</li>
+            <li class="correct"><span class="letter">C.</span> Complex carbohydrates and protein slow digestion and stabilize blood sugar, increasing satiety. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Balanced meals reduce oxygen delivery to muscles, lowering energy.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. Which scenario best shows using nutrition to support immune function during cold season?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Dramatically cutting calories to starve pathogens and avoid getting sick.</li>
+            <li><span class="letter">B.</span> Only eating processed snacks because they are convenient during illness.</li>
+            <li><span class="letter">C.</span> Replacing all meals with only high-caffeine drinks to stay alert while sick.</li>
+            <li class="correct"><span class="letter">D.</span> Choosing meals rich in vitamins A, C, D and zinc, plus adequate calories and sleep, to support the immune system. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. A student wants to improve endurance for cross-country. They consistently eat small, frequent meals rich in carbohydrates and hydrate well. What is most likely happening physiologically?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Muscle glycogen stores are better maintained, supporting sustained energy during long runs. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Frequent carbs prevent the body from storing any glycogen for exercise.</li>
+            <li><span class="letter">C.</span> Eating often causes immediate muscle hypertrophy without training.</li>
+            <li><span class="letter">D.</span> Hydration reduces the need for any carbohydrate intake during runs.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. After a class presentation on media and diets, a student recognizes that advertisements often promote quick fixes rather than balanced changes. What is most likely happening if they apply that media critique to their food choices?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They will assume all packaged foods are healthier than fresh foods.</li>
+            <li class="correct"><span class="letter">B.</span> They are more likely to choose evidence-based, balanced habits (whole foods, portion control) over fad products. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> They will adopt extreme restrictive diets promoted in ads because they seem faster.</li>
+            <li><span class="letter">D.</span> They will ignore food labels because media is untrustworthy in all ways.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+5%2C+Lesson+2%3A+Macronutrients%20as%20Fuel" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-5-1.html" class="prev">← Previous Lesson</a>
+        <a href="hs-5-3.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

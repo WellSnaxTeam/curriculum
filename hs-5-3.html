@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 3: Micronutrients for Function — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 5: Daily Fueling Basics / Lesson 3
+    </div>
+
+    <div class="lesson">
+      <h1>Micronutrients for Function</h1>
+      <div class="meta">High School Course 5, Lesson 3</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Micronutrients for Function <span class="module-time">8 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/gwGr4N1BcLI" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Micronutrients for Daily Function <span class="module-time">15 min</span></h2>
+                <p>Why You Should Care Right Now</p>
+        <p>You're sitting in third period, and your eyelids feel like they weigh 50 pounds. You know you got enough sleep, but your brain feels foggy anyway. Or maybe you crushed it at practice yesterday, but today your muscles feel weak and your energy is completely gone. Perhaps you're frustrated because no matter what you do, your skin breaks out right before something important, or you've noticed your mood swings are getting out of control.</p>
+        <p>Here's the thing: these aren't character flaws or signs you're lazy. They're often signals that your body is missing critical micronutrients — the vitamins and minerals that act like backstage crew members keeping everything running smoothly. You don't see them, but without them, the whole show falls apart.</p>
+        <p>What Are Micronutrients, and Why Do They Matter?</p>
+        <p>Micronutrients are vitamins and minerals your body needs in small amounts to function properly. Unlike carbs, proteins, and fats (macronutrients), you don't need huge quantities of micronutrients — but you absolutely need them to be present every single day.</p>
+        <p>Think of macronutrients as the fuel in your car and micronutrients as the oil, coolant, and spark plugs. You can have a full tank of gas, but without the spark plugs firing correctly, you're not going anywhere.</p>
+        <p>Your body can't make most micronutrients on its own, so you have to get them from food. When you consistently get enough micronutrients, your energy skyrockets, your focus sharpens, your athletic performance improves, and even your skin clears up. When you're deficient, everything suffers.</p>
+        <p>The Micronutrients You Need to Know About</p>
+        <p>B Vitamins (B6, B12, Folate, Niacin)</p>
+        <p>What they do for you:</p>
+        <ul>
+          <li>Energy: B vitamins are literally involved in converting the food you eat into usable energy. Without enough B vitamins, you feel exhausted even when you've had plenty of calories.</li>
+          <li>Focus and concentration: B vitamins support neurotransmitter production, which means clearer thinking and better memory during studying and tests.</li>
+          <li>Mood: Low B vitamins are linked to depression, anxiety, and irritability — things that definitely affect your social life and how you feel day-to-day.</li>
+          <li>Athletic performance: B vitamins help your muscles recover after workouts and reduce fatigue during training.</li>
+        </ul>
+        <p>Food sources:</p>
+        <ul>
+          <li>B6: Chicken, salmon, chickpeas, bananas, potatoes</li>
+          <li>B12: Beef, eggs, yogurt, milk (mainly animal products — vegans need to supplement or eat fortified foods)</li>
+          <li>Folate: Spinach, broccoli, lentils, asparagus, avocado</li>
+          <li>Niacin: Tuna, turkey, peanuts, mushrooms</li>
+        </ul>
+        <p>Signs you might be deficient:</p>
+        <ul>
+          <li>Constant fatigue that sleep doesn't fix</li>
+          <li>Brain fog or difficulty concentrating</li>
+          <li>Mood swings or feeling unusually anxious</li>
+          <li>Muscle weakness during or after exercise</li>
+        </ul>
+        <p>Vitamin C</p>
+        <p>What it does for you:</p>
+        <ul>
+          <li>Physical appearance: Vitamin C is essential for collagen production, which keeps your skin clear, firm, and healthy. It also helps heal acne and reduces inflammation, so your skin actually looks better.</li>
+          <li>Energy and recovery: It supports your immune system, so you get sick less often and miss fewer days of school, sports, and social activities.</li>
+          <li>Athletic performance: Vitamin C helps with muscle repair and reduces soreness after intense workouts.</li>
+          <li>Mental health: Low vitamin C is linked to depression and low mood.</li>
+        </ul>
+        <p>Food sources:</p>
+        <ul>
+          <li>Citrus fruits (oranges, lemons, grapefruit)</li>
+          <li>Strawberries, kiwi, bell peppers</li>
+          <li>Broccoli, tomatoes, papaya</li>
+        </ul>
+        <p>Signs you might be deficient:</p>
+        <ul>
+          <li>Constant colds or getting sick frequently</li>
+          <li>Slow-healing cuts or bruises</li>
+          <li>Dull, acne-prone skin</li>
+          <li>Joint or muscle pain</li>
+        </ul>
+        <p>Vitamin D</p>
+        <p>What it does for you:</p>
+        <ul>
+          <li>Mood and mental health: Vitamin D deficiency is strongly linked to depression, seasonal sadness, and low motivation. Getting enough vitamin D can genuinely improve how you feel mentally.</li>
+          <li>Bone and muscle strength: Vitamin D helps your body absorb calcium, which is critical for athletic performance and preventing injuries. Low vitamin D means weaker bones and muscles.</li>
+          <li>Energy levels: Many people with chronic fatigue are deficient in vitamin D. Optimizing your intake can boost energy significantly.</li>
+          <li>Focus: Vitamin D supports cognitive function, so you think more clearly during school.</li>
+        </ul>
+        <p>Food sources:</p>
+        <ul>
+          <li>Fatty fish (salmon, mackerel, sardines)</li>
+          <li>Egg yolks, mushrooms, fortified milk</li>
+          <li>Sunlight exposure (15-30 minutes most days)</li>
+        </ul>
+        <p>Signs you might be deficient:</p>
+        <ul>
+          <li>Persistent low mood, especially in winter</li>
+          <li>Muscle weakness or aches</li>
+          <li>Fatigue that doesn't improve with rest</li>
+          <li>Frequent infections or getting sick often</li>
+        </ul>
+        <p>Iron</p>
+        <p>What it does for you:</p>
+        <ul>
+          <li>Energy: Iron carries oxygen in your blood. Without enough iron, oxygen can't reach your cells efficiently, and you feel exhausted no matter how much you sleep.</li>
+          <li>Athletic performance: Athletes are especially vulnerable to iron deficiency because exercise increases iron loss. Low iron = poor endurance, weakness, and inability to push hard during training.</li>
+          <li>Focus and concentration: Your brain needs oxygen. Iron deficiency causes brain fog, difficulty concentrating, and poor memory.</li>
+          <li>Physical appearance: Pale skin and dark circles under your eyes are classic signs of iron deficiency.</li>
+        </ul>
+        <p>Food sources:</p>
+        <ul>
+          <li>Red meat, chicken, turkey</li>
+          <li>Beans, lentils, tofu</li>
+          <li>Spinach, fortified cereals</li>
+          <li>Pair iron-rich foods with vitamin C (like spinach with orange juice) to absorb iron better</li>
+        </ul>
+        <p>Signs you might be deficient:</p>
+        <ul>
+          <li>Extreme fatigue and weakness</li>
+          <li>Shortness of breath during light activity</li>
+          <li>Difficulty concentrating or brain fog</li>
+          <li>Pale skin or dark circles</li>
+          <li>Frequent headaches</li>
+        </ul>
+        <p>Calcium</p>
+        <p>What it does for you:</p>
+        <ul>
+          <li>Bone and muscle strength: Calcium builds strong bones and teeth. You're still building bone density in your teenage years, so getting enough calcium now sets you up for lifelong bone health and prevents injuries.</li>
+          <li>Athletic performance: Calcium is essential for muscle contraction, so low calcium means weaker, less powerful muscles during sports.</li>
+          <li>Mood: Low calcium is linked to anxiety and mood instability.</li>
+          <li>Physical appearance: Strong teeth and bones contribute to your overall appearance and confidence.</li>
+        </ul>
+        <p>Food sources:</p>
+        <ul>
+          <li>Milk, yogurt, cheese</li>
+          <li>Leafy greens (kale, collard greens, bok choy)</li>
+          <li>Fortified plant-based milks, tofu, almonds, sardines</li>
+        </ul>
+        <p>Signs you might be deficient:</p>
+        <ul>
+          <li>Muscle cramps or spasms</li>
+          <li>Weak or brittle nails</li>
+          <li>Tooth sensitivity</li>
+          <li>Anxiety or irritability</li>
+          <li>Weak athletic performance despite training</li>
+        </ul>
+        <p>Magnesium</p>
+        <p>What it does for you:</p>
+        <ul>
+          <li>Sleep quality: Magnesium helps regulate your nervous system and improves sleep. Better sleep = better energy, focus, and mood the next day.</li>
+          <li>Athletic performance: Magnesium is crucial for muscle function and recovery. Low magnesium causes muscle cramps, weakness, and poor performance.</li>
+          <li>Mood and stress: Magnesium helps reduce anxiety and stress. Low levels are linked to increased anxiety and irritability.</li>
+          <li>Focus: Magnesium supports brain function and concentration.</li>
+        </ul>
+        <p>Food sources:</p>
+        <ul>
+          <li>Spinach, pumpkin seeds, almonds</li>
+          <li>Black beans, chickpeas, avocado</li>
+          <li>Dark chocolate, whole grains</li>
+        </ul>
+        <p>Signs you might be deficient:</p>
+        <ul>
+          <li>Muscle cramps or twitching</li>
+          <li>Trouble sleeping or poor sleep quality</li>
+          <li>Anxiety or feeling stressed</li>
+          <li>Fatigue despite adequate sleep</li>
+          <li>Poor athletic performance</li>
+        </ul>
+        <p>Zinc</p>
+        <p>What it does for you:</p>
+        <ul>
+          <li>Immune function: Zinc helps your immune system fight off infections, so you stay healthy and don't miss school or activities.</li>
+          <li>Physical appearance: Zinc is critical for clear skin. Acne, slow wound healing, and hair loss are all linked to zinc deficiency.</li>
+          <li>Athletic performance: Zinc supports muscle recovery and immune function, both essential for athletes.</li>
+          <li>Focus and brain function: Zinc is important for memory and learning.</li>
+        </ul>
+        <p>Food sources:</p>
+        <ul>
+          <li>Oysters, beef, chicken</li>
+          <li>Pumpkin seeds, cashews, chickpeas</li>
+          <li>Whole grains, dairy products</li>
+        </ul>
+        <p>Signs you might be deficient:</p>
+        <ul>
+          <li>Frequent colds or infections</li>
+          <li>Acne or slow-healing wounds</li>
+          <li>Hair loss or brittle hair</li>
+          <li>Poor concentration</li>
+          <li>Delayed muscle recovery after workouts</li>
+        </ul>
+        <p>How Micronutrient Deficiency Shows Up in Your Life</p>
+        <p>You might not realize it, but micronutrient deficiencies create a domino effect. They don't just affect one area — they compound:</p>
+        <ul>
+          <li>Low energy makes it harder to exercise, so you feel weaker and more out of shape</li>
+          <li>Poor focus means lower grades and decreased motivation</li>
+          <li>Bad skin affects your confidence, which impacts your mood and social life</li>
+          <li>Low mood reduces motivation to eat well, which creates more deficiencies</li>
+          <li>Weak athletic performance is frustrating and demoralizing, affecting how you see yourself</li>
+        </ul>
+        <p>The good news? This cycle works in reverse too. When you optimize your micronutrient intake, everything improves together.</p>
+        <p>Building Healthy Habits to Maximize Your Micronutrients</p>
+        <p>Habit 1: Eat a Variety of Colorful Foods</p>
+        <p>Different colored foods contain different micronutrients:</p>
+        <ul>
+          <li>Red/orange: Vitamin C, beta-carotene (carrots, tomatoes, peppers)</li>
+          <li>Dark green: Iron, folate, calcium, magnesium (spinach, broccoli, kale)</li>
+          <li>Purple/blue: Antioxidants (blueberries, blackberries)</li>
+          <li>Yellow/white: Various minerals (bananas, garlic, onions)</li>
+        </ul>
+        <p>Action step: At each meal, aim for at least three different colors of food. It sounds simple, but it's one of the easiest ways to ensure you're getting diverse micronutrients.</p>
+        <p>Habit 2: Pair Foods Strategically</p>
+        <p>Some micronutrients work better together:</p>
+        <ul>
+          <li>Iron + Vitamin C: Eat spinach with orange juice, or beef with bell peppers. Vitamin C helps your body absorb iron.</li>
+          <li>Fat + Fat-soluble vitamins: Eat vitamin D-rich salmon with olive oil, or dark leafy greens with avocado. These vitamins need fat to be absorbed.</li>
+          <li>Calcium + Vitamin D: Drink fortified milk or eat yogurt. They work together to strengthen bones.</li>
+        </ul>
+        <p>Action step: When planning meals, think about pairing foods that help each other work better.</p>
+        <p>Habit 3: Don't Skip Meals</p>
+        <p>Skipping meals means missing opportunities to get micronutrients. It also tanks your energy and focus during the day.</p>
+        <p>Action step: Eat breakfast, lunch, dinner, and a healthy snack. You don't need huge portions — just consistent, nutrient-dense meals throughout the day.</p>
+        <p>Habit 4: Choose Whole Foods Over Processed</p>
+        <p>Whole foods (fruits, vegetables, lean proteins, whole grains) are packed with micronutrients. Processed foods are often stripped of nutrients and loaded with added sugar and salt.</p>
+        <p>Action step: For one week, try replacing one processed snack per day with a whole food option:</p>
+        <ul>
+          <li>Instead of chips → almonds or an apple</li>
+          <li>Instead of soda → water with lemon</li>
+          <li>Instead of candy → berries or dark chocolate</li>
+        </ul>
+        <p><strong>Notice how you feel.</strong></p>
+        <p>Habit 5: Get Sunlight Exposure</p>
+        <p>Your body makes vitamin D when your skin is exposed to sunlight. Just 15-30 minutes most days can make a huge difference.</p>
+        <p>Action step: Spend time outside during lunch or after school. Walk to class instead of driving. Sit by a window during study time. It's free and it works.</p>
+        <p>Habit 6: Read Food Labels</p>
+        <p>Start paying attention to what's actually in your food. Look for:</p>
+        <ul>
+          <li>Fortified foods (cereals with added vitamins, plant-based milks with added calcium and vitamin D)</li>
+          <li>Whole grain products (more nutrients than refined grains)</li>
+          <li>Foods with minimal added sugar and sodium</li>
+        </ul>
+        <p>Action step: Pick one food you eat regularly and read the label. Notice what micronutrients it contains.</p>
+        <p>Habit 7: Plan Snacks with Purpose</p>
+        <p>Snacks are an easy way to pack in extra micronutrients:</p>
+        <ul>
+          <li>Greek yogurt with berries (calcium, vitamin C, probiotics)</li>
+          <li>Apple with almond butter (magnesium, vitamin C, fiber)</li>
+          <li>Hummus and veggies (zinc, folate, fiber)</li>
+          <li>String cheese and an orange (calcium, vitamin C)</li>
+          <li>Handful of nuts and seeds (magnesium, zinc, healthy fats)</li>
+        </ul>
+        <p><strong>Action step: Prep three go-to snacks this week that you actually enjoy eating.</strong></p>
+        <p>What You Can Start Today</p>
+        <p>You don't need to overhaul your entire diet overnight. Small changes compound:</p>
+        <ol>
+          <li>Today: Add one colorful vegetable or fruit to one meal</li>
+          <li>This week: Eat breakfast every day (even if it's just yogurt and berries)</li>
+          <li>This week: Spend 20 minutes outside in sunlight</li>
+          <li>Next week: Prep one nutrient-dense snack to have on hand</li>
+        </ol>
+        <p>5. Next week: Pair one food strategically (like eating spinach with orange juice)</p>
+        <p>The Bottom Line</p>
+        <p>Your body is constantly working to keep you functioning at your best — at school, in sports, socially, and mentally. Micronutrients are the tools your body uses to do that work. When you consistently get enough of them, you have more energy, better focus, improved athletic performance, clearer skin, and a more stable mood.</p>
+        <p>You can't out-supplement a bad diet, and you don't need to be perfect. But when you make micronutrients a priority, you'll notice the difference in how you feel and perform. That's not just health — that's a competitive advantage in every part of your life.</p>
+        <p><strong>Start small. Pick one habit. Notice how you feel. Then build from there.</strong></p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> My Micronutrient Habits <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+                  <p>Look at a recent meal you ate. Identify which important vitamins and minerals it provides and which nutrients may be missing. Redesign the meal by adding foods that increase its micronutrient content.</p>
+        <ul>
+          <li>What nutrients did your original meal provide?</li>
+          <li>What nutrients were missing?</li>
+          <li>How would your redesigned meal better support your daily performance?</li>
+          <li>What change will you make the next time you eat a similar meal?</li>
+        </ul>
+        <p>Part 2: Micronutrient snacking habits</p>
+        <p>Activity:</p>
+        <p>Examine Nutrition Facts labels and ingredient lists from five snacks you regularly eat. Identify foods that contain important vitamins and minerals and compare them with similar foods.</p>
+        <p>Reflection:</p>
+        <ul>
+          <li>Which foods provide the greatest variety of micronutrients?</li>
+          <li>Which foods provide very few vitamins and minerals?</li>
+          <li>How do these foods affect how you feel after eating them?</li>
+          <li>What healthier snack swap will you make this week?</li>
+        </ul>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Micronutrients for Function Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. A friend has been feeling unusually tired during basketball practice. She realizes she rarely eats iron-rich foods and often skips meals. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Her body is storing extra carbohydrates for later use.</li>
+            <li class="correct"><span class="letter">B.</span> Her body may not be getting enough iron to help transport oxygen. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Her body is replacing protein with vitamins.</li>
+            <li><span class="letter">D.</span> Her body is producing extra calcium.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. If you spend most of your time indoors and rarely eat foods fortified with vitamin D. What is the most likely result over time?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> His body may have a harder time absorbing calcium for strong bones. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> His muscles will automatically become stronger.</li>
+            <li><span class="letter">C.</span> His body will stop needing calcium.</li>
+            <li><span class="letter">D.</span> His body is converting vitamin D into protein.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. Sophia eats oranges, strawberries, and bell peppers throughout the week. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She is replacing carbohydrates with vitamins.</li>
+            <li><span class="letter">B.</span> She is storing vitamin C for energy.</li>
+            <li><span class="letter">C.</span> Her body is building muscle from fruit sugars.</li>
+            <li class="correct"><span class="letter">D.</span> She is getting vitamin C, which helps support her immune system and tissue repair. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. Before school, Noah eats yogurt with fruit instead of skipping breakfast. The yogurt provides calcium. What is calcium most likely helping his body do?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Increase body temperature.</li>
+            <li class="correct"><span class="letter">B.</span> Build and maintain strong bones and teeth. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Replace carbohydrates as fuel.</li>
+            <li><span class="letter">D.</span> Store extra sugar as fat.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. Ava regularly includes spinach, sweet potatoes, and carrots in her meals. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> She is getting nutrients that support healthy vision and normal body functions. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> She is replacing her need for water.</li>
+            <li><span class="letter">C.</span> She is eliminating the need for protein.</li>
+            <li><span class="letter">D.</span> She is preventing digestion.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. Your friend notices that small cuts seem to take longer to heal after weeks of eating very few fruits and vegetables. What is the most likely explanation?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> His body has permanently slowed its metabolism.</li>
+            <li><span class="letter">B.</span> His muscles are using calcium instead of oxygen.</li>
+            <li class="correct"><span class="letter">C.</span> He may not be getting enough vitamins that help support healing. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> His body has stopped making skin cells.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. A student usually drinks soda instead of milk or fortified beverages. Over time, what is one possible concern?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She will automatically build stronger muscles.</li>
+            <li><span class="letter">B.</span> She will absorb more vitamins than she needs.</li>
+            <li><span class="letter">C.</span> She will no longer need calcium.</li>
+            <li class="correct"><span class="letter">D.</span> She may miss nutrients that help keep bones strong. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. Tyler eats a variety of colorful fruits and vegetables every day. What is the biggest benefit of this habit?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He is eliminating the need for exercise.</li>
+            <li><span class="letter">B.</span> He is replacing all protein in his diet.</li>
+            <li class="correct"><span class="letter">C.</span> He is more likely to get a wide range of vitamins and minerals. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> He is preventing his body from using carbohydrates.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. Olivia decides to include beans, nuts, and whole grains in her meals more often. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She is replacing all vitamin needs with protein.</li>
+            <li class="correct"><span class="letter">B.</span> She is increasing her intake of several minerals that support normal body functions. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> She is eliminating the need for water.</li>
+            <li><span class="letter">D.</span> She is storing extra minerals as fat.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. Ethan starts eating more foods rich in potassium after noticing muscle cramps following workouts. What is potassium most likely helping support?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Normal muscle and nerve function. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Long-term fat storage.</li>
+            <li><span class="letter">C.</span> Digestion of protein only.</li>
+            <li><span class="letter">D.</span> Bone growth without calcium.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. Grace usually chooses chips and candy instead of fruits and vegetables as snacks. What is the most likely outcome if this becomes a daily habit?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She will naturally improve her immune system.</li>
+            <li class="correct"><span class="letter">B.</span> She may not get enough essential vitamins and minerals. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> She will absorb more calcium than needed.</li>
+            <li><span class="letter">D.</span> She will no longer need balanced meals.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. Diego begins eating eggs, dairy products, and leafy greens more often after learning about vitamins. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He is replacing carbohydrates with vitamins.</li>
+            <li><span class="letter">B.</span> He is eliminating the need for hydration.</li>
+            <li><span class="letter">C.</span> He is turning vitamins into protein.</li>
+            <li class="correct"><span class="letter">D.</span> He is increasing his intake of different micronutrients that support healthy body functions. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. You often eat a balanced lunch with fruits, vegetables, lean protein, and whole grains. How is this most likely helping your body?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> It prevents her body from needing sleep.</li>
+            <li><span class="letter">B.</span> It eliminates the need for physical activity.</li>
+            <li class="correct"><span class="letter">C.</span> It provides a variety of micronutrients that support overall health and daily performance. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> It causes vitamins to replace calories.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. Caleb notices that after improving the variety of foods he eats each week, he generally feels healthier and has more consistent energy. What is the most likely reason?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Vitamins are supplying all of his daily calories.</li>
+            <li><span class="letter">B.</span> Minerals have replaced carbohydrates as fuel.</li>
+            <li><span class="letter">C.</span> His body no longer needs water.</li>
+            <li class="correct"><span class="letter">D.</span> A wider variety of foods provides a broader range of essential micronutrients. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. A nutrition teacher encourages students to "eat the rainbow" by choosing fruits and vegetables of many different colors. What is the main reason for this advice?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Different colorful foods provide different vitamins and minerals that support overall health. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Colorful foods always contain more protein.</li>
+            <li><span class="letter">C.</span> Foods of the same color have identical nutrients.</li>
+            <li><span class="letter">D.</span> Only green foods contain vitamins.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+5%2C+Lesson+3%3A+Micronutrients%20for%20Function" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-5-2.html" class="prev">← Previous Lesson</a>
+        <a href="hs-5-4.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

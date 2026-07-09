@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 5: Micronutrient Deficiencies and Performance Impact — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 6: Common Athlete Mistakes / Lesson 5
+    </div>
+
+    <div class="lesson">
+      <h1>Micronutrient Deficiencies and Performance Impact</h1>
+      <div class="meta">High School Course 6, Lesson 5</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Micronutrient Deficiencies and Performance Impact <span class="module-time">2 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/TagEsY8gSNo" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Micronutrient Deficiencies and its Impact on Performance <span class="module-time">5 min</span></h2>
+                <p>You step onto the field or court feeling “normal” during warm-ups—but by the second half of practice, your legs feel heavier than usual, your focus drifts, and plays you normally execute without thinking suddenly feel harder. You might assume it’s just a tough day, but often this kind of drop in performance is connected to something much smaller: micronutrients.</p>
+        <p>What are Micronutrients?</p>
+        <p>Micronutrients are vitamins and minerals your body needs in very small amounts, but they have a very big impact on how you feel and perform. Even though they don’t provide energy like carbohydrates or build muscle like protein, they act like the “control system” that keeps your body running smoothly. When micronutrients are balanced, you feel more energized, focused, and physically prepared for activity. When they’re not, everything from your mood to your athletic performance can noticeably decline.</p>
+        <p>The Role of Micronutrients</p>
+        <p>Each micronutrient plays a specific role that directly connects to how you perform in sports and daily life. Iron helps carry oxygen through your blood, which affects how long you can run before feeling tired. When iron is low, you may feel unusually exhausted, get winded faster, and struggle to keep up with teammates even when you’re trying your hardest. Calcium and vitamin D support strong bones and muscle contractions. Without enough of them, you might feel weaker during movements, be more prone to injury, or notice slower recovery after practice. B vitamins help your body turn food into usable energy. When they are lacking, your energy levels can drop, making you feel sluggish, mentally foggy, or unmotivated during workouts. Electrolytes like sodium and potassium help control hydration and muscle function. When they are low, you might experience cramps, dizziness, or a sudden loss of coordination during performance.</p>
+        <p>Micronutrient Depletion</p>
+        <p>When the body is consistently depleted of essential vitamins and minerals, the effects show up quickly in ways athletes notice. Energy levels drop, meaning you may feel tired earlier in practice than usual. Focus becomes harder, so remembering plays, reacting quickly, or staying mentally locked in becomes more difficult. Mood can shift too—you might feel more irritable, frustrated, or unmotivated, especially during physical exertion. Even appearance can be affected over time, such as looking more fatigued, pale, or experiencing slower recovery from soreness or minor injuries.</p>
+        <p>Preventing Micronutrient Deficiencies</p>
+        <p>The good news is that micronutrient deficiencies are usually preventable with consistent habits. Eating a variety of foods is the most effective way to avoid them. Colorful fruits and vegetables, whole grains, lean proteins, dairy or fortified alternatives, nuts, and seeds all provide different vitamins and minerals that work together to support energy, focus, and athletic performance. When meals are repetitive or overly processed, the body is more likely to miss key nutrients, which can slowly affect how you feel during training and competition. Hydration also matters because many minerals depend on proper fluid balance to function correctly in muscles and nerves.</p>
+        <p>If a micronutrient deficiency does develop, it can often be corrected, but it takes intentional action. Increasing nutrient-rich foods is the first step—adding iron-rich foods like beans or lean meats, calcium sources like dairy or fortified plant milks, and fruits and vegetables for vitamins can quickly improve how you feel over time. In some cases, a healthcare provider may recommend supplements, but food-based intake is the most reliable foundation for long-term performance. As nutrient levels recover, athletes often notice improvements in energy, focus, mood stability, and how quickly their bodies bounce back after activity.</p>
+        <p>The Bottom Line</p>
+        <p>Your performance isn’t just built in practice—it’s also built in what you consistently give your body every day. When micronutrients are balanced, your body can keep up with your effort. When they’re not, your body sends signals through fatigue, focus loss, and slower performance that are easy to miss until they start affecting your game.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Before Performance Micronutrient Audit <span class="module-time">0 min</span></h2>
+        <div class="activity-box">
+                  <ul>
+          <li>Think about everything you consume 1–3 hours before practice</li>
+          <li>Include foods, drinks, timing, and portion size</li>
+          <li>Identify whether your choices are mostly:</li>
+          <li>quick snacks (chips, candy, energy drinks)</li>
+          <li>balanced meals (carbs + protein + fruit/vegetable)</li>
+          <li>skipped fuel (nothing or very little)</li>
+        </ul>
+        <p>Then answer:</p>
+        <ul>
+          <li>“What is my body actually being given before I train?”</li>
+          <li>“Am I consistently giving my body enough variety to support vitamins and minerals?”</li>
+        </ul>
+        <p>Step 2: Body Response Rating (How You Actually Feel)</p>
+        <p>Connect fueling directly to performance outcomes.</p>
+        <p>Rate your typical practice experience (1–10 scale) in four areas:</p>
+        <ul>
+          <li>Energy: Do I feel strong early and steady late—or tired quickly?</li>
+          <li>Focus: Can I remember plays, react fast, and stay locked in?</li>
+          <li>Endurance: Do I fade, slow down, or finish strong?</li>
+          <li>Physical comfort: Do I experience cramps, dizziness, or heaviness?</li>
+        </ul>
+        <p>Then complete:</p>
+        <ul>
+          <li>“My body during practice usually feels…” (1–2 sentences describing patterns)</li>
+        </ul>
+        <p>Step 3: Micronutrient Connection Analysis (What Might Be Missing?)</p>
+        <p>Connect your pre-practice habits to micronutrient support, not just calories.</p>
+        <p>Guiding prompts:</p>
+        <ul>
+          <li>“What vitamins or minerals might I NOT be getting before practice?”</li>
+          <li>“Could this be affecting how my body performs?”</li>
+        </ul>
+        <p>Identify at least one gap:</p>
+        <ul>
+          <li>Low iron support → feeling tired, low stamina</li>
+          <li>Low calcium/vitamin D support → weaker muscle function, slower recovery</li>
+          <li>Low electrolytes (hydration) → cramps, headaches, fatigue</li>
+          <li>Low fruit/vegetable intake → poor recovery, low energy stability</li>
+        </ul>
+        <p>Students complete:</p>
+        <ul>
+          <li>“My biggest pre-practice gap is likely __________, and it may be affecting my __________ (energy, focus, endurance, recovery).”</li>
+        </ul>
+        <p>Step 4: Pattern Recognition (Connecting the Dots)</p>
+        <p>Look for repeated trends instead of one-day answers.</p>
+        <p>Then answer:</p>
+        <ul>
+          <li>“On my best practices, what did I eat beforehand?”</li>
+          <li>“On my worst practices, what did I eat beforehand?”</li>
+          <li>“What pattern do I notice between food quality and performance?”</li>
+        </ul>
+        <p>Then they write:</p>
+        <ul>
+          <li>“My performance improves when I __________________________________.”</li>
+          <li>“My performance drops when I __________________________________.”</li>
+        </ul>
+        <p>Step 5: Upgrade Planning (What I Will Change)</p>
+        <p>Choose one improvement category:</p>
+        <ul>
+          <li>Add a fruit or vegetable (micronutrient boost)</li>
+          <li>Add a calcium-rich food (muscle and bone support)</li>
+          <li>Add hydration with electrolytes (cramp prevention and endurance)</li>
+          <li>Replace low-nutrient snack with balanced fuel (energy stability)</li>
+        </ul>
+        <p>Design an upgraded pre-practice option:</p>
+        <ul>
+          <li>“A better pre-practice fuel for me would be __________________ because it supports my __________________.”</li>
+        </ul>
+        <p>Commitment Step: Performance Rule Creation</p>
+        <p>Create a clear, repeatable rule tied directly to performance outcomes.</p>
+        <p>Sentence frame:</p>
+        <ul>
+          <li>“Before practice, I will eat/drink __________ at __________ time to improve my __________ (energy, focus, endurance) and reduce my risk of __________ (fatigue, cramps, poor recovery).”</li>
+        </ul>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Micronutrient Deficiencies Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. A student eats only chips and a sports drink 1 hour before practice and feels tired halfway through warm-ups. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their body is receiving steady iron for endurance</li>
+            <li class="correct"><span class="letter">B.</span> Their body is missing key vitamins and minerals that support energy stability <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Their muscles are growing too quickly from excess sodium</li>
+            <li><span class="letter">D.</span> Their hydration levels are perfect for performance</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student skips breakfast and feels lightheaded and unfocused during morning practice. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their muscles are over-recovered from sleep</li>
+            <li><span class="letter">B.</span> Their vitamin intake is too high</li>
+            <li class="correct"><span class="letter">C.</span> Their body lacks nutrients needed for energy and focus <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Their protein intake is too high</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. A student drinks plenty of water but rarely eats fruits or vegetables and notices slow recovery. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their protein intake is too low</li>
+            <li class="correct"><span class="letter">B.</span> Their body is missing vitamins that support recovery and energy regulation <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Their hydration is too high and causing fatigue</li>
+            <li><span class="letter">D.</span> Their sodium levels are too high</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. A student eats a banana before practice and feels steady energy instead of an early crash. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their muscles are not using energy properly</li>
+            <li class="correct"><span class="letter">B.</span> Their body is using quick-digesting nutrients to support energy and focus <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Their hydration is too low</li>
+            <li><span class="letter">D.</span> Their body is storing excess fat immediately</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A student frequently gets muscle cramps and rarely consumes electrolyte-rich fluids. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their iron levels are too high</li>
+            <li><span class="letter">B.</span> Their protein intake is too high</li>
+            <li class="correct"><span class="letter">C.</span> Their body lacks minerals needed for muscle and nerve function <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Their bones are growing too quickly</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A student eats a balanced snack before practice and reports improved focus and endurance. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their hydration is unnecessary</li>
+            <li><span class="letter">B.</span> Their body is overloaded with sugar</li>
+            <li class="correct"><span class="letter">C.</span> Their body is receiving nutrients that support stable energy and performance <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Their muscles are not being used efficiently</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. A student feels unusually tired during practice despite sleeping well but often skips meals. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their muscles are overdeveloped</li>
+            <li><span class="letter">B.</span> Their vitamin intake is too high</li>
+            <li class="correct"><span class="letter">C.</span> Their body lacks nutrients needed for sustained energy and oxygen transport <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Their hydration is too high</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A student eats the same processed snacks every day and struggles with focus during games. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their protein intake is too high</li>
+            <li class="correct"><span class="letter">B.</span> Their body is missing a variety of micronutrients needed for brain and body function <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Their hydration is perfect but unnecessary</li>
+            <li><span class="letter">D.</span> Their muscles are recovering too quickly</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student drinks energy drinks before practice and feels a quick burst of energy followed by a crash. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their body is improving iron levels</li>
+            <li><span class="letter">B.</span> Their hydration is perfectly balanced</li>
+            <li class="correct"><span class="letter">C.</span> Their energy is unstable due to lack of nutrient balance <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Their muscles are storing energy efficiently</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. A student eats iron-rich foods consistently and notices improved endurance during long runs. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Their body is improving oxygen transport, reducing fatigue <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Their muscles are breaking down faster</li>
+            <li><span class="letter">C.</span> Their hydration is decreasing</li>
+            <li><span class="letter">D.</span> Their vitamin intake is too high</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. A student feels dizzy and sluggish after not eating or drinking much all morning. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their protein intake is too high</li>
+            <li><span class="letter">B.</span> Their muscles are too strong for movement</li>
+            <li class="correct"><span class="letter">C.</span> Their body is low on fuel and fluids needed for performance <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Their bones are overdeveloped</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. A student eats colorful fruits and vegetables daily and notices better recovery after workouts. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their hydration is unnecessary</li>
+            <li><span class="letter">B.</span> Their protein is being wasted</li>
+            <li class="correct"><span class="letter">C.</span> Their body is receiving vitamins that support recovery and energy balance <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Their muscles are not adapting</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. A student eats nothing before afternoon practice and struggles with reaction time and decision-making. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their muscles are overtrained</li>
+            <li><span class="letter">B.</span> Their protein intake is too high</li>
+            <li class="correct"><span class="letter">C.</span> Their body lacks fuel needed for focus and performance <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Their hydration is too strong</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. A student starts eating a small balanced meal before practice and notices fewer cramps and better endurance. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their body is losing strength</li>
+            <li><span class="letter">B.</span> Their hydration is too low</li>
+            <li class="correct"><span class="letter">C.</span> Their body is receiving electrolytes and nutrients that support muscle function <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Their protein is no longer needed</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. A student notices their worst practices always follow days of poor food variety and skipped meals. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their sleep is the only factor affecting performance</li>
+            <li class="correct"><span class="letter">B.</span> Their body performance is strongly influenced by consistent micronutrient intake <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Their muscles are permanently weak</li>
+            <li><span class="letter">D.</span> Their hydration has no effect on performance</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+6%2C+Lesson+5%3A+Micronutrient%20Deficiencies%20and%20Performance%20Impact" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-6-4.html" class="prev">← Previous Lesson</a>
+        <a href="/" class="next">Course Outline →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

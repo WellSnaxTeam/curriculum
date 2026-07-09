@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 1: What are Micronutrients? — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 2: Micronutrients / Lesson 1
+    </div>
+
+    <div class="lesson">
+      <h1>What are Micronutrients?</h1>
+      <div class="meta">High School Course 2, Lesson 1</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> What are Micronutrients? <span class="module-time">6 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/TBNCqRCsSvY" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> What are Micronutrients? <span class="module-time">10 min</span></h2>
+                <p>The Truth About Micronutrients</p>
+        <p>Ever wonder why some days you feel like you could run a marathon, and other days you can barely stay awake in class? Or why your skin breaks out right before an important event? Or why you crush it at practice one week and feel sluggish the next?</p>
+        <p>The answer might not be what you think. It's not always about sleep or stress. Often, it comes down to micronutrients—the tiny vitamins and minerals your body absolutely needs to function. Without them, everything from your energy levels to your mood to your athletic performance falls apart.</p>
+        <p>Here's the deal: while macronutrients (like carbs, protein, and fat) give your body fuel, micronutrients are the workers behind the scenes. They're the chemical regulators that help your body produce the enzymes and hormones that keep you sharp, energized, and feeling your best.</p>
+        <p>What Are Micronutrients?</p>
+        <p>Micronutrients are essential vitamins and minerals your body needs in small amounts. Think of them as the difference between having a phone (macronutrients) and having the right apps and software to actually make it work (micronutrients).</p>
+        <p>There are two main types: vitamins and minerals. Let's break down what each one does for you.</p>
+        <p>Vitamins: The Organic Powerhouses</p>
+        <p>What they are: Vitamins are organic compounds made by plants and animals. Your body can't make most of them on its own, so you have to get them from food.</p>
+        <p>Why this matters to you: Without vitamins, your body can't repair the damage that happens every day from stress, exercise, and just living. You literally can't heal properly without them.</p>
+        <p>The Two Types of Vitamins</p>
+        <p>Fat-Soluble Vitamins (Vitamins A, D, E, K)</p>
+        <p>These vitamins dissolve in fat and stick around in your body longer. This means you can build them up over time, but you also need to be careful not to get too much.</p>
+        <ul>
+          <li>Vitamin A keeps your eyesight sharp (crucial for school and driving) and supports your immune system so you don't get sick as often</li>
+          <li>Vitamin D helps your bones stay strong (important if you're athletic or want to avoid injuries) and actually affects your mood—lack of it can make you feel depressed or unmotivated</li>
+          <li>Vitamin E protects your skin from damage, which is why dermatologists recommend it for clear, healthy skin</li>
+          <li>Vitamin K helps your blood clot, so if you get a cut or injury, you heal faster</li>
+        </ul>
+        <p>Water-Soluble Vitamins (Vitamin C and B-Complex Vitamins)</p>
+        <p>These dissolve in water and don't stick around in your body as long, so you need them more regularly.</p>
+        <ul>
+          <li>Vitamin C boosts your immune system (fewer sick days = more time with friends and better grades), helps your skin look clear, and gives you energy</li>
+          <li>B-Complex Vitamins are basically your brain's best friend—they help you focus in class, regulate your mood, and convert food into the energy you need to power through your day</li>
+        </ul>
+        <p>What Vitamins Do in Your Body</p>
+        <p>Vitamins work hard to:</p>
+        <ul>
+          <li>Repair cellular damage from exercise, stress, and environmental factors (meaning you recover faster from workouts and bounce back from tough weeks)</li>
+          <li>Regulate hormones that control your mood, energy, and how you feel overall</li>
+          <li>Release energy from food so you actually feel energized instead of sluggish after eating</li>
+          <li>Keep nerves, immune system, and organs functioning properly so you can focus, stay healthy, and perform at your best</li>
+        </ul>
+        <p>When Vitamin Intake Goes Wrong</p>
+        <p>Vitamin Deficiency: When your body doesn't get enough of a vitamin, you experience symptoms that directly affect your life—fatigue, brain fog, weak immune system (constant colds), mood swings, or even acne.</p>
+        <p>Hypervitaminosis (Vitamin Toxicity): When you get too much of a vitamin (usually from supplements), it can cause problems like headaches, nausea, or nerve damage.</p>
+        <p>The Balance: That's where Recommended Daily Allowances (RDA), Adequate Intake (AI), and Tolerable Upper Intake Levels (UL) come in. These guidelines, based on your age and gender, tell you how much of each vitamin you actually need—not too little, not too much.</p>
+        <p>Minerals: The Building Blocks</p>
+        <p>What they are: Minerals are inorganic substances found in water and soil. Your body absorbs them through plants and animals (which is why eating a variety of foods matters).</p>
+        <p>Why this matters to you: Minerals literally build your body—your bones, teeth, and muscles. Without them, you're weak, your bones are fragile, and your body can't do basic things like regulate your heartbeat or send signals from your brain to your muscles.</p>
+        <p>The Two Types of Minerals</p>
+        <p>Macrominerals (the body needs these in larger amounts)</p>
+        <p>These include calcium, magnesium, potassium, and sodium. They're the main structural components of your body.</p>
+        <ul>
+          <li>Calcium builds strong bones and teeth (especially important now while your skeleton is still developing) and helps your muscles contract during exercise</li>
+          <li>Magnesium reduces muscle soreness after workouts, helps you relax and sleep better, and actually improves your mood</li>
+          <li>Potassium regulates your heartbeat and helps muscles contract, so you perform better athletically</li>
+        </ul>
+        <p>Trace Minerals (the body needs these in smaller amounts)</p>
+        <p>These include iron, zinc, copper, and iodine. Even though you need less of them, they're just as critical.</p>
+        <ul>
+          <li>Iron carries oxygen to your muscles and brain—without it, you feel tired and can't concentrate in class</li>
+          <li>Zinc supports your immune system (fewer infections) and helps your skin heal faster from acne or cuts</li>
+        </ul>
+        <p>What Minerals Do in Your Body</p>
+        <p>Minerals work to:</p>
+        <ul>
+          <li>Build and maintain tissues like bones, muscles, and connective tissue (stronger bones = fewer injuries, more power in athletics)</li>
+          <li>Regulate fluid balance and nerve signals so your brain can communicate with your body and your muscles respond when you need them to</li>
+          <li>Support the immune system so you stay healthy and don't miss school or activities</li>
+          <li>Trigger the chemical reactions your body uses to maintain metabolism and produce energy (this is why mineral deficiency makes you feel exhausted)</li>
+        </ul>
+        <p>When Mineral Intake Goes Wrong</p>
+        <p>Mineral Deficiency (Micronutrient Undernutrition): When you don't get enough minerals, you feel tired, weak, unfocused, and your immune system tanks. You might also notice your bones feel fragile or your athletic performance drops.</p>
+        <p>Mineral Toxicity (Mineral Overload): Getting too much of a mineral (usually from supplements) can cause nausea, weakness, or organ damage.</p>
+        <p>The Balance: Just like with vitamins, RDA, AI, and UL guidelines help you get the right amount of each mineral for your age and gender.</p>
+        <p>The Bottom Line</p>
+        <p>Your body is constantly working, and micronutrients are the difference between feeling amazing and feeling terrible. They're why some days you're sharp, focused, and energized—and why other days you're foggy, moody, and exhausted.</p>
+        <p>The good news? You have control. By eating a variety of whole foods—fruits, vegetables, lean proteins, whole grains, and dairy—you can get most of the micronutrients your body needs. And when you do, you'll notice the difference: better focus in class, more energy at practice, clearer skin, better mood, and faster recovery.</p>
+        <p><strong>It's not just about health. It's about being your best self.</strong></p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Your Micronutrient Patterns <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+                  <p>Rate how you function in each of these areas on a scale of 1 to 10. 1 is the lowest and 10 is the highest.</p>
+        <ul>
+          <li>Energy level</li>
+          <li>Focus in class</li>
+          <li>Athletic performance</li>
+          <li>Sleep quality</li>
+          <li>Mood</li>
+        </ul>
+        <p>Part 2: Identify Patterns</p>
+        <p>Examine their typical weekly eating habits and identify:</p>
+        <p>Fruit intake:</p>
+        <ul>
+          <li>0–1 days per week</li>
+          <li>2–3 days per week</li>
+          <li>4–5 days per week</li>
+          <li>6–7 days per week</li>
+        </ul>
+        <p>Vegetable intake</p>
+        <ul>
+          <li>0–1 days per week</li>
+          <li>2–3 days per week</li>
+          <li>4–5 days per week</li>
+          <li>6–7 days per week</li>
+        </ul>
+        <p>Dairy or calcium-rich foods:</p>
+        <ul>
+          <li>0–1 days per week</li>
+          <li>2–3 days per week</li>
+          <li>4–5 days per week</li>
+          <li>6–7 days per week</li>
+        </ul>
+        <p>Whole grain intake:</p>
+        <ul>
+          <li>0–1 days per week</li>
+          <li>2–3 days per week</li>
+          <li>4–5 days per week</li>
+          <li>6–7 days per week</li>
+        </ul>
+        <p>Protein variety:</p>
+        <ul>
+          <li>Mostly the same protein source every day</li>
+          <li>Two different protein sources during the week</li>
+          <li>Three to four different protein sources during the week</li>
+          <li>Five or more different protein sources during the week</li>
+        </ul>
+        <p>Part 3: Reflection Discussion</p>
+        <ul>
+          <li>Which category is your strongest habit right now?</li>
+          <li>Which category is your weakest habit right now?</li>
+          <li>How do you usually feel on days when you eat more fruits and vegetables?</li>
+          <li>How do you usually feel on days when you eat fewer nutrient-rich foods?</li>
+          <li>Could micronutrient-rich foods help improve your energy, focus, mood, or athletic performance if you increased it?</li>
+        </ul>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Micronutrients Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. A student decides to skip foods rich in iron for several weeks. What is most likely happening in their body?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student may develop anemia due to lack of iron. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student will gain muscle mass quickly.</li>
+            <li><span class="letter">C.</span> The student will have improved vision immediately.</li>
+            <li><span class="letter">D.</span> The student will become dehydrated.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student eats an orange every day during cold season. What micronutrient are they most likely benefiting from, and what is its main function?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is getting vitamin D, which strengthens bones.</li>
+            <li><span class="letter">B.</span> The student is getting vitamin A, which improves night vision.</li>
+            <li class="correct"><span class="letter">C.</span> The student is getting vitamin C, which helps boost their immune system. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is getting vitamin K, which helps blood clot.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. A student avoids bananas and potatoes, which are high in potassium. What is most likely happening as a result?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student will have stronger hair due to lack of potassium.</li>
+            <li class="correct"><span class="letter">B.</span> The student may experience muscle cramps due to lack of potassium. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The student will have improved memory due to lack of potassium.</li>
+            <li><span class="letter">D.</span> The student will develop allergies due to lack of potassium.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. True or False: Micronutrients are needed in smaller amounts than macronutrients, but are still essential for health.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A student drinks milk and eats yogurt daily. What micronutrient are they most likely getting enough of, and what is its main function?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is likely getting enough magnesium, which helps with digestion.</li>
+            <li><span class="letter">B.</span> The student is likely getting enough sodium, which helps prevent dehydration.</li>
+            <li><span class="letter">C.</span> The student is likely getting enough iron, which helps prevent bruising.</li>
+            <li class="correct"><span class="letter">D.</span> The student is likely getting enough calcium, which helps build strong bones. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A student rarely eats meat, beans, or nuts, which are sources of zinc. What is most likely happening to their body?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student might develop high blood pressure due to lack of zinc.</li>
+            <li><span class="letter">B.</span> The student might have improved skin health due to lack of zinc.</li>
+            <li class="correct"><span class="letter">C.</span> The student might have a weakened immune system due to lack of zinc. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student might have stronger bones due to lack of zinc.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. A student spends time outside in the sun and drinks fortified milk. What micronutrient are they most likely getting, and what is its main function?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is likely getting vitamin B12, which helps with energy production.</li>
+            <li><span class="letter">B.</span> The student is likely getting vitamin E, which helps protect skin.</li>
+            <li class="correct"><span class="letter">C.</span> The student is likely getting vitamin D, which helps absorb calcium. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is likely getting vitamin C, which helps heal wounds.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A student avoids fruits and vegetables for several months. What condition might they develop due to a deficiency in a micronutrient?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student may develop scurvy due to lack of vitamin C. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student may develop rickets due to lack of vitamin C.</li>
+            <li><span class="letter">C.</span> The student may develop anemia due to lack of vitamin C.</li>
+            <li><span class="letter">D.</span> The student may develop diabetes due to lack of vitamin C.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. True or False: Eating a variety of foods is the best way for high schoolers to get all the micronutrients they need.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. A student eats carrots and sweet potatoes regularly. What micronutrient are they most likely getting, and what is its main function?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is likely getting vitamin K, which is important for blood clotting.</li>
+            <li><span class="letter">B.</span> The student is likely getting vitamin B6, which is important for metabolism.</li>
+            <li><span class="letter">C.</span> The student is likely getting vitamin D, which is important for bone health.</li>
+            <li class="correct"><span class="letter">D.</span> The student is likely getting vitamin A, which is important for vision. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. A student rarely eats leafy green vegetables, which are high in vitamin K. What is most likely happening as a result?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student may have trouble digesting food due to lack of vitamin K.</li>
+            <li><span class="letter">B.</span> The student may have trouble breathing due to lack of vitamin K.</li>
+            <li class="correct"><span class="letter">C.</span> The student may have trouble healing wounds due to lack of vitamin K. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student may have trouble remembering things due to lack of vitamin K.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. A student plans meals with fruits, vegetables, dairy, and lean meats. What is most likely happening regarding their micronutrient intake?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is making unhealthy choices by avoiding micronutrients.</li>
+            <li><span class="letter">B.</span> The student is only focusing on macronutrients and missing micronutrients.</li>
+            <li><span class="letter">C.</span> The student is getting too many micronutrients, which is harmful.</li>
+            <li class="correct"><span class="letter">D.</span> The student is making healthier choices by including a variety of micronutrients. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. A student who is vegetarian does not eat eggs or dairy. What is most likely happening if they do not find alternative sources of vitamin B12?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student may develop fatigue due to lack of vitamin B12. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student may develop high blood sugar due to lack of vitamin B12.</li>
+            <li><span class="letter">C.</span> The student may develop vision problems due to lack of vitamin B12.</li>
+            <li><span class="letter">D.</span> The student may develop skin rashes due to lack of vitamin B12.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. True or False: Micronutrient deficiencies can affect a student's ability to concentrate and perform well in school.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. A student eats nuts, seeds, and whole grains regularly. What micronutrient are they most likely getting, and what is its main function?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is likely getting sodium, which helps regulate blood pressure.</li>
+            <li><span class="letter">B.</span> The student is likely getting phosphorus, which helps build strong teeth.</li>
+            <li class="correct"><span class="letter">C.</span> The student is likely getting magnesium, which helps muscles and nerves function. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is likely getting iodine, which helps produce energy.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+2%2C+Lesson+1%3A+What%20are%20Micronutrients%3F" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="/" class="prev">← Course Outline</a>
+        <a href="hs-2-2.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

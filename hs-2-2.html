@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 2: Fat-Soluble Vitamins — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 2: Micronutrients / Lesson 2
+    </div>
+
+    <div class="lesson">
+      <h1>Fat-Soluble Vitamins</h1>
+      <div class="meta">High School Course 2, Lesson 2</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Key Vitamins- Fat Soluble <span class="module-time">12 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/oEFzt4tPXVc" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Key Vitamins- Fat Soluble <span class="module-time">10 min</span></h2>
+                <p>Fat‑Soluble Vitamins: How A, D, E, and K Affect Your Energy, Mood, Performance, Focus, and Appearance</p>
+        <p>Think about the last time you felt sluggish after a long day of practice, or noticed puffy skin or slow healing after a scrape. Small choices in what you eat can change how quickly you recover, how sharp you stay in class, how energized you feel during sports, and even how clear your skin looks. Fat‑soluble vitamins (A, D, E, and K) are stored in your body’s fat and liver and help produce those real-life results.</p>
+        <p>How fat‑soluble vitamins work:</p>
+        <ul>
+          <li>Fat‑soluble vitamins dissolve in fat and need dietary fat to be absorbed. If you eat vitamin‑rich foods with a healthy fat (olive oil, avocado, nuts), your body absorbs more of the vitamin — which can mean better energy, clearer thinking, and improved athletic recovery.</li>
+          <li>Extra amounts are stored in the liver and fatty tissue for later use. That storage helps in times of low intake but also means taking very large supplement doses can cause problems.</li>
+        </ul>
+        <p>Vitamin A — vision, immune strength, and skin</p>
+        <ul>
+          <li>Function in the body: Vitamin A helps keep your eyes working well so you can read, focus on screens, and react fast in sports. It supports your immune system so you miss fewer practice days and feel better overall. It also helps maintain healthy skin and mucous barriers — affecting appearance and infection resistance.</li>
+          <li>Forms:</li>
+          <li>Preformed vitamin A (retinol): active form from animal foods — immediately usable for vision and body processes.</li>
+          <li>Provitamin A (carotenoids, especially beta‑carotene): plant pigments the body converts into vitamin A.</li>
+          <li>Top food sources: Beef liver, fish, eggs, dairy (quick boost for vision and immune support); carrots, sweet potatoes, cantaloupe, spinach, and kale (plant sources that support long‑term skin and eye health).</li>
+          <li>Tip: Pair carrot sticks with a bit of hummus or cheese for better absorption.</li>
+        </ul>
+        <p>Vitamin D — bone strength, muscle, mood, and focus</p>
+        <ul>
+          <li>Function in the body: Vitamin D helps your body absorb calcium and phosphorus, which are essential for strong bones and reliable muscle function — important for sports performance and preventing fatigue or cramps. Vitamin D also supports immune response and mood regulation; low levels can contribute to low energy and lower concentration.</li>
+          <li>Sources: Sunlight (your skin makes D when exposed), fatty fish, egg yolks, mushrooms, and fortified foods (milk, cereal, orange juice). Supplements D2 and D3 are used to prevent or correct deficiency.</li>
+          <li>Interaction note: Taking vitamin K2 with vitamin D2 can help direct calcium to bones and teeth instead of soft tissues, protecting long‑term heart and artery health — relevant to future athletic health and long‑term fitness.</li>
+          <li>Practical habit: Spend safe time outdoors and include a weekly portion of fatty fish or fortified milk to support steady energy and mood.</li>
+        </ul>
+        <p>Vitamin E — antioxidant protection for cells, skin, and athletic recovery</p>
+        <ul>
+          <li>Function in the body: Vitamin E neutralizes free radicals that can cause muscle soreness and fatigue after intense workouts, supports immune function so you recover faster, and helps protect skin and hair — affecting appearance and feeling of wellbeing. It may also support cardiovascular health, helping endurance.</li>
+          <li>Top food sources: Plant oils (sunflower, safflower, soybean), nuts and seeds (almonds, hazelnuts), avocados, spinach, and some fish. A snack of nuts and fruit can help protect cells and boost recovery after practice.</li>
+        </ul>
+        <p>Vitamin K — clotting, bone health, and long‑term performance</p>
+        <ul>
+          <li>Function in the body: Vitamin K is essential for blood clotting, so it helps stop bleeding after cuts and protects you during contact sports. It also helps anchor calcium into bones, supporting bone strength and reducing stress fracture risk — directly impacting athletic durability and long‑term fitness.</li>
+          <li>Two forms:</li>
+          <li>Vitamin K1 (phylloquinone): mostly in leafy greens; important for blood clotting.</li>
+          <li>Vitamin K2 (menaquinone): better absorbed for bone and heart health; found in fermented foods, some animal products, and produced by gut bacteria.</li>
+          <li>Top food sources: Kale, spinach, collards, natto (fermented soybeans), soft cheeses, eggs, and certain meats. Including greens with meals supports both immediate blood clotting and long‑term bone health.</li>
+        </ul>
+        <p>Practical habits to turn facts into healthy outcomes</p>
+        <ul>
+          <li>Always include a source of healthy fat with vegetables and fortified foods to improve absorption (energy/focus/upgraded appearance).</li>
+          <li>Example: Add avocado or olive oil to a salad, or cook spinach in a little oil.</li>
+          <li>Eat a mix of animal and plant sources across the week to cover preformed vitamins and provitamins.</li>
+          <li>Example weekly plan: salmon or eggs twice a week, leafy greens several times per week, nuts/seeds as snacks, and a fruit high in carotenoids once daily.</li>
+          <li>Safe sun exposure plus diet: Get short periods of sun for vitamin D, and include fortified foods or discuss supplements with a healthcare provider if you’re indoors most days — this helps maintain mood, focus, and physical performance.</li>
+          <li>Recovery and appearance: After heavy exercise, choose snacks with vitamin E sources to support recovery and skin health.</li>
+          <li>Mind your supplements: Fat‑soluble vitamins can build up in the body.</li>
+        </ul>
+        <p>Quick self‑check: How to know if your habits are helping</p>
+        <ul>
+          <li>Energy and focus: You can complete classes and workouts without unusual fatigue; concentration feels steady.</li>
+          <li>Athletic performance: Muscles recover faster, fewer cramps, and better strength or endurance.</li>
+          <li>Mood and appearance: Stable mood, clearer skin, healthy hair, and cuts that stop bleeding normally.</li>
+          <li>If you notice persistent low energy, mood changes, frequent infections, vision trouble, slow healing, or bone pain, talk to a parent/guardian and a healthcare provider — these could be signs to check vitamin status.</li>
+        </ul>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Nutrient Mapping <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+                  <p>In this activity you will connect fat-soluble vitamins to your personal performance goals and create action steps for each goal.</p>
+        <p>Personal performance goals:</p>
+        <ul>
+          <li>Athletic (endurance, strength, agility, speed)</li>
+          <li>Academic</li>
+          <li>Skin health</li>
+          <li>Immune function</li>
+        </ul>
+        <p>Action Steps:</p>
+        <ul>
+          <li>Reflect: For each goal, identify how you are performing and name areas where you would like to improve for each.</li>
+          <li>Research: Which fat-soluble vitamin supports each goal? (Vitamin D for bone/muscle; A for vision/focus; E for recovery; K for blood flow)</li>
+          <li>Current state check: "How am I doing with this goal right now?"</li>
+          <li>Plan & commit: "To improve [goal], I will add [specific vitamin source] to my routine by [date]"</li>
+          <li>Results: Write down what your desired results are after stating your goals and creating a plan to improve</li>
+        </ul>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Fat-Soluble Vitamins Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. You spend time outside in the sunlight and drink fortified milk. What is most likely happening in your body?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Vitamin D helps the body absorb calcium, which is important for bone health. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Vitamin D helps the body digest carbohydrates for energy.</li>
+            <li><span class="letter">C.</span> Vitamin D increases the body's ability to break down fats.</li>
+            <li><span class="letter">D.</span> Vitamin D is only important for maintaining healthy skin.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student eats foods rich in vitamin A, such as carrots and sweet potatoes. What benefit are they most likely experiencing?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Vitamin A supports healthy vision, especially in low light. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Vitamin A helps muscles grow stronger.</li>
+            <li><span class="letter">C.</span> Vitamin A increases the body's ability to store fat.</li>
+            <li><span class="letter">D.</span> Vitamin A is only important for maintaining healthy teeth.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. Your friend chooses nuts and seeds as snacks, which are high in vitamin E. What is most likely happening in their body?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Vitamin E helps the body produce more red blood cells.</li>
+            <li><span class="letter">B.</span> Vitamin E increases the body's ability to absorb iron.</li>
+            <li class="correct"><span class="letter">C.</span> Vitamin E acts as an antioxidant, protecting cells from damage. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Vitamin E is only important for maintaining healthy hair.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. You enjoy eating leafy green vegetables, which are high in vitamin K. What is most likely happening if you get a small cut?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Vitamin K helps blood clot properly after an injury. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Vitamin K increases the body's energy levels.</li>
+            <li><span class="letter">C.</span> Vitamin K helps muscles contract more efficiently.</li>
+            <li><span class="letter">D.</span> Vitamin K is only important for maintaining healthy skin.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A student decides to eat a diet with no fat at all. What is most likely happening regarding their vitamin absorption?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> A student who avoids all fats will absorb fat soluble vitamins more efficiently.</li>
+            <li><span class="letter">B.</span> A student who avoids all fats will have increased energy from vitamins.</li>
+            <li><span class="letter">C.</span> A student who avoids all fats will not be affected by vitamin intake.</li>
+            <li class="correct"><span class="letter">D.</span> A student who avoids all fats may have trouble absorbing fat soluble vitamins. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A student spends time outdoors and their skin is exposed to sunlight. What is most likely happening regarding vitamin D?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Vitamin D can only be obtained from fruits.</li>
+            <li><span class="letter">B.</span> Vitamin D is produced in the liver when eating meat.</li>
+            <li class="correct"><span class="letter">C.</span> Vitamin D can be made in the skin when exposed to sunlight. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Vitamin D is only found in leafy vegetables.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. Where are fat soluble vitamins most likely stored in the body?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Fat soluble vitamins are stored in the stomach.</li>
+            <li class="correct"><span class="letter">B.</span> Fat soluble vitamins are stored in the body's fatty tissues and liver. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Fat soluble vitamins are stored in the bones.</li>
+            <li><span class="letter">D.</span> Fat soluble vitamins are stored in the muscles.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A student takes large doses of vitamin A and vitamin D supplements. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> A student who takes excessive amounts of fat soluble vitamins will always feel more energetic.</li>
+            <li><span class="letter">B.</span> A student who takes excessive amounts of fat soluble vitamins will have no health issues.</li>
+            <li class="correct"><span class="letter">C.</span> A student who takes excessive amounts of fat soluble vitamins may experience toxicity. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> A student who takes excessive amounts of fat soluble vitamins will lose weight quickly.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A friend  includes avocados and olive oil in their meals. What is most likely happening regarding vitamin absorption?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> A student who eats a balanced diet with healthy fats will absorb fewer vitamins.</li>
+            <li class="correct"><span class="letter">B.</span> A student who eats a balanced diet with healthy fats is more likely to absorb fat soluble vitamins. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> A student who eats a balanced diet with healthy fats will only absorb water soluble vitamins.</li>
+            <li><span class="letter">D.</span> A student who eats a balanced diet with healthy fats will have no effect on vitamin absorption.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. True or False: Fat soluble vitamins can build up in the body and cause health problems if taken in excess.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. True or False: Fat soluble vitamins must be consumed every day because the body cannot store them.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. You cut your finger and notice the bleeding stops quickly. What role is vitamin K most likely playing?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Vitamin K helps the body digest proteins for energy.</li>
+            <li><span class="letter">B.</span> Vitamin K increases the body's ability to break down carbohydrates.</li>
+            <li class="correct"><span class="letter">C.</span> Vitamin K helps the body stop bleeding by enabling blood clotting. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Vitamin K is only important for maintaining healthy bones.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. A student prefers fried foods and rarely eats vegetables. What is most likely happening regarding their fat soluble vitamin intake?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> A student who eats fried foods with little vegetables will get plenty of fat soluble vitamins.</li>
+            <li><span class="letter">B.</span> A student who eats fried foods with little vegetables will absorb all vitamins efficiently.</li>
+            <li class="correct"><span class="letter">C.</span> A student who eats fried foods with little vegetables may not get enough fat soluble vitamins. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> A student who eats fried foods with little vegetables will have improved vitamin K absorption.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. You read that vitamin E is important for cell health. What is most likely happening in your body when you eat foods rich in vitamin E?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Vitamin E helps the body digest sugars for energy.</li>
+            <li><span class="letter">B.</span> Vitamin E increases the body's ability to store calcium.</li>
+            <li><span class="letter">C.</span> Vitamin E is only important for maintaining healthy teeth.</li>
+            <li class="correct"><span class="letter">D.</span> Vitamin E protects cell membranes from damage by free radicals. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. A student who does not get enough vitamin A may experience which of the following issues?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Vitamin A deficiency can lead to vision problems, especially at night. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Vitamin A deficiency can lead to muscle cramps.</li>
+            <li><span class="letter">C.</span> Vitamin A deficiency can lead to increased energy levels.</li>
+            <li><span class="letter">D.</span> Vitamin A deficiency can lead to stronger bones.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+2%2C+Lesson+2%3A+Fat-Soluble%20Vitamins" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-2-1.html" class="prev">← Previous Lesson</a>
+        <a href="hs-2-3.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 1: What are macronutrients? — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 1: Macronutrients / Lesson 1
+    </div>
+
+    <div class="lesson">
+      <h1>What are macronutrients?</h1>
+      <div class="meta">High School Course 1, Lesson 1</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> What are macronutrients? <span class="module-time">12 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/VLUyLeQlP4s" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> What are Macronutrients? <span class="module-time">5 min</span></h2>
+                <p>Close your eyes for a second. How do you feel at this exact moment? Energized? Sluggish? Focused? Scattered?</p>
+        <p>Here's the thing: what you ate today is literally the reason. Not tomorrow. Not next week. Today. Your breakfast, your snack, that energy drink—they're all affecting how your brain works, how fast you can move, and how you handle stress right now.</p>
+        <p>The nutrients you eat are your body's operating system. And we're going to show you exactly how.</p>
+        <p>What Are Macronutrients?</p>
+        <p>Macronutrients are the essential nutrients your body needs in large amounts to function. Think of them as the three main fuel sources that power everything you do—from thinking in class to recovering from workouts.</p>
+        <p>The three macronutrients are:</p>
+        <ul>
+          <li>Carbohydrates — the primary source of fuel</li>
+          <li>Protein — responsible for all of the work your cells perform</li>
+          <li>Fats — helps the body absorb vitamins</li>
+        </ul>
+        <p>How your habits affect your results</p>
+        <p>Here's the real connection: what you choose to eat directly impacts how you feel and perform—both today and for years to come.</p>
+        <p>Your Habit</p>
+        <p>What Happens TODAY</p>
+        <p>What Happens Over Time</p>
+        <p>Eating carbs before class</p>
+        <p>Brain fog lifts, focus sharpens</p>
+        <p>Stable energy levels, better grades</p>
+        <p>Skipping breakfast</p>
+        <p>Low energy, hard to concentrate</p>
+        <p>Slower metabolism, weight gain, fatigue</p>
+        <p>Eating protein with meals</p>
+        <p>Feel full longer, less snacking</p>
+        <p>Stronger muscles, faster recovery, better mood</p>
+        <p>Choosing mostly processed foods</p>
+        <p>Energy crash after 1-2 hours</p>
+        <p>Increased risk of diabetes, heart disease, obesity</p>
+        <p>Including healthy fats</p>
+        <p>Better concentration, healthier skin</p>
+        <p>Reduced inflammation, better brain function, heart health</p>
+        <p>Drinking lots of water with meals</p>
+        <p>Better digestion, clearer skin</p>
+        <p>Improved kidney function, better hydration</p>
+        <hr style="margin:1rem 0;border:none;border-top:1px solid #e2e8f0;">
+        <p>How Each Macronutrient Works in Your Body</p>
+        <p>Carbohydrates</p>
+        <ul>
+          <li>The body's primary source of fuel</li>
+          <li>Regulates digestion</li>
+          <li>Regulates blood sugar levels</li>
+        </ul>
+        <p>Protein</p>
+        <ul>
+          <li>Builds and repairs tissue</li>
+          <li>Aids the immune system</li>
+          <li>Regulates hormones</li>
+        </ul>
+        <p>Fats</p>
+        <ul>
+          <li>Aid in nutrient absorption</li>
+          <li>Provides insulation</li>
+          <li>Responsible for healthy brain and nerve function</li>
+        </ul>
+        <p>ATHLETES: This Matters Even MORE for You</p>
+        <p>If you play sports or work out regularly, macronutrients aren't just about health—they're about performance and recovery.</p>
+        <ul>
+          <li>Carbs fuel your workouts — Without enough, you'll feel weak and tired during practice.</li>
+          <li>Protein rebuilds muscle — After you work out, protein repairs the tiny tears in your muscles, making them stronger.</li>
+          <li>Fats support your brain — Better focus = better decisions on the field or court.</li>
+        </ul>
+        <p>Real talk: Athletes who eat strategically perform better, recover faster, and stay healthier. What you eat is part of your training.</p>
+        <p>The Bottom Line</p>
+        <p>Without these nutrients, your body goes into "preservation mode"—organ systems slow down, and your body starts breaking down its own tissue for energy. That's not just uncomfortable; it's dangerous.</p>
+        <p>You get to choose every single meal, whether you're fueling up or breaking down. Now you know what each macronutrient does. What will you choose today?</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Macronutrients Reflection <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+                  <p>Daily Life Reflection</p>
+        <ol>
+          <li>How would you describe your energy level throughout a typical school day?</li>
+          <li>When do you feel most energized?</li>
+          <li>When do you feel tired, sluggish, or unable to focus?</li>
+        </ol>
+        <p>4. What foods do you usually eat for breakfast, lunch, dinner, and snacks?</p>
+        <p>Sports/Activity Reflection</p>
+        <p>5. Are you involved in sports, exercise, or other physical activities?</p>
+        <p>6. How would you rate your performance and recovery after practices or workouts?</p>
+        <p>7. Have you ever felt unusually tired during an activity? What did you eat beforehand?</p>
+        <p>8. Do you think your nutrition helps or hurts your performance? Explain.</p>
+        <p>Part 2: Macronutrient Self-Assessment</p>
+        <p>Complete the chart below.</p>
+        <p>Statement</p>
+        <p>Always</p>
+        <p>Sometimes</p>
+        <p>Never</p>
+        <p><strong>I eat carbohydrates before physical activity.</strong></p>
+        <p><strong>I eat protein throughout the day.</strong></p>
+        <p><strong>I include healthy fats in my meals.</strong></p>
+        <p><strong>I skip meals.</strong></p>
+        <p><strong>I eat breakfast regularly.</strong></p>
+        <p><strong>I choose nutrient-dense foods over highly processed foods.</strong></p>
+        <p><strong>I drink water regularly.</strong></p>
+        <p>Reflection Questions</p>
+        <ul>
+          <li>Which macronutrient do you think you consume the most?</li>
+          <li>Which macronutrient do you think you consume the least?</li>
+          <li>How might this impact your energy, focus, recovery, or performance?</li>
+        </ul>
+        <p>Part 3: Case Study Analysis</p>
+        <p>Compare the athletes below and answer the discussion questions:</p>
+        <p>Athlete A</p>
+        <ul>
+          <li>Eats donuts and energy drinks for breakfast.</li>
+          <li>Skips lunch.</li>
+          <li>Eats a large fast-food dinner.</li>
+          <li>Often feels tired during practice.</li>
+        </ul>
+        <p>Athlete B</p>
+        <ul>
+          <li>Eats oatmeal and fruit for breakfast.</li>
+          <li>Eats a turkey sandwich and vegetables for lunch.</li>
+          <li>Eats chicken, rice, and vegetables for dinner.</li>
+          <li>Drinks water throughout the day.</li>
+        </ul>
+        <p>Discussion Questions</p>
+        <ol>
+          <li>Which athlete will likely perform better in school and sports?</li>
+          <li>Which macronutrients are missing or excessive in Athlete A's diet?</li>
+          <li>How might Athlete A's habits affect energy, focus, recovery, and performance?</li>
+          <li>What small changes could Athlete A make?</li>
+          <li>What informed decisions is Athlete B making?</li>
+        </ol>
+        <p>Part 4: Action Plan for Change</p>
+        <p>Create a SMART goal related to macronutrients.</p>
+        <p>Examples</p>
+        <ul>
+          <li>"I will eat a protein source at breakfast at least 4 days this week."</li>
+          <li>"I will replace chips with a fruit and protein snack after practice 3 times this week."</li>
+          <li>"I will drink water and eat a carbohydrate snack before every game this month."</li>
+        </ul>
+        <p>Planning Questions</p>
+        <ol>
+          <li>What change will you make?</li>
+          <li>Why is this change important?</li>
+          <li>What obstacles might get in your way?</li>
+          <li>How will you overcome those obstacles?</li>
+        </ol>
+        <p><strong>5. How will this improve your daily performance and athletic performance?</strong></p>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Macronutrients Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. A student eats a large bowl of plain pasta about 1 hour before soccer practice and notices they can sprint repeatedly during the first half of practice. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their body is using stored fat for quick bursts of energy.</li>
+            <li class="correct"><span class="letter">B.</span> Their carbohydrate intake increased available blood glucose and muscle glycogen for high-intensity activity. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Their protein is being used as the primary energy source for sprints.</li>
+            <li><span class="letter">D.</span> Their vitamin stores are fueling immediate muscle contractions.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student skips breakfast and feels lightheaded and unable to concentrate during a morning chemistry test. Which macronutrient-related cause is most likely?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Low protein causing immediate loss of neurotransmitters.</li>
+            <li><span class="letter">B.</span> Dehydration from lack of water intake only.</li>
+            <li class="correct"><span class="letter">C.</span> Low available carbohydrates resulting in reduced blood glucose for brain function. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Excess fat slowing digestion and causing fatigue.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. A student eats a snack with nuts and cheese between weightlifting sets and notices they feel full and have more stable energy over the next hour. What macronutrient effect best explains this?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Fats and proteins slow gastric emptying, maintaining steady energy and satiety. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Carbohydrates from the snack rapidly spike blood sugar then crash.</li>
+            <li><span class="letter">C.</span> The snack increases fiber absorption that immediately raises energy.</li>
+            <li><span class="letter">D.</span> Micronutrients in nuts cause instant muscle recovery.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. During a long-distance run, a student "hits the wall" (sudden extreme fatigue) after about 90 minutes. Which explanation related to macronutrients is most likely?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Rapid depletion of stored muscle glycogen (carbohydrates). <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Lack of consumed protein during the race.</li>
+            <li><span class="letter">C.</span> Excess dietary fat blocking oxygen delivery.</li>
+            <li><span class="letter">D.</span> Too much water diluting blood nutrients.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A student follows a very low-carbohydrate diet for a week before a timed mile and notices they feel slower and breathe heavier. What macronutrient-related mechanism likely caused this change?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Increased protein turned into glucose instantly, improving performance.</li>
+            <li class="correct"><span class="letter">B.</span> Reduced carbohydrate availability forced greater reliance on fat oxidation, which is slower for high-intensity efforts. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Higher fat intake directly increases oxygen transport efficiency.</li>
+            <li><span class="letter">D.</span> Lower fat intake causes reduced ATP production at rest.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A student drinks a protein shake immediately after a resistance-training session and later reports less muscle soreness and quicker recovery. Which macronutrient role does this best illustrate?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Carbohydrates rebuild cell membranes.</li>
+            <li class="correct"><span class="letter">B.</span> Protein supplies amino acids necessary for muscle repair and synthesis. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Fat converts to glycogen to replenish muscles.</li>
+            <li><span class="letter">D.</span> Fiber increases protein absorption for recovery.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. A student eating a high-sugar sports drink during a long practice performs well early but crashes with reduced focus later. Which combination best explains the pattern?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Rapid carbohydrate absorption gives quick energy, then a reactive hypoglycemia-like drop in blood glucose. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Fat content in the drink prevented absorption of sugars.</li>
+            <li><span class="letter">C.</span> Protein in the drink caused insulin suppression.</li>
+            <li><span class="letter">D.</span> Vitamins in the drink caused overstimulation then fatigue.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A student follows a very high-protein, low-carbohydrate meal plan but complains of low endurance during gym class. Which is the most plausible macronutrient explanation?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Excess protein directly blocks oxygen uptake.</li>
+            <li class="correct"><span class="letter">B.</span> Insufficient carbohydrates reduce glycogen stores needed for sustained aerobic and anaerobic activity. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Low fat causes immediate muscle cramps.</li>
+            <li><span class="letter">D.</span> Protein transforms into fat quickly, limiting energy availability.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student eats a balanced meal with whole grains, lean meat, and vegetables three hours before an exam and reports steady concentration. Which macronutrient principle supports this outcome?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Balanced meals combining complex carbohydrates, protein, and some fat provide sustained energy and stable blood glucose. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Eating protein alone causes immediate cognitive boosts for hours.</li>
+            <li><span class="letter">C.</span> High fat and no carbs will keep glucose stable for exams.</li>
+            <li><span class="letter">D.</span> Micronutrients are the only factor affecting concentration.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. True/False: A meal very high in fat and low in carbohydrates is ideal immediately before a 100-meter sprint because fat provides the fastest available energy for very short bursts.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. True/False: Consuming adequate carbohydrates in the days before a long athletic event helps "carb-load" and maximize muscle glycogen stores for improved endurance.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. A student drinks only water during a 3-hour basketball tournament and later experiences decreased performance and frequent cramps. Which macronutrient-related factor might contribute to cramps in addition to fluids and electrolytes?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Lack of carbohydrate intake leading to reduced muscle energy and possible early fatigue contributing to cramps. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Excess protein intake during the tournament.</li>
+            <li><span class="letter">C.</span> High fiber intake causing electrolyte imbalance.</li>
+            <li><span class="letter">D.</span> Fat intake inhibits muscle contraction.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. A cross-country runner eats a candy bar immediately before an interval workout and notices a burst of speed but then cannot sustain repeats. What best explains this response?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The candy bar's simple sugars caused a quick blood glucose rise and insulin response, giving short-term energy followed by a rapid drop. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Candy is high in protein, which sustains long-term energy for intervals.</li>
+            <li><span class="letter">C.</span> The fat in the candy bar provided immediate fuel for sprinting.</li>
+            <li><span class="letter">D.</span> Fiber in the candy bar slowed digestion and sustained repeats.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. A student regularly skips protein at dinner and finds they feel weaker in strength training the next day. Which macronutrient explanation is most likely?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Without evening protein, overnight muscle protein synthesis is reduced, limiting recovery and next-day strength. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Lack of evening fat prevents glycogen storage.</li>
+            <li><span class="letter">C.</span> Skipping protein increases carbohydrate storage, causing weakness.</li>
+            <li><span class="letter">D.</span> Missing protein only affects flexibility, not strength.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. A student uses an energy gel (high in simple carbohydrates) during a cycling race and maintains steady pace, but a teammate who uses the same gel without drinking water vomits. What is the most likely reason the teammate reacted poorly?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The teammate lacked the necessary enzymes to digest carbohydrates.</li>
+            <li class="correct"><span class="letter">B.</span> The concentrated carbohydrate gel without adequate water caused gastrointestinal distress; proper fluid intake helps gastric emptying and absorption. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The gel contains protein that must be taken with fat to prevent vomiting.</li>
+            <li><span class="letter">D.</span> The gel stimulated too much muscle glycogen synthesis causing nausea.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+1%2C+Lesson+1%3A+What%20are%20macronutrients%3F" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="/" class="prev">← Course Outline</a>
+        <a href="hs-1-2.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

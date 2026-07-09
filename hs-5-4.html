@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 4: Pre, During, and Post Activity Fueling — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 5: Daily Fueling Basics / Lesson 4
+    </div>
+
+    <div class="lesson">
+      <h1>Pre, During, and Post Activity Fueling</h1>
+      <div class="meta">High School Course 5, Lesson 4</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Pre, During, and Post Activity Fueling <span class="module-time">3 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/R_p89fePErA" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Pre, During, and Post Activity Fueling <span class="module-time">15 min</span></h2>
+                <p>The Real Cost of Poor Fueling Decisions</p>
+        <p>You've probably experienced it: that moment during practice, a game, or even just your afternoon classes when your energy completely crashes. Your legs feel heavy, your focus disappears, and suddenly everything feels harder than it should. Or maybe you've noticed that on days when you eat poorly, your mood is off, your skin breaks out, or you just feel sluggish and unmotivated. Here's what's actually happening: your body is a machine that runs on fuel, and when you don't fuel it strategically, everything suffers—your athletic performance, your mental clarity, your energy levels, and even your appearance.</p>
+        <p>The good news? With a few simple adjustments to when and what you eat around your physical activity, you can dramatically change how you feel and perform. This isn't about restrictive dieting or complicated meal plans. It's about understanding how your body uses food as fuel and making intentional choices that work for your schedule and goals.</p>
+        <p>Pre-Activity Fueling: Setting Yourself Up for Success</p>
+        <p>Why Pre-Activity Nutrition Matters</p>
+        <p>Before you exercise, your body needs fuel in the tank. Think of it like starting a car on an empty tank—it won't perform well. When you exercise without proper pre-activity nutrition, your energy levels plummet, your muscles don't have the glucose they need to contract effectively, and your mental focus suffers. This means weaker performance in the gym, on the field, or court, and it can affect your mood and motivation for hours afterward.</p>
+        <p>Timing Is Everything</p>
+        <p>The timing of your pre-activity meal depends on the size of the meal and the intensity of your activity:</p>
+        <p>2-3 hours before activity (larger meal): If you have a few hours before intense exercise, eat a balanced meal with carbohydrates, protein, and healthy fats. Example: grilled chicken with brown rice and roasted vegetables, or a turkey sandwich on whole wheat with avocado. This gives your body time to digest while providing sustained energy throughout your workout. You'll notice the difference in your endurance and strength—your muscles will have the fuel they need to perform at their peak.</p>
+        <p>1-2 hours before activity (moderate snack): If you're closer to your activity time, choose something smaller and easier to digest. A banana with almond butter, Greek yogurt with granola, or a protein bar works well. This prevents the sluggish, bloated feeling that comes from exercising on a full stomach while still giving you energy. Your focus will be sharper, and you won't feel that heavy, uncomfortable sensation during your workout.</p>
+        <p>15-30 minutes before activity (light snack): If you're just about to start, keep it simple and quick to digest. A banana, a handful of pretzels, or a sports drink with carbs and electrolytes will give you an immediate energy boost. This matters especially if you didn't eat earlier—even this small amount can prevent the energy crash that tanks your performance.</p>
+        <p>What to Eat: The Carb-Protein Balance</p>
+        <p>Carbohydrates are your primary fuel. Your muscles and brain prefer carbs for energy, especially during intense activity. When you have adequate carbs before exercise, you'll have better endurance, faster reaction time, and improved athletic performance. Without them, you'll feel weak and fatigued.</p>
+        <p>Focus on complex carbohydrates that digest more slowly and provide sustained energy:</p>
+        <ul>
+          <li>Oatmeal</li>
+          <li>Brown rice</li>
+          <li>Whole wheat bread or pasta</li>
+          <li>Sweet potatoes</li>
+          <li>Fruits (bananas, berries, apples)</li>
+        </ul>
+        <p>Protein helps preserve muscle and provides sustained energy. Including some protein in your pre-activity meal prevents muscle breakdown during exercise and helps you feel fuller longer. This means better performance during your workout and less hunger-related mood swings.</p>
+        <p>Good pre-activity protein sources:</p>
+        <ul>
+          <li>Greek yogurt</li>
+          <li>Eggs</li>
+          <li>Lean meats (chicken, turkey)</li>
+          <li>Nuts and nut butters</li>
+          <li>Protein powder</li>
+        </ul>
+        <p>Healthy fats slow digestion, so use them sparingly before intense activity. A little bit of fat (like avocado or olive oil) is fine in a meal 2-3 hours before exercise, but too much fat right before activity can cause digestive discomfort and sluggishness.</p>
+        <p>Hydration Before Activity</p>
+        <p>Start your activity already hydrated. Waiting until you're thirsty during exercise is too late—dehydration has already begun to affect your performance and focus.</p>
+        <p>Drink 16-20 ounces of water 2-3 hours before activity. This gives your body time to absorb the fluid and regulate it through your kidneys. You'll notice you can push harder during your workout, your focus stays sharp, and you recover faster afterward.</p>
+        <p>Drink another 8-10 ounces about 15-20 minutes before you start. This "top-up" ensures you're fully hydrated without causing discomfort during activity.</p>
+        <p>During-Activity Fueling: Sustaining Your Performance</p>
+        <p>Why Mid-Activity Nutrition Matters</p>
+        <p>For activities lasting less than 60 minutes, water alone is usually sufficient. But for anything longer—extended practices, tournaments, long-distance running, or back-to-back games—your body needs fuel during the activity to maintain performance, mood, and focus.</p>
+        <p>When you don't fuel during extended activity, your blood sugar drops, your energy crashes, your mood becomes irritable, and your athletic performance declines noticeably in the second half. You've probably experienced this: feeling strong at the start but completely gassed by the end.</p>
+        <p>Hydration During Activity</p>
+        <p>Drink 7-10 ounces of fluid every 10-20 minutes during activity. This prevents dehydration, which directly impacts your athletic performance, mental focus, and even your skin (dehydration causes fatigue and can trigger breakouts).</p>
+        <p>For activities longer than 60 minutes, choose a sports drink containing carbohydrates (6-8%) and electrolytes (sodium and potassium). Examples include Gatorade, Powerade, or coconut water. The carbs provide quick energy to fuel your muscles, while electrolytes help your body retain fluid and maintain proper muscle function. You'll notice you can sustain your effort longer, your mood stays more stable, and you recover faster.</p>
+        <p>For shorter activities under 60 minutes, water is fine. Your body has enough stored glucose to fuel the activity, so you don't need the added sugar.</p>
+        <p>Fuel During Extended Activity</p>
+        <p>For activities lasting 60-90 minutes or longer, consume 30-60 grams of carbohydrates per hour. This sounds like a lot, but it's easier than you think:</p>
+        <ul>
+          <li>A sports drink (16-20 ounces per hour) provides about 30-40 grams of carbs</li>
+          <li>A banana or energy bar provides about 25-30 grams</li>
+          <li>Energy gels or chews provide quick carbs in an easy-to-consume format</li>
+        </ul>
+        <p>The payoff? You'll maintain your energy levels, your athletic performance won't fade in the final minutes, your focus stays sharp, and you'll feel significantly better during recovery.</p>
+        <p>Choose easily digestible carbs: Your digestive system is working hard during exercise, so stick with simple carbs that won't upset your stomach:</p>
+        <ul>
+          <li>Sports drinks</li>
+          <li>Bananas</li>
+          <li>Energy gels or chews</li>
+          <li>Pretzels or crackers</li>
+          <li>Dried fruit</li>
+        </ul>
+        <p>Avoid high-fiber, high-fat, or high-protein foods during activity—these are harder to digest and can cause stomach discomfort.</p>
+        <p>Post-Activity Recovery: The Often-Overlooked Game-Changer</p>
+        <p>Why Post-Activity Nutrition Matters</p>
+        <p>What you eat after exercise is just as important as what you eat before. Your muscles are primed to absorb nutrients during the 30-60 minutes immediately following activity. This is your window to replenish glycogen (stored carbs), repair muscle damage, and rehydrate. Miss this window, and your recovery suffers—you'll feel more sore, tired, and sluggish for days. Your mood may suffer, your athletic performance in your next workout will be compromised, and your appearance (muscle definition and overall energy) will reflect poor recovery.</p>
+        <p>Rehydration After Activity</p>
+        <p>Drink 16-24 ounces of fluid for every pound of body weight lost during activity. You can estimate this: if you weighed yourself before and after exercise, the difference is your fluid loss. This matters because proper rehydration affects your mood, energy levels, cognitive function, and how quickly you recover for your next workout.</p>
+        <p>Include electrolytes in your post-activity drink, especially after intense or prolonged exercise. Sports drinks, coconut water, or even chocolate milk work well. The sodium helps your body retain fluid, and the carbs begin the recovery process immediately.</p>
+        <p>The Post-Activity Recovery Window (30-60 Minutes)</p>
+        <p>Eat a snack or meal containing carbohydrates and protein within 30-60 minutes after activity. This is when your muscles are most receptive to nutrients.</p>
+        <p>The ideal ratio: 3-4 grams of carbs for every 1 gram of protein. This combination replenishes your glycogen stores (which fuels your next workout), repairs muscle tissue, and reduces inflammation.</p>
+        <p>Easy post-activity snack options:</p>
+        <ul>
+          <li>Chocolate milk (surprisingly effective—it has the right carb-to-protein ratio)</li>
+          <li>Greek yogurt with berries and granola</li>
+          <li>Turkey and cheese sandwich on whole wheat</li>
+          <li>Banana with peanut butter</li>
+          <li>Protein smoothie with fruit and milk</li>
+          <li>Hard-boiled eggs with whole grain crackers</li>
+          <li>Cottage cheese with fruit</li>
+          <li>Tuna salad on whole grain bread</li>
+        </ul>
+        <p>Full Post-Activity Meal (1-2 Hours After Activity)</p>
+        <p>If you have time, eat a balanced meal with carbs, protein, and vegetables within 1-2 hours:</p>
+        <ul>
+          <li>Grilled salmon with sweet potato and broccoli</li>
+          <li>Chicken stir-fry with brown rice and vegetables</li>
+          <li>Lean beef with pasta and tomato sauce</li>
+          <li>Turkey meatballs with quinoa and roasted vegetables</li>
+        </ul>
+        <p>This completes your recovery and ensures you're fully refueled for your next activity. You'll notice improved performance in your next workout, better mood, clearer focus, and faster muscle recovery.</p>
+        <p>Putting It All Together: Real-World Scenarios</p>
+        <p>Early morning workout before school:</p>
+        <ul>
+          <li>15-30 minutes before: banana or toast with honey</li>
+          <li>During (if over 60 min): water or sports drink</li>
+          <li>After: chocolate milk or protein bar before school</li>
+        </ul>
+        <p>Afternoon practice after classes:</p>
+        <ul>
+          <li>Lunch 2-3 hours before: balanced meal with carbs and protein</li>
+          <li>30-60 minutes before practice: light snack if hungry</li>
+          <li>During (if over 60 min): water or sports drink</li>
+          <li>After: recovery snack within 30-60 minutes, then dinner</li>
+        </ul>
+        <p>Competition or tournament:</p>
+        <ul>
+          <li>Morning: balanced breakfast 2-3 hours before first event</li>
+          <li>Between events: sports drink, banana, or energy bar</li>
+          <li>During events (if over 60 min): sports drink</li>
+          <li>After: recovery meal with carbs and protein</li>
+        </ul>
+        <p>The Bottom Line</p>
+        <p>Your body is constantly responding to the fuel you provide. When you fuel strategically—with the right foods at the right times—you'll perform better athletically, think more clearly, feel more energized, maintain a better mood, and even look better as your body composition improves and your skin clears. These aren't complicated changes. They're simple, intentional choices that compound over time. Start with one or two strategies from this guide, notice how you feel, and build from there. Your future self—and your performance—will thank you.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Your Physical Activity Fueling Plan <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+                  <p>Design a personalized fueling routine for a typical day with physical activity.</p>
+        <p>Include:</p>
+        <ul>
+          <li>What you will eat before activity</li>
+          <li>What you will drink before and during activity</li>
+          <li>What you will eat after activity</li>
+          <li>Approximate timing for each</li>
+        </ul>
+        <p>Compare your plan to your current habits.</p>
+        <p>Reflection Questions:</p>
+        <ul>
+          <li>Which part of your plan will be easiest?</li>
+          <li>Which part will be most challenging?</li>
+          <li>Why is this plan realistic for your schedule?</li>
+        </ul>
+        <p>Commitment:</p>
+        <p><strong>Identify one habit you will begin practicing this week.</strong></p>
+        <p>When creating a plan for a new habit it is important to think about potential obstacles so you can plan for them before they become an issue. It helps eliminate decision fatigue and builds resistance so you can reinforce your new habits without the temptation of choosing old habits.</p>
+        <p>Part 2: Fueling Barriers and Solutions</p>
+        <p>Activity:</p>
+        <p>Identify obstacles that prevent you from fueling well before or after activity (time, schedule, food availability, forgetting, etc.).</p>
+        <p>For each barrier:</p>
+        <ul>
+          <li>Describe how it affects your performance.</li>
+          <li>Brainstorm one realistic solution.</li>
+          <li>Select the solution you are most likely to implement.</li>
+        </ul>
+        <p>Commitment:</p>
+        <p><strong>Write a plan for using your solution during the next week.</strong></p>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Pre, During, and Post Activity Fueling Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. Jordan eats a small banana and whole-grain toast with peanut butter 45 minutes before soccer practice. What is most likely happening during practice?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Jordan will have a slow but steady release of energy and some quick glucose from the banana <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Jordan will experience immediate muscle growth from the peanut butter protein</li>
+            <li><span class="letter">C.</span> Jordan will be unable to use carbohydrates efficiently during exercise</li>
+            <li><span class="letter">D.</span> Jordan will quickly dehydrate because fruit contains too much water</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A friend drinks a sports drink with carbohydrates and electrolytes during a 90-minute tennis match in hot weather. What is most likely happening in her body?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Her blood glucose and sodium levels are better maintained, slowing fatigue and reducing cramp risk <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Her muscles are building lactic acid faster because of extra sugar in the drink</li>
+            <li><span class="letter">C.</span> Her digestion shuts down completely, preventing energy use</li>
+            <li><span class="letter">D.</span> Her body stops sweating because electrolytes block fluid loss</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. A student skips dinner and runs a 10K race the next morning without eating. What is most likely happening to his performance?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He will automatically burn only fat and have more endurance</li>
+            <li class="correct"><span class="letter">B.</span> He may tire earlier and feel weak because liver glycogen stores are low <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> He will perform at peak speed due to a “fasted energy boost”</li>
+            <li><span class="letter">D.</span> He will instantly replace glucose during the race through muscle protein</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. Sofia eats a meal high in simple sugars (candy and soda) two hours before weightlifting. What is most likely to occur?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> She may experience a rapid spike and drop in blood sugar, leading to energy fluctuations <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> She will have long-lasting steady energy because simple sugars digest slowly</li>
+            <li><span class="letter">C.</span> Her hydration will dramatically improve from sugar intake alone</li>
+            <li><span class="letter">D.</span> Her muscles will immediately double their strength from sugar intake</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A friend consumes a recovery snack of chocolate milk and a banana within 30 minutes after sprint intervals. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Muscle glycogen is being replenished while protein supports muscle repair <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> His body immediately stores all nutrients as fat instead of repairing muscle</li>
+            <li><span class="letter">C.</span> His muscles stop recovering because sugar blocks adaptation</li>
+            <li><span class="letter">D.</span> His bones harden instantly due to calcium absorption</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. Paula drinks plain water during a 20-minute low-intensity walk on a cool day. What is most likely occurring?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She is overhydrating and risking electrolyte imbalance</li>
+            <li class="correct"><span class="letter">B.</span> Water intake matches fluid loss, maintaining normal hydration <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> She needs a carbohydrate drink or she will cramp immediately</li>
+            <li><span class="letter">D.</span> Water prevents her body from using stored energy</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. Your friend eats a high-protein, low-carb breakfast before competitive swimming. What is most likely to happen?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He will automatically convert protein into instant glycogen for energy</li>
+            <li><span class="letter">B.</span> He will swim faster because protein provides the quickest fuel source</li>
+            <li class="correct"><span class="letter">C.</span> He may have less readily available glucose for high-intensity bursts, reducing peak power <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> He will not sweat during exercise due to protein metabolism</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. Emma snacks on trail mix (nuts and dried fruit) during a long cross-country session. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The fats prevent any carbohydrate use during exercise</li>
+            <li><span class="letter">B.</span> The snack causes immediate dehydration and cramping</li>
+            <li><span class="letter">C.</span> She receives only slow-burning energy with no quick fuel available</li>
+            <li class="correct"><span class="letter">D.</span> She gets a mix of quick carbs and sustained fats/protein to support endurance <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. Luis consumes caffeine (coffee) 60 minutes before a short, intense workout. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> His muscles instantly store more glycogen due to caffeine</li>
+            <li><span class="letter">B.</span> He becomes unable to use oxygen efficiently during exercise</li>
+            <li class="correct"><span class="letter">C.</span> He may experience increased alertness and improved focus or power <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> He immediately builds muscle mass from caffeine intake</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. Naomi forgets to replace fluids and electrolytes after a long match and feels dizzy the next day. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Her body is adapting by increasing endurance</li>
+            <li><span class="letter">B.</span> She has increased blood volume causing dizziness</li>
+            <li><span class="letter">C.</span> She is gaining strength due to lower fluid levels in muscles</li>
+            <li class="correct"><span class="letter">D.</span> She may be experiencing dehydration and low blood sodium <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. Carlos eats a large, greasy meal 30 minutes before a track workout and feels sluggish. Why is this most likely?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Fat causes immediate muscle inflammation that slows movement</li>
+            <li class="correct"><span class="letter">B.</span> Fatty meals slow digestion and divert blood flow to the stomach, reducing available energy <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Fat blocks oxygen from reaching muscles during exercise</li>
+            <li><span class="letter">D.</span> Grease instantly lowers blood sugar too quickly</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. Hannah consistently times carbs and protein around training sessions. What is most likely over time?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She will not need sleep because nutrition replaces recovery</li>
+            <li><span class="letter">B.</span> She will stop adapting because fueling removes all training stress</li>
+            <li class="correct"><span class="letter">C.</span> She will improve recovery and training consistency through better glycogen replenishment and repair <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> She will store all carbohydrates as fat regardless of activity</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. You drink a high-carbohydrate gel during a long bike race and later eat a solid snack. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The gel permanently stops digestion of solid foods</li>
+            <li><span class="letter">B.</span> The gel causes insulin resistance during exercise</li>
+            <li class="correct"><span class="letter">C.</span> The gel provides quick energy while the solid snack sustains energy later <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The snack cancels out the effect of the gel</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. Olivia chooses a light, carbohydrate-rich snack before a morning basketball tryout. What is most likely to result?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She becomes overly full and sluggish due to digestion</li>
+            <li class="correct"><span class="letter">B.</span> She feels more energetic and responsive compared to a heavy meal <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> She cannot use stored energy during the tryout</li>
+            <li><span class="letter">D.</span> She instantly increases muscle mass from carbohydrates</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. Ethan consistently rehydrates with electrolytes after long practices. Over time, what is most likely?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He becomes dependent on electrolyte drinks and cannot use water effectively</li>
+            <li><span class="letter">B.</span> His muscles stop using glycogen for energy</li>
+            <li class="correct"><span class="letter">C.</span> He reduces risk of cramping and improves recovery and performance <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> He gains significant fat mass from electrolyte drinks</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+5%2C+Lesson+4%3A+Pre%2C%20During%2C%20and%20Post%20Activity%20Fueling" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-5-3.html" class="prev">← Previous Lesson</a>
+        <a href="hs-5-5.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

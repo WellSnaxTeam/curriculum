@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 1: Intro to Nutrition Facts Label — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 3: Reading Food Labels / Lesson 1
+    </div>
+
+    <div class="lesson">
+      <h1>Intro to Nutrition Facts Label</h1>
+      <div class="meta">High School Course 3, Lesson 1</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Intro to Nutrition Facts Label <span class="module-time">3 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/hzwnwLgmFOQ" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> The Nutrition Facts Label <span class="module-time">10 min</span></h2>
+                <p><strong>Reading the Label: How Nutrition Facts Affect You</strong></p>
+        <p>Think about your last school day: You grabbed a snack between classes or ate something before practice. Midway through your math test, your stomach rumbled, your attention drifted, or during practice you felt low on energy. What you ate — and how much — directly affected your energy, focus, mood, and athletic performance. Learning to read the Nutrition Facts label helps you choose foods that keep your brain sharp, your mood steady, and your body ready to perform.</p>
+        <p>What is the Nutrition Facts label? The Nutrition Facts label is a standardized panel on packaged foods that shows what’s inside a serving of that food. Reading it helps you understand how a food will affect daily energy, concentration, and recovery after activity.</p>
+        <p>Serving size and servings per container — watch your real intake</p>
+        <ul>
+          <li>Serving size: This tells you the amount that all other numbers on the label refer to. If you eat more than one serving, calories and nutrients multiply accordingly.</li>
+          <li>Personal consequence: Eating two servings instead of one can double your calorie intake and may make you feel sluggish or overly full, hurting focus and physical performance.</li>
+          <li>Servings per container: Shows how many servings are in the whole package.</li>
+          <li>Personal consequence: Finishing a whole package when it lists multiple servings can raise sugar and fat intake, causing energy crashes and mood swings.</li>
+        </ul>
+        <p>Calories — your energy units</p>
+        <ul>
+          <li>Calories measure the energy food provides. The number listed is per serving.</li>
+          <li>Personal consequence: Too many calories from low-nutrient foods (like sugary drinks) can cause rapid energy spikes and crashes, reducing focus and performance. Too few calories for your activity level can leave you fatigued and irritable.</li>
+        </ul>
+        <p>Percent Daily Value (%DV) and the 5/20 rule</p>
+        <ul>
+          <li>%DV shows how much a nutrient in one serving contributes to a daily diet (based on general daily needs).</li>
+          <li>5/20 rule to quickly evaluate:</li>
+          <li>5% DV or less = low for that nutrient (good for nutrients you want less of, like saturated fat, sodium, added sugars).</li>
+          <li>20% DV or more = high for that nutrient (good for nutrients you want more of, like fiber, vitamin D, calcium, iron).</li>
+          <li>Personal consequence: Choosing foods low in saturated fat and added sugars (low %DV) helps steady energy and mood. Choosing foods high in fiber and protein (high %DV) supports lasting energy and better concentration.</li>
+        </ul>
+        <p>Calories from fat / Types of fat</p>
+        <ul>
+          <li>Labels may list total fat, saturated fat, and sometimes trans fat. Also check for unsaturated fats in the ingredient list.</li>
+          <li>Personal consequence: High saturated and trans fats can slow you down and negatively affect long-term health. Healthy unsaturated fats (in nuts, avocado) support brain function and endurance.</li>
+        </ul>
+        <p>Carbohydrates, sugars, and fiber</p>
+        <ul>
+          <li>Total carbohydrates include starches, sugars, and fiber. Added sugars are often listed separately. Fiber is often listed too.</li>
+          <li>Personal consequence: Simple sugars (high added sugar %DV) give quick energy spikes then crashes—hurting focus and athletic consistency. Fiber and complex carbs (higher fiber %DV) provide steady energy, improving concentration and endurance.</li>
+        </ul>
+        <p>Protein</p>
+        <ul>
+          <li>Protein grams are listed per serving. Protein supports muscle repair and helps you feel full longer.</li>
+          <li>Personal consequence: Including adequate protein helps recovery after exercise, reduces mid-day hunger, and supports steady attention during class.</li>
+        </ul>
+        <p>Sodium</p>
+        <ul>
+          <li>Sodium is shown in milligrams and %DV. High sodium can cause water retention and raise blood pressure over time.</li>
+          <li>Personal consequence: Very salty meals can leave you feeling bloated and sluggish during practice or class.</li>
+        </ul>
+        <p>Vitamins and minerals</p>
+        <ul>
+          <li>Labels list key vitamins/minerals (e.g., vitamin D, calcium, iron, potassium) with %DV.</li>
+          <li>Personal consequence: Adequate iron supports focus (low iron can cause fatigue and poor concentration); calcium and vitamin D support bone health for athletes.</li>
+        </ul>
+        <p>Ingredient list — what to look for</p>
+        <ul>
+          <li>Ingredients are listed in order by weight (first = most). Look for whole-food ingredients near the top and short ingredient lists. Watch for added sugars listed under many names (corn syrup, dextrose, sucrose, maltose).</li>
+          <li>Personal consequence: Foods with whole-food ingredients and fewer added sugars help maintain steady energy and stable mood.</li>
+        </ul>
+        <p>Putting it together: How to choose foods for school and sports</p>
+        <ul>
+          <li>Before class or tests: Choose foods with moderate calories, low added sugar, and higher fiber and protein (example: yogurt with fruit and nuts). This supports sustained focus and steady mood.</li>
+          <li>Before practice or games: Choose carbohydrates for energy plus some protein (example: banana and a peanut butter sandwich) to fuel performance and recovery.</li>
+          <li>After activity: Choose protein plus carbohydrates to replenish energy and repair muscles (example: chocolate milk or turkey wrap).</li>
+          <li>For quick snacks: Watch serving sizes. A small bag may contain 2–3 servings; eating the whole bag could cause sugar spikes and crash your focus.</li>
+        </ul>
+        <p>Quick checklist to read a label fast</p>
+        <ul>
+          <li>Check the serving size and servings per container — how much will you actually eat?</li>
+          <li>Look at calories per serving and decide if it fits your energy needs for the moment.</li>
+          <li>Use the 5/20 rule on %DV: low (≤5%) good for saturated fat, sodium, added sugar; high (≥20%) good for fiber, protein, vitamins.</li>
+          <li>Scan sugar and fiber: low added sugar + higher fiber = steadier energy.</li>
+          <li>Check protein: helps with fullness and recovery.</li>
+          <li>Read the ingredient list for added sugars and whole-food ingredients.</li>
+        </ul>
+        <p>Quick tip- Building Healthy Habits:</p>
+        <p>Form a new habit of reading food labels by checking the label before purchasing. Small changes such as limiting added sugar, higher fiber, or higher protein can increase energy, improve focus and concentration, and increase athletic performance.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Energy Timeline <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+                  <ol>
+          <li>Create a timeline of yesterday from waking until bedtime.</li>
+          <li>Record:</li>
+          <li>What you ate and drank</li>
+          <li>Approximate time</li>
+          <li>Your energy level (1–10)</li>
+          <li>Your focus level (1–10)</li>
+          <li>Review Nutrition Facts labels for the foods you ate.</li>
+          <li>Look for patterns between:</li>
+          <li>High added sugar intake</li>
+          <li>Low protein meals</li>
+          <li>Low fiber intake</li>
+          <li>Skipping meals</li>
+          <li>Answer these questions:</li>
+          <li>When did I have the most energy?</li>
+          <li>When did I feel tired?</li>
+          <li>How did this impact my focus and concentration in the classroom?</li>
+          <li>How did this impact my athletic performance?</li>
+          <li>Which label information helps explain those changes?</li>
+          <li>If I continue these eating habits, what will be its effect on my body?</li>
+          <li>6. Set one goal for improving tomorrow's energy.</li>
+        </ol>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Nutrition Facts Label Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. A student packs a snack of baby carrots and a small container of hummus before a long day of classes. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student selected foods high in added sugars that will improve concentration.</li>
+            <li class="correct"><span class="letter">B.</span> The student chose nutrient-dense foods that provide steady energy and fiber. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The student avoided protein and healthy fats needed for focus.</li>
+            <li><span class="letter">D.</span> The student is consuming primarily empty calories for a quick energy spike.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student reads a cereal Nutrition Facts label and sees "Serving Size: 1 cup (55 g)" but pours a bowl that contains 2 cups. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The serving size does not change total calories eaten.</li>
+            <li><span class="letter">B.</span> The student will automatically burn off the extra calories during walking between classes.</li>
+            <li class="correct"><span class="letter">C.</span> The student will consume twice the listed calories and nutrient amounts. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student will only get the vitamins listed once since labels list per package.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. A student chooses a granola bar labeled "low fat" but notices the ingredient list shows sugar near the top. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">C.</span> The product may be lower in fat but high in added sugars, giving quick energy then a crash. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. A student drinks a sports drink before and during an intense soccer practice because it lists electrolytes and 200 calories per bottle. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Electrolytes on the label mean the drink has no sugar and no calories.</li>
+            <li><span class="letter">B.</span> Calories listed indicate the drink is unsafe for athletic performance.</li>
+            <li><span class="letter">C.</span> The drink is unnecessary and will cause immediate dehydration.</li>
+            <li class="correct"><span class="letter">D.</span> The drink can help replace fluids and electrolytes during long, vigorous activity, but provides extra calories. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A student with a test in the morning eats only a candy bar for breakfast because it's quick and tasty. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student may get a fast energy spike followed by a drop in focus and stamina. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The candy bar will provide long-lasting slow-release energy ideal for concentration.</li>
+            <li><span class="letter">C.</span> Eating sugar alone prevents hunger all morning without affecting mood.</li>
+            <li><span class="letter">D.</span> Candy has the balanced nutrients needed for memory recall.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A student checks a yogurt label and sees "contains live and active cultures" and a short ingredient list with no added sugar. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Short ingredient lists always indicate low nutritional value.</li>
+            <li class="correct"><span class="letter">B.</span> The student is choosing a nutrient-dense option that may support digestion and sustained energy. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Live cultures mean the yogurt will make the student hyperactive.</li>
+            <li><span class="letter">D.</span> The product is likely high in added sugars and low in protein.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. A student compares two granolas: one has 300 calories per serving and 10 g added sugar; the other has 250 calories and 4 g added sugar. Both servings are equal. What is most likely happening if the student chooses the 250-calorie option?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Lower calories always mean the food is less filling so it's a worse choice.</li>
+            <li><span class="letter">B.</span> They will get more protein and more vitamins than the higher-calorie option automatically.</li>
+            <li class="correct"><span class="letter">C.</span> They are choosing the option with fewer added sugars and slightly fewer calories for steadier energy. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The lower-sugar item will produce a faster energy crash than the higher-sugar item.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. True or False: A food's ingredient list lists ingredients by weight from highest to lowest, so the first ingredients are the largest components.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> False</li>
+            <li class="correct"><span class="letter">B.</span> True <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student with lactose intolerance chooses a lactose-free milk alternative with fortified calcium and vitamin D. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Lactose-free always means the product has no calories or protein.</li>
+            <li><span class="letter">B.</span> Fortified alternatives never supply enough nutrients compared to dairy milk.</li>
+            <li><span class="letter">C.</span> Fortified products cannot be used for athletic recovery.</li>
+            <li class="correct"><span class="letter">D.</span> The student is choosing a suitable alternative that supplies calcium and vitamin D without digestive upset. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. A student sees "% Daily Value" on a label and notices 20% for iron. The student is trying to meet daily nutrient needs. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The food provides a significant portion (20%) of the recommended daily iron per serving. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> % Daily Value tells how many calories are in each serving.</li>
+            <li><span class="letter">C.</span> 20% DV means the food is deficient in that nutrient and should be avoided.</li>
+            <li><span class="letter">D.</span> % Daily Value only applies to vitamins, not minerals like iron.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. A student selects whole-grain bread over white bread before a long day and athletic practice. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> White bread is superior for endurance because it digests more slowly.</li>
+            <li class="correct"><span class="letter">B.</span> The student will likely get more fiber and longer-lasting energy to support focus and performance. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Whole-grain bread always has fewer calories and no carbohydrates.</li>
+            <li><span class="letter">D.</span> Choosing whole grain guarantees increased muscle mass without exercise.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. A student chooses a protein shake that lists 30 g protein and 350 calories after weight training. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Protein shakes are ineffective; solid food is always better for recovery.</li>
+            <li><span class="letter">B.</span> Drinking a high-calorie shake immediately causes loss of athletic performance.</li>
+            <li class="correct"><span class="letter">C.</span> The shake can support muscle repair and provide calories needed to recover after intense exercise. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> High protein always means the shake has no fats or carbohydrates.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. True or False: "Natural" or "organic" on front packaging always means the product is low in added sugar and calories.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. A student is monitoring sodium on labels because they experience cramps during long practices. They choose snacks with lower sodium per serving. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Sodium has no effect on athletes; only carbohydrates matter.</li>
+            <li><span class="letter">B.</span> Lower sodium always causes immediate muscle pain and worse performance.</li>
+            <li><span class="letter">C.</span> Choosing lower sodium means the food has no electrolytes and is harmful.</li>
+            <li class="correct"><span class="letter">D.</span> Reducing sodium may help manage fluid balance and reduce cramping risk for some athletes. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. A student reads the calories and macronutrients on a packaged meal and adjusts portion sizes so their lunch provides about one-third of their daily calorie needs. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Portion control based on labels is unnecessary because the body adapts automatically.</li>
+            <li class="correct"><span class="letter">B.</span> The student is using nutrition label information to balance daily energy intake and support steady performance. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> A third of daily calories at lunch will always cause drowsiness and poor focus.</li>
+            <li><span class="letter">D.</span> Adjusting portions has no effect on athletic recovery or cognitive function.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+3%2C+Lesson+1%3A+Intro%20to%20Nutrition%20Facts%20Label" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="/" class="prev">← Course Outline</a>
+        <a href="hs-3-2.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

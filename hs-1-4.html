@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 4: Understanding Fats — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 1: Macronutrients / Lesson 4
+    </div>
+
+    <div class="lesson">
+      <h1>Understanding Fats</h1>
+      <div class="meta">High School Course 1, Lesson 4</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Understanding Fats <span class="module-time">4 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/QhUrc4BnPgg" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Understanding Fats <span class="module-time">5 min</span></h2>
+                <p>Ever noticed how you feel sluggish after some meals but energized after others? Or how your skin looks clearer some weeks than others? Or why some athletes seem to recover faster and stay sharper during competition? The answer might be sitting on your plate. The fats you eat directly impact your energy levels, mood, athletic performance, mental focus, and even your appearance. Let's break down what's actually happening in your body—and why choosing the right fats can literally change how you feel every single day.</p>
+        <p>What Are Fats?</p>
+        <p>Fats, also called lipids, are essential macronutrients made up of carbon, hydrogen, and oxygen molecules. Their basic structure consists of a glycerol backbone attached to three fatty acid chains, creating what's called a triglyceride—the main type of fat your body uses and stores.</p>
+        <p>Here's the real impact: Triglycerides store unused calories from your meals and deliver energy to your body. Without adequate fat intake, you'll experience fatigue, poor focus, and difficulty concentrating during school or sports.</p>
+        <p>The Four Types of Dietary Fats</p>
+        <p>Monounsaturated Fats (MUFAs) — The Healthy Choice</p>
+        <p>What they are: Healthy fats that are liquid at room temperature and have one double bond in their fatty acid chain.</p>
+        <p>Where to find them: Extra virgin olive oil, avocados, almonds, and pumpkin seeds</p>
+        <p>What they do for you:</p>
+        <ul>
+          <li>Provide steady energy throughout the day</li>
+          <li>Maintain healthy cell membranes (supports clear skin and healthy hair)</li>
+          <li>Help absorb fat-soluble vitamins (A, D, E, K) that boost immunity and mood</li>
+        </ul>
+        <p>Polyunsaturated Fats (PUFAs) — Brain & Heart Fuel</p>
+        <p>What they are: Healthy fats with two or more double bonds. They split into two types:</p>
+        <ul>
+          <li>Omega-3 fatty acids (salmon, trout, walnuts, soybeans) — Your body cannot produce these, so you must get them from food</li>
+          <li>Omega-6 fatty acids (vegetable oils, almonds, sunflower seeds)</li>
+        </ul>
+        <p>Both are liquid at room temperature.</p>
+        <p>What they do for you:</p>
+        <ul>
+          <li>Support heart and brain health, directly improving focus and mental clarity</li>
+          <li>Regulate inflammation, which reduces muscle soreness after workouts and supports athletic recovery</li>
+          <li>Omega-3s especially boost mood and emotional resilience</li>
+        </ul>
+        <p>Saturated Fats — Use With Caution</p>
+        <p>What they are: Solid at room temperature with no double bonds in their fatty acid chains (they're "saturated" with hydrogen atoms). Primarily found in animal products and tropical plant oils.</p>
+        <p>Where to find them: Beef, full-fat dairy, coconut oil, and palm oil</p>
+        <p>What they do for you:</p>
+        <ul>
+          <li>Help insulate organs and regulate body temperature</li>
+          <li>Aid in absorbing fat-soluble vitamins</li>
+        </ul>
+        <p>The catch: Should be limited and not consumed in excess. Too much can negatively impact energy levels, athletic performance, and cardiovascular health.</p>
+        <p>Trans Fats — Avoid Completely</p>
+        <p>What they are: Artificial fats created by adding hydrogen to liquid vegetable oils (partially hydrogenated oils). The worst type of fat.</p>
+        <p>Where to find them: Margarine, commercially baked goods, microwave popcorn, and candy</p>
+        <p>Why they're dangerous:</p>
+        <ul>
+          <li>Raise "bad" cholesterol (LDL) and lower "good" cholesterol (HDL)</li>
+          <li>Increase risk of heart attack, stroke, and heart disease</li>
+          <li>Tank your energy, mood, and athletic performance</li>
+        </ul>
+        <p><strong>Bottom line: Skip them entirely.</strong></p>
+        <p>What Fats Actually Do in Your Body</p>
+        <ul>
+          <li>Absorb nutrients: Your digestive system uses fats to absorb vitamins A, D, E, and K—critical for immune function, energy, and skin health</li>
+          <li>Build cell membranes: Creates healthy tissues throughout your body, supporting appearance and overall function</li>
+          <li>Protect organs: Extra fat cushions and protects your vital organs</li>
+          <li>Regulate temperature: Helps your body maintain the right temperature for optimal performance</li>
+          <li>Provide energy: Fats deliver 9 calories per gram—more than twice the energy from carbs or protein—so you can stay energized longer</li>
+          <li>Synthesize hormones: Essential for mood, growth, and athletic performance</li>
+        </ul>
+        <p>How Much Fat Do You Actually Need?</p>
+        <ul>
+          <li>Daily calories from fat: 25–35% of your total daily intake</li>
+          <li>Per meal: 18–26 grams</li>
+          <li>Total daily intake: 55–78 grams per day</li>
+        </ul>
+        <p>Pro tip: Most of your fat should come from unsaturated fats (MUFAs and PUFAs), with some saturated fat, and zero trans fats.</p>
+        <p>The Bottom Line</p>
+        <p>Choosing the right fats isn't just about health—it's about performing your best. Whether you're trying to ace a test, crush a workout, improve your mood, or clear up your skin, the fats you eat matter. Load up on avocados, olive oil, fatty fish, and nuts. Limit saturated fats. And skip trans fats entirely. Your body—and your performance—will thank you.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Fat Fuel Investigation <span class="module-time">60 min</span></h2>
+        <div class="activity-box">
+                  <p>Essential Question</p>
+        <p><strong>How do the fats I eat affect my energy, focus, hunger, and performance?</strong></p>
+        <p>Activity 1: My Fat Reality Check</p>
+        <p>Directions</p>
+        <p>Think about what you actually eat during a typical school day.</p>
+        <p>Write down everything you usually eat and drink for one day.</p>
+        <p>Meal</p>
+        <p>What I Usually Eat</p>
+        <p><strong>Breakfast</strong></p>
+        <p><strong>Lunch</strong></p>
+        <p><strong>Dinner</strong></p>
+        <p><strong>Snacks</strong></p>
+        <p>Fat Finder</p>
+        <p>Circle the foods that contain fat.</p>
+        <p>Reflection</p>
+        <ol>
+          <li>Which meal contains the most fat?</li>
+        </ol>
+        <ol>
+          <li>Which meal contains the least fat?</li>
+        </ol>
+        <ol>
+          <li>What foods provide most of the fat in your diet?</li>
+        </ol>
+        <ol>
+          <li>Do most of your fat sources come from:</li>
+          <li>□ Nuts/seeds</li>
+          <li>□ Avocados</li>
+          <li>□ Fish</li>
+          <li>□ Dairy</li>
+          <li>□ Fried foods</li>
+          <li>□ Fast food</li>
+          <li>□ Chips/snack foods</li>
+          <li>□ Other: ___________</li>
+        </ol>
+        <p>Activity 2: Energy and Hunger Journal</p>
+        <p>Directions</p>
+        <p>Think about your last few school days.</p>
+        <p>Rate yourself from 1–5.</p>
+        <p>Question</p>
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <p>4</p>
+        <p>5</p>
+        <p><strong>I stay energized throughout the day.</strong></p>
+        <p><strong>I stay focused during class.</strong></p>
+        <p><strong>I feel satisfied between meals.</strong></p>
+        <p><strong>I have energy during workouts or sports.</strong></p>
+        <p><strong>I recover well after physical activity.</strong></p>
+        <p>Reflection</p>
+        <p><strong>When do you feel your best during the day?</strong></p>
+        <p><strong>When do you feel tired, distracted, or hungry?</strong></p>
+        <p><strong>What foods did you eat before those times?</strong></p>
+        <p>Activity 3: Fat Function Match-Up</p>
+        <p>Directions</p>
+        <p>Match each role of fat with a real-life benefit.</p>
+        <p>Role of Fat</p>
+        <p>Real-Life Benefit</p>
+        <p>Provides long-term energy</p>
+        <p>A. Supports learning and concentration</p>
+        <p>Protects organs</p>
+        <p>B. Helps you stay active longer</p>
+        <p>Supports brain function</p>
+        <p>C. Helps absorb important nutrients</p>
+        <p>Helps absorb vitamins A, D, E, and K</p>
+        <p>D. Cushions body organs</p>
+        <p>Personal Connection</p>
+        <p>Which role of fat is most important to you right now?</p>
+        <p>□ Energy</p>
+        <p>□ Sports Performance</p>
+        <p>□ Focus in School</p>
+        <p>□ Recovery</p>
+        <p>□ Overall Health</p>
+        <p><strong>Why?</strong></p>
+        <p>Activity 4: Healthy Fat Audit</p>
+        <p>Directions</p>
+        <p>Check all foods you have eaten during the last week.</p>
+        <p>Healthy Fat Sources</p>
+        <p>□ Peanut butter</p>
+        <p>□ Almonds</p>
+        <p>□ Walnuts</p>
+        <p>□ Pistachios</p>
+        <p>□ Avocado</p>
+        <p>□ Salmon</p>
+        <p>□ Tuna</p>
+        <p>□ Olive oil</p>
+        <p>□ Seeds</p>
+        <p>□ Eggs</p>
+        <p>Higher Processed Fat Sources</p>
+        <p>□ Chips</p>
+        <p>□ Fast food fries</p>
+        <p>□ Donuts</p>
+        <p>□ Fried chicken</p>
+        <p>□ Pastries</p>
+        <p>□ Ice cream</p>
+        <p>□ Snack cakes</p>
+        <p>□ Candy bars</p>
+        <p>Reflection</p>
+        <p><strong>Which list has more checkmarks?</strong></p>
+        <p><strong>What does this tell you about your current eating habits?</strong></p>
+        <p><strong>What is one healthy fat source you could realistically eat more often?</strong></p>
+        <p>Activity 5: "What Happens If I Change One Thing?"</p>
+        <p>Directions</p>
+        <p>Choose one habit you currently have.</p>
+        <p><strong>Current habit:</strong></p>
+        <p>Now imagine you improve it for one week.</p>
+        <p>Predict the Outcome</p>
+        <p>If I make this change, I think I will:</p>
+        <p>□ Have more energy</p>
+        <p>□ Stay full longer</p>
+        <p>□ Focus better</p>
+        <p>□ Perform better in sports</p>
+        <p>□ Recover better</p>
+        <p>□ Make healthier food choices</p>
+        <p><strong>Explain why:</strong></p>
+        <p>Activity 6: My Fat Improvement Contract</p>
+        <p>Directions:</p>
+        <p>Choose ONE action that is specific and realistic.</p>
+        <p>Examples:</p>
+        <ul>
+          <li>Eat a handful of nuts as an afternoon snack three times this week.</li>
+          <li>Add peanut butter to breakfast four days this week.</li>
+          <li>Eat avocado twice this week.</li>
+          <li>Replace chips with nuts once per day.</li>
+          <li>Choose grilled food instead of fried food twice this week.</li>
+        </ul>
+        <p>My Commitment</p>
+        <p><strong>This week I will:</strong></p>
+        <p><strong>When will I do it?</strong></p>
+        <p><strong>Why am I choosing this goal?</strong></p>
+        <p><strong>How will I know I succeeded?</strong></p>
+        <p>End of Lesson Reflection</p>
+        <p>Complete the statements:</p>
+        <p><strong>One thing I learned about fat is:</strong></p>
+        <p><strong>One thing I discovered about my own eating habits is:</strong></p>
+        <p><strong>The action I am taking this week is:</strong></p>
+        <p><strong>The benefit I hope to notice is:</strong></p>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Fats Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. You are at a fast-food restaurant with friends. You want to make a healthier choice regarding fat. Which option should you pick?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Add extra cheese to your sandwich to increase flavor.</li>
+            <li><span class="letter">B.</span> Select creamy salad dressings for more taste.</li>
+            <li><span class="letter">C.</span> Order fries instead of a side salad for more satisfaction.</li>
+            <li class="correct"><span class="letter">D.</span> Choose grilled chicken instead of fried chicken to reduce unhealthy fat intake. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. Your friend is worried about eating avocados because of their fat content. What can you tell them about avocados?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Avocados are high in unhealthy saturated fats.</li>
+            <li><span class="letter">B.</span> Avocados provide no fat at all.</li>
+            <li class="correct"><span class="letter">C.</span> Avocados contain healthy fats that can support heart health. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Avocados only contain trans fats.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. You are helping your family cook dinner and want to make the meal healthier. What is a good way to improve the fat quality in your meal?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Use margarine instead of butter for healthier fats.</li>
+            <li><span class="letter">B.</span> Cook with bacon grease for better flavor and health.</li>
+            <li class="correct"><span class="letter">C.</span> Replace butter with olive oil when cooking to use healthier fats. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Add heavy cream to dishes to increase healthy fat.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. Your health teacher discusses the importance of fat in your diet. What is the best advice for building healthier habits around fat intake?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Eat more foods high in saturated fats for stronger bones.</li>
+            <li class="correct"><span class="letter">B.</span> Limit foods high in saturated and trans fats to help prevent heart disease. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Increase trans fat intake for better digestion.</li>
+            <li><span class="letter">D.</span> Avoid all fats completely for best health.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. You are looking for a snack after school and want to make a healthy choice regarding fat. Which snack should you choose?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Pick potato chips because they have no fat.</li>
+            <li><span class="letter">B.</span> Eat candy bars for healthy fat content.</li>
+            <li><span class="letter">C.</span> Select cookies for their healthy fat profile.</li>
+            <li class="correct"><span class="letter">D.</span> Choose nuts as a snack because they contain healthy fats. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. You are shopping for groceries and want to build healthier habits around fat. What is a good strategy to help you?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Ignore nutrition labels and focus on taste.</li>
+            <li class="correct"><span class="letter">B.</span> Read nutrition labels to check the type and amount of fat in foods. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Only check for calories, not fat content.</li>
+            <li><span class="letter">D.</span> Look for foods with the most fat for energy.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. Your biology class is discussing the role of fat as a macronutrient. What is one important function of fat in the body?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Fat prevents your body from absorbing vitamins.</li>
+            <li><span class="letter">B.</span> Fat only provides energy and has no other function.</li>
+            <li><span class="letter">C.</span> Fat stops vitamins from working in your body.</li>
+            <li class="correct"><span class="letter">D.</span> Fat helps your body absorb certain vitamins like vitamin D. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. At a family dinner, you have a choice between baked fish and fried fish. What is the healthier option regarding fat?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Add mayonnaise to your fish for healthier fat.</li>
+            <li><span class="letter">B.</span> Select fried fish for more healthy fats.</li>
+            <li><span class="letter">C.</span> Eat fish sticks for the healthiest fat option.</li>
+            <li class="correct"><span class="letter">D.</span> Choose baked fish instead of fried fish to reduce unhealthy fat intake. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. Your doctor talks to you about saturated fat. What is a possible consequence of consuming too much saturated fat?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Eating too much saturated fat can increase your risk of heart disease. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Saturated fat lowers cholesterol and prevents heart disease.</li>
+            <li><span class="letter">C.</span> Saturated fat has no effect on health.</li>
+            <li><span class="letter">D.</span> Saturated fat is only found in vegetables.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. You are planning a meal for your family and want to include healthy fats. Which type of fat should you focus on?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Select foods with trans fats, like processed snacks, for healthier meals.</li>
+            <li class="correct"><span class="letter">B.</span> Choose foods with unsaturated fats, like olive oil, for healthier meals. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Pick foods with saturated fats, like butter, for healthier meals.</li>
+            <li><span class="letter">D.</span> Eat foods with no fat for healthier meals.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. Your science teacher asks about the role of fat in the body. How would you describe fat as a macronutrient?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Fat is a macronutrient that provides energy and supports cell function. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Fat is a micronutrient that only helps with digestion.</li>
+            <li><span class="letter">C.</span> Fat is not needed by the body and should be avoided.</li>
+            <li><span class="letter">D.</span> Fat is only used for insulation and has no other role.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. You notice that many snacks at your school contain fat. What is a good habit to build regarding these foods?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Eat more pastries and chips for healthy fat.</li>
+            <li class="correct"><span class="letter">B.</span> Limit foods like pastries and chips to reduce intake of unhealthy fats. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Choose pastries as a source of healthy fat.</li>
+            <li><span class="letter">D.</span> Increase chip consumption for better health.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. You are trying to manage your hunger throughout the day. How can fat play a role in this?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Eating moderate amounts of healthy fats can help you feel full and satisfied. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Avoid all fats to feel more satisfied after meals.</li>
+            <li><span class="letter">C.</span> Eat large amounts of unhealthy fats for fullness.</li>
+            <li><span class="letter">D.</span> Only eat foods with no fat to stay full.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. You are making pasta and want to make a healthier choice regarding fat. What should you do?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Add extra cheese to tomato sauces for healthier fat.</li>
+            <li><span class="letter">B.</span> Choose creamy sauces for more healthy fat.</li>
+            <li class="correct"><span class="letter">C.</span> Replace creamy sauces with tomato-based sauces to reduce unhealthy fat intake. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Use butter-based sauces for the healthiest fat.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. Your nutrition class discusses trans fats. What is a possible effect of consuming foods with trans fats?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Eating foods with trans fats can increase your risk of health problems. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Trans fats are necessary for a healthy diet.</li>
+            <li><span class="letter">C.</span> Trans fats help lower cholesterol levels.</li>
+            <li><span class="letter">D.</span> Trans fats are only found in fruits and vegetables.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+1%2C+Lesson+4%3A+Understanding%20Fats" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-1-3.html" class="prev">← Previous Lesson</a>
+        <a href="hs-1-5.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

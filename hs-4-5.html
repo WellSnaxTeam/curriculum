@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 5: Food Marketing Strategies — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 4: Making Smart Food Choices / Lesson 5
+    </div>
+
+    <div class="lesson">
+      <h1>Food Marketing Strategies</h1>
+      <div class="meta">High School Course 4, Lesson 5</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Food Marketing Strategies <span class="module-time">7 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/VooHiweb1sw" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Food Marketing Strategies <span class="module-time">20 min</span></h2>
+                <p>You're scrolling through Instagram between classes when an ad pops up: a fitness influencer you follow is holding a vibrant açai bowl, talking about how it "changed her life" and gave her the energy to crush her morning workouts. The bowl looks incredible—colorful, fresh, healthy. You click through and order one for lunch. It costs $14, but the influencer made it seem worth it.</p>
+        <p>Here's the thing: that bowl probably contains as much sugar as three donuts. The influencer was paid to promote it. And in about two hours, you're going to crash hard—your energy will tank, your mood will dip, and you'll be reaching for another snack just to feel normal again.</p>
+        <p>Welcome to food marketing in the real world.</p>
+        <p>Food companies spend billions of dollars every year to convince you that certain foods are healthy when they're actually not. They're not trying to poison you—they're trying to sell products. And they're really, really good at it. The problem? Their goal (make money) doesn't always line up with your goal (actually feel good, perform well, and stay healthy).</p>
+        <p>The good news: once you understand how they do it, you can see through it. And that power? That's yours to keep.</p>
+        <p>Marketing Strategy #1: Tricky Label Language</p>
+        <p>The Trick</p>
+        <p>Words like "natural," "multigrain," "made with real fruit," and "low-fat" sound healthy. They're designed to sound healthy. But here's what they actually mean—and what they don't mean.</p>
+        <p>"Natural" sounds like it came straight from nature with no weird stuff added. In reality? The FDA barely regulates this word. A product can be called "natural" and still be packed with added sugar and processed ingredients. Your body can't tell the difference between "natural" sugar and regular sugar—both spike your blood glucose the same way.</p>
+        <p>"Multigrain" sounds like whole grains, right? Wrong. It just means multiple types of grains are in there. They could all be refined (stripped of fiber and nutrients). Real whole grains have the entire kernel intact—bran, germ, and endosperm. Refined grains? They're missing the good stuff.</p>
+        <p>"Made with real fruit" might mean there's 2% actual fruit and 98% sugar and syrup. The word "with" is key—it doesn't say "made of" real fruit.</p>
+        <p>"Low-fat" often means they removed fat but added sugar to make it taste good. Fat helps you feel full and satisfied; sugar makes you want more.</p>
+        <p>Why This Matters to You</p>
+        <p>Your focus and energy: When you eat refined grains or foods high in added sugar, your blood sugar spikes fast and crashes hard. You get 30 minutes of energy, then your brain feels foggy. During a test, a study session, or even just trying to pay attention in class, this crash means you lose focus right when you need it most. Real whole grains and fiber stabilize your blood sugar, so your energy and focus stay steady for hours.</p>
+        <p>Your mood: Sugar crashes aren't just physical—they're emotional. After that initial high, you feel irritable, anxious, and tired. If you're already stressed about school or social stuff, a blood sugar crash will amplify those feelings. Stable nutrition keeps your mood stable too.</p>
+        <p>Marketing Strategy #2: Celebrity and Influencer Endorsements</p>
+        <p>The Trick</p>
+        <p>That fitness influencer with the perfect body promoting an energy drink? She was paid. That celebrity athlete endorsing a sports drink? He was paid—sometimes millions of dollars. The fact that they look fit doesn't mean the product made them that way. They also have personal trainers, nutritionists, and genetics on their side.</p>
+        <p>Here's the kicker: influencers don't always disclose when they're being paid. Sometimes they do (look for #ad or #sponsored), but often the line between genuine recommendation and paid advertisement is blurry. Companies know that you trust people you follow more than they trust traditional ads. So they invest heavily in influencer partnerships because it works.</p>
+        <p>Why This Matters to You</p>
+        <p>Your athletic performance: If you're an athlete, you might think "If this pro athlete uses this product, it'll help me perform better." But that athlete's performance comes from training, genetics, and often professional nutrition plans—not from a single product. Worse, some "performance" products are packed with caffeine or artificial ingredients that might give you jitters, hurt your sleep, or cause a crash mid-competition. Real athletic performance comes from consistent training, proper hydration, adequate sleep, and balanced nutrition—not shortcuts.</p>
+        <p>Your appearance: Influencers are also paid to promote diet products, supplements, and "detoxes." They might say "This is how I stay fit!" But they're also paid thousands to look a certain way. Their appearance is their job. Comparing yourself to someone whose literal income depends on their looks is a setup for disappointment. Plus, most of those "detox" products? Your liver and kidneys already detoxify you for free. You can't buy health in a bottle.</p>
+        <p>Marketing Strategy #3: Packaging Design and Color Psychology</p>
+        <p>The Trick</p>
+        <p>Food companies know that you make a split-second decision when you're grabbing something at the store or a café. Your brain processes colors and images before it reads text. So they design packages strategically.</p>
+        <p>Green packaging screams "healthy" and "natural"—even if the product is full of sugar. Browns and earth tones suggest wholeness and organic goodness. Bright, energetic colors (like neon green or electric blue) suggest energy and vitality.</p>
+        <p>Pictures matter too. A product with a picture of fresh berries on the front will seem healthier than one that shows the actual ingredient list (which might be mostly corn syrup). Food companies know you won't flip the package over to read the back. Most people don't.</p>
+        <p>Why This Matters to You</p>
+        <p>Your energy: A colorfully packaged "energy" bar might promise sustained energy, but if the first three ingredients are sugar, corn syrup, and more sugar, you're getting a blood sugar spike, not sustained energy. That crash will hit during your afternoon classes or your after-school shift. Real sustained energy comes from protein, healthy fats, and complex carbs—which often come in less flashy packaging.</p>
+        <p>Your focus: When you're trying to study or work, you need stable fuel. A snack that looks "energizing" on the package but crashes your blood sugar will leave you unable to focus. The most effective study snacks (almonds, an apple with peanut butter, Greek yogurt) often have plain packaging. Don't judge food by its cover.</p>
+        <p>Marketing Strategy #4: Social Media and Targeted Advertising</p>
+        <p>The Trick</p>
+        <p>Every time you like, comment, or spend time looking at fitness content, food ads, or health pages, platforms track that data. Then they use it to show you ads for products they think you'll buy. If you've been looking at workout videos, you'll see ads for protein shakes. If you've been researching diet culture, you'll see ads for "detox" teas.</p>
+        <p>The ads are personalized and strategic. They show up right when you're in the mindset to buy. And they often use before-and-after photos, testimonials, or claims that wouldn't be allowed in traditional advertising.</p>
+        <p>Why This Matters to You</p>
+        <p>Your mood and appearance: Social media ads prey on insecurity. If you're feeling self-conscious about your body or your energy levels, an ad for a "metabolism-boosting" supplement or a "fat-burning" drink will seem appealing. But these products rarely work as advertised, and the marketing often makes you feel worse about yourself before offering a "solution." Real health improvements come from consistent habits, not from a product that promises transformation in 30 days.</p>
+        <p>Your focus: Constant ads and notifications fragment your attention. When you're trying to study or do homework, these ads (and the social media rabbit holes they lead to) derail your focus. Protecting your attention is protecting your ability to learn and perform.</p>
+        <p>Marketing Strategy #5: Price, Deals, and Convenience Positioning</p>
+        <p>The Trick</p>
+        <p>A "healthy" snack bar costs $3 and is individually wrapped and portable. A banana costs $0.60. Guess which one gets marketed to busy students? The expensive one. Food companies position their products as convenient solutions for your busy life. They price them higher and make them feel premium. The premium price makes them feel healthier, even if they're not.</p>
+        <p>Buy-one-get-one deals on sugary drinks or snack foods? They're designed to make you stock up and consume more. A deal is only a deal if you actually needed the product.</p>
+        <p>Why This Matters to You</p>
+        <p>Your energy and budget: Processed snacks marketed as "convenient" are often expensive and nutrient-poor. They give you a quick energy bump but don't sustain you. Whole foods—fruit, nuts, yogurt, cheese—are often cheaper and will keep your energy stable longer. Plus, you'll spend less money and feel better.</p>
+        <p>Your athletic performance: If you're training, you need fuel. But you don't need the expensive "sports" version of everything. A banana with peanut butter costs a fraction of a sports bar and gives you similar carbs and protein. Water costs nothing and hydrates you better than a sports drink (unless you're exercising for over an hour). Don't let marketing convince you that the most expensive option is the best option.</p>
+        <p>Marketing Strategy #6: Greenwashing and Sustainability Claims</p>
+        <p>The Trick</p>
+        <p>"Eco-friendly," "sustainably sourced," "green," "organic"—these words make a product feel responsible and healthy. Sometimes they're true. Often, they're marketing. A product can have a tiny "organic" label and still be mostly sugar. A company can use "sustainable" packaging and still produce massive amounts of waste.</p>
+        <p>This strategy is called greenwashing: making something seem more environmentally friendly or healthy than it actually is.</p>
+        <p>Why This Matters to You</p>
+        <p>Your appearance and long-term health: Greenwashing can distract you from what actually matters: the nutrition facts. A product can be organic and still unhealthy. A product can have eco-friendly packaging and still be full of additives. Don't let marketing language make you feel good about a choice that doesn't actually serve your body.</p>
+        <p>How to Spot Marketing Tricks: Your Action Plan</p>
+        <p>Read the Nutrition Label (Not the Marketing Claims)</p>
+        <p>The back of the package tells the truth. The front of the package tells a story. Here's what to look for:</p>
+        <ul>
+          <li>Added sugars: Aim for less than 10g per serving (ideally less than 5g). Ignore words like "natural sugar"—your body processes it the same way.</li>
+          <li>Fiber: More is better. Fiber keeps you full, stabilizes your energy, and supports your focus. Look for at least 3g per serving.</li>
+          <li>Protein: Helps you feel satisfied and sustained. Look for at least 5-10g depending on the food.</li>
+          <li>Ingredients list: Can you pronounce most of them? Do you recognize them as real food? If not, it might be heavily processed.</li>
+        </ul>
+        <p>The 5-Ingredient Rule</p>
+        <p>If a product has more than 5 ingredients you don't recognize, it's probably heavily processed. Real food is simple.</p>
+        <p>Check for Paid Partnerships</p>
+        <p>On social media, look for #ad, #sponsored, or #partner. If you see those, remember: that person was paid. Their experience might not be yours.</p>
+        <p>Ask Yourself</p>
+        <ul>
+          <li>Is this marketing a feeling or a product? ("Feel energized!" vs. "This has 20g of protein")</li>
+          <li>Who benefits from me buying this? (The company, obviously. But do I?)</li>
+          <li>What would happen if I ate a banana and drank water instead? (You'd probably feel just as good or better.)</li>
+        </ul>
+        <p>The Real Talk</p>
+        <p>Food companies aren't evil. They're businesses trying to make money. And there's nothing wrong with enjoying food that tastes good. The issue is when marketing tricks you into thinking something unhealthy is healthy—and you make choices that don't serve your body or your goals.</p>
+        <p>You have more power than you think. Every time you choose a snack, you're voting with your money. Every time you scroll past an ad without clicking, you're choosing not to be influenced. Every time you read a label instead of trusting the packaging, you're taking control.</p>
+        <p>Your energy, your focus, your mood, your athletic performance, your appearance—these are all connected to what you eat. And you get to decide. Not Instagram. Not a celebrity. Not a colorful package. You.</p>
+        <p>See through the marketing. Make choices that actually serve you. That's the real power move.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Advertisement Influence Check <span class="module-time">60 min</span></h2>
+        <div class="activity-box">
+                  <ul>
+          <li>Look through a set of food advertisements (social media, TV clips, or print ads) and identify marketing techniques such as celebrity endorsement, emotional appeal, limited-time offers, or “health halo” wording.</li>
+          <li>Pause and reflect on a recent time you bought or craved a food item after seeing an ad. Write how you felt in that moment (excited, impulsive, hungry, motivated) and connect those feelings to the marketing tactic used.</li>
+          <li>Commit to one change to implement this week, such as:</li>
+        </ul>
+        <p><strong>“I pause for 10 seconds before deciding to buy a food I saw advertised online.”</strong></p>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Food Marketing Strategies Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. A student chooses a snack labeled 'all-natural' without reading the ingredients. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is ignoring the product's nutritional label.</li>
+            <li><span class="letter">B.</span> The student is only considering the price of the product.</li>
+            <li><span class="letter">C.</span> The student is choosing based on the store's location.</li>
+            <li class="correct"><span class="letter">D.</span> The student is influenced by the product's packaging and claims. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student buys a box of cereal because it says 'low-fat' on the box and assumes it's healthy. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student is responding to a health halo created by marketing. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student is shopping only for organic foods.</li>
+            <li><span class="letter">C.</span> The student is following a strict diet plan.</li>
+            <li><span class="letter">D.</span> The student is avoiding all processed foods.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. A student sees a famous athlete promoting an energy drink and decides to buy it. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is comparing nutritional values.</li>
+            <li><span class="letter">B.</span> The student is following school lunch guidelines.</li>
+            <li><span class="letter">C.</span> The student is making a decision based on scientific evidence.</li>
+            <li class="correct"><span class="letter">D.</span> The student is being influenced by celebrity endorsement. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. A student clicks on an online ad for a new protein bar and buys it immediately. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is reading nutrition facts carefully.</li>
+            <li><span class="letter">B.</span> The student is researching food origins.</li>
+            <li class="correct"><span class="letter">C.</span> The student is affected by targeted advertising. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is avoiding all advertisements.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A student sees a popular snack featured in a movie and decides to try it. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student is influenced by product placement. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student is following a recipe from a cookbook.</li>
+            <li><span class="letter">C.</span> The student is avoiding all snacks.</li>
+            <li><span class="letter">D.</span> The student is shopping for groceries with their parents.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A student chooses a food because the commercial made them feel happy. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is basing their choice on scientific studies.</li>
+            <li class="correct"><span class="letter">B.</span> The student is responding to marketing that targets emotions. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The student is avoiding all advertisements.</li>
+            <li><span class="letter">D.</span> The student is following a meal plan from school.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. A student sees a food trend on social media and decides to try the product. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is comparing prices of different brands.</li>
+            <li><span class="letter">B.</span> The student is avoiding all processed foods.</li>
+            <li class="correct"><span class="letter">C.</span> The student is influenced by social media marketing. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is reading nutritional information carefully.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A student buys a drink labeled 'immune boosting' without checking the ingredients. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is shopping for organic produce only.</li>
+            <li class="correct"><span class="letter">B.</span> The student is affected by marketing that uses misleading health claims. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The student is avoiding all packaged foods.</li>
+            <li><span class="letter">D.</span> The student is following dietary guidelines from a nutritionist.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student chooses a ready-to-eat meal because it's advertised as quick and easy. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is shopping at a farmer's market.</li>
+            <li><span class="letter">B.</span> The student is preparing meals from scratch.</li>
+            <li class="correct"><span class="letter">C.</span> The student is influenced by marketing that targets convenience. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is avoiding all fast food.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. A student picks a snack because the packaging is bright and eye-catching. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student is influenced by marketing that uses colorful packaging. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student is avoiding all packaged foods.</li>
+            <li><span class="letter">C.</span> The student is comparing nutritional values.</li>
+            <li><span class="letter">D.</span> The student is reading ingredient lists carefully.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. True or False: Food companies often use words like 'fresh' or 'natural' to make products seem healthier than they actually are.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. True or False: All foods marketed as 'low sugar' are always healthy choices.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. A student chooses a snack because it features cartoon characters on the packaging. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is shopping for groceries with their parents.</li>
+            <li class="correct"><span class="letter">B.</span> The student is influenced by marketing that targets youth. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The student is following a strict vegan diet.</li>
+            <li><span class="letter">D.</span> The student is avoiding all snacks.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. A student buys a food product because it's advertised as 'available for a limited time.' What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student is responding to marketing that uses limited-time offers. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student is shopping for organic foods only.</li>
+            <li><span class="letter">C.</span> The student is researching nutritional information.</li>
+            <li><span class="letter">D.</span> The student is avoiding all processed foods.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. A student buys a snack because their friends recommended it after seeing an ad. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is avoiding all packaged foods.</li>
+            <li><span class="letter">B.</span> The student is shopping for groceries with their parents.</li>
+            <li class="correct"><span class="letter">C.</span> The student is influenced by marketing that uses peer recommendations. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is following a meal plan from school.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+4%2C+Lesson+5%3A+Food%20Marketing%20Strategies" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-4-4.html" class="prev">← Previous Lesson</a>
+        <a href="hs-4-6.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

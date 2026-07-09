@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 1: Inadequate Protein and Poor Recovery — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 6: Common Athlete Mistakes / Lesson 1
+    </div>
+
+    <div class="lesson">
+      <h1>Inadequate Protein and Poor Recovery</h1>
+      <div class="meta">High School Course 6, Lesson 1</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Inadequate Protein and Poor Recovery <span class="module-time">7 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/WUcWUjIlOIM" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Inadequate Protein and Poor Recovery <span class="module-time">5 min</span></h2>
+                <p>Imagine finishing a tough soccer game or a grueling track practice, only to feel tired, sore, and unable to bounce back the next day. Maybe you notice your muscles ache longer than your teammates', or you struggle to focus in class after workouts. If this sounds familiar, it might not just be about how hard you train—what you eat, especially how much protein you get, plays a huge role in how your body recovers and performs.</p>
+        <p>The Role of Protein</p>
+        <p>Protein is more than just a buzzword on energy bar wrappers; it's a vital nutrient that helps build, repair, and maintain muscle tissue. For high school athletes, getting enough protein is essential for feeling strong, energetic, and ready to take on challenges both on the field and in the classroom. When your body doesn't get enough protein, you might notice slower muscle recovery, more frequent injuries, and even trouble concentrating during the school day.</p>
+        <p>Cause of Low Protein Intake</p>
+        <p>So, what causes low protein intake among high school students? Sometimes, it's simply not knowing how much protein you need or which foods contain it. Busy schedules, skipping meals, or relying on snacks that are mostly carbs or sugar can also lead to missing out on protein. Some students might avoid protein-rich foods because of taste preferences, dietary restrictions, or misinformation about nutrition. Others may not realize that their athletic training increases their protein needs compared to non-athletes.</p>
+        <p>Effects of Low Protein Intake on Recovery</p>
+        <p>When you don't get enough protein, your body struggles to repair the tiny tears in your muscles that happen during exercise. This means you stay sore longer, your muscles don't grow as quickly, and you might even lose strength over time. Poor recovery can leave you feeling drained, less motivated, and more prone to injuries. It can also affect your mood and focus, making it harder to stay sharp in class or enjoy time with friends.</p>
+        <p>Inadequate protein intake doesn't just impact your athletic performance—it can also affect how you look and feel. Without enough protein, you may notice your hair and nails become weaker, your skin loses its healthy glow, and you feel more tired throughout the day. For athletes, these changes can be especially frustrating, since they want to look and feel their best both on and off the field.</p>
+        <p>Healthy Protein Habits</p>
+        <p>Forming healthy habits to ensure adequate protein intake starts with understanding your needs. Most high school athletes require more protein than their peers who aren't as active. The exact amount depends on your sport, training intensity, and body size, but generally, aiming for a source of protein at every meal is a good rule of thumb. Foods like chicken, fish, eggs, beans, tofu, yogurt, and nuts are all excellent sources of protein.</p>
+        <p>Building these habits doesn't have to be complicated. Start by planning your meals and snacks ahead of time, making sure each includes some protein. If you have a busy schedule, pack protein-rich snacks like string cheese, trail mix, or protein bars. Try to avoid skipping meals, especially breakfast, since your body needs fuel to recover and stay energized throughout the day. If you have dietary restrictions, talk to a coach, teacher, or nutritionist about alternative protein sources that fit your needs.</p>
+        <p>It's also important to listen to your body. If you notice you're feeling unusually tired, sore, or unfocused, take a look at your eating habits. Are you getting enough protein? Are you spreading your protein intake throughout the day, rather than loading up at just one meal? Making small changes, like adding a hard-boiled egg to breakfast or including beans in your lunch, can make a big difference in how you feel and perform.</p>
+        <p>Remember, forming healthy habits takes time and practice. Start with one or two changes, and build from there. Ask questions, experiment with new foods, and pay attention to how your body responds. By making protein a priority, you'll not only improve your recovery and athletic performance, but you'll also boost your energy, mood, and focus—helping you succeed in every part of your life.</p>
+        <p>The Bottom Line</p>
+        <p>In conclusion, adequate protein intake is a key factor in how well high school athletes recover from physical activity. Low protein intake can lead to slower recovery, more injuries, and decreased performance, affecting everything from your energy levels to your appearance. By understanding the causes of low protein intake and forming healthy eating habits, you can ensure your body gets the nutrients it needs to thrive. Whether you're aiming for a personal best or just want to feel your best every day, making protein a part of your routine is a smart move.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Recovery Habits Scorecard <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+                  <p>How Well Do My Nutrition Habits Support Muscle Recovery?</p>
+        <p>Read each statement and circle the number that best describes how often it is true for you.</p>
+        <p>Score</p>
+        <p>Meaning</p>
+        <p>5</p>
+        <p>Always</p>
+        <p>4</p>
+        <p>Usually</p>
+        <p>3</p>
+        <p>Sometimes</p>
+        <p>2</p>
+        <p>Rarely</p>
+        <p>1</p>
+        <p>Never</p>
+        <hr style="margin:1rem 0;border:none;border-top:1px solid #e2e8f0;">
+        <p>Part 1: My Protein Habits</p>
+        <p>Statement</p>
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <p>4</p>
+        <p>5</p>
+        <p>I eat a source of protein at breakfast.</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>I include protein at lunch.</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>I include protein at dinner.</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>I choose protein-rich snacks when I am hungry.</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>I eat a protein-rich meal or snack within 2 hours after physical activity.</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p><strong>Protein Habits Total: ______ /25</strong></p>
+        <p>Part 2: My Recovery Habits</p>
+        <p>Statement</p>
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <p>4</p>
+        <p>5</p>
+        <p>I drink water after practices, workouts, or games.</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>I usually feel recovered before my next workout.</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>I recover with both carbohydrates and protein after hard exercise.</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>I avoid skipping meals on active days.</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>I make recovery nutrition a priority, even when I am busy.</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p><strong>Recovery Habits Total: ______ /25</strong></p>
+        <p>Part 3: How Does My Body Feel?</p>
+        <p>Rate how often you experience the following after physical activity.</p>
+        <p>Statement</p>
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <p>4</p>
+        <p>5</p>
+        <p>My muscles stay sore for several days. (Reverse score)</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>I have enough energy during my next workout.</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>I feel physically strong during practices and workouts.</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>I feel ready to perform again within a day or two.</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>My body feels like it recovers well after exercise.</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>○</p>
+        <p>Note: For the first statement, reverse your score when calculating your total.</p>
+        <ul>
+          <li>If you circled 5, record 1</li>
+          <li>If you circled 4, record 2</li>
+          <li>If you circled 3, record 3</li>
+          <li>If you circled 2, record 4</li>
+          <li>If you circled 1, record 5</li>
+        </ul>
+        <p><strong>Recovery Feelings Total: ______ /25</strong></p>
+        <p>My Overall Score</p>
+        <p>Protein Habits ______ /25</p>
+        <p>Recovery Habits ______ /25</p>
+        <p>Recovery Feelings ______ /25</p>
+        <p><strong>Grand Total: ______ /75</strong></p>
+        <p>What Do My Results Tell Me?</p>
+        <p>65–75 points</p>
+        <p>Recovery Ready!</p>
+        <p>You consistently make nutrition choices that support muscle repair and athletic performance. Continue building these habits and look for small ways to improve.</p>
+        <p>50–64 points</p>
+        <p>Building Strong Habits</p>
+        <p>You have several healthy routines, but there are opportunities to improve your recovery. Focus on one habit that will have the greatest impact.</p>
+        <p>35–49 points</p>
+        <p>Needs More Fuel</p>
+        <p>Your recovery habits may not be giving your muscles everything they need to repair and grow. Making one or two consistent changes can improve how you feel during future workouts.</p>
+        <p>Below 35 points</p>
+        <p>Time for a Recovery Reset</p>
+        <p>Your current habits may be slowing your recovery and making physical activity feel more difficult. Small, consistent improvements in protein intake and recovery nutrition can make a noticeable difference.</p>
+        <p>Reflection</p>
+        <ol>
+          <li>Which three statements received your highest scores?</li>
+          <li>________________</li>
+          <li>________________</li>
+          <li>What healthy habits do these scores reveal about you?</li>
+        </ol>
+        <ol>
+          <li>Which three statements received your lowest scores?</li>
+          <li>________________</li>
+          <li>________________</li>
+          <li>How might these habits affect your recovery or athletic performance?</li>
+        </ol>
+        <ol>
+          <li>Make the Connection</li>
+        </ol>
+        <p>Think about your recent workouts.</p>
+        <ul>
+          <li>When do you usually feel the most sore? ___________________________</li>
+          <li>What do you usually eat after those workouts? _______________________</li>
+          <li>Do you think your recovery nutrition helps your muscles repair? Why or why not?</li>
+        </ul>
+        <p>My One-Week Recovery Goal</p>
+        <p>The recovery habit I want to improve is:</p>
+        <p>☐ Eating protein at breakfast</p>
+        <p>☐ Eating protein after workouts</p>
+        <p>☐ Eating protein-rich snacks</p>
+        <p>☐ Drinking more water</p>
+        <p>☐ Not skipping meals</p>
+        <p>☐ Other: ___________________________</p>
+        <p>My SMART Goal</p>
+        <p><strong>Starting today, I will</strong></p>
+        <p><strong>I will do this on these days:</strong></p>
+        <p><strong>One obstacle I might face is</strong></p>
+        <p><strong>I will overcome it by</strong></p>
+        <p><strong>I will know I was successful when</strong></p>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Proper Protein Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. A student participates in intense workouts but consistently eats less protein than recommended. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student's muscles may not recover fully, leading to ongoing soreness. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student will have improved endurance without any soreness.</li>
+            <li><span class="letter">C.</span> The student will not need to rest after workouts.</li>
+            <li><span class="letter">D.</span> The student will immediately gain muscle mass.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student notices slow recovery after soccer practice and rarely eats protein-rich foods. What is the most likely explanation?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student's body lacks enough amino acids to repair muscle tissue. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student's body produces extra amino acids.</li>
+            <li><span class="letter">C.</span> The student's body stores unused protein as fat.</li>
+            <li><span class="letter">D.</span> The student's body ignores protein needs during recovery.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. A student chooses to skip protein in their meals for a week while training for a track meet. What is most likely to happen?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student may experience fatigue and poor muscle recovery. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student will have increased energy and faster recovery.</li>
+            <li><span class="letter">C.</span> The student will develop stronger bones immediately.</li>
+            <li><span class="letter">D.</span> The student will lose weight rapidly without any side effects.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. A student consistently eats below the recommended amount of protein and notices their athletic performance is declining. What is most likely causing this?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student's performance will only be affected by hydration.</li>
+            <li class="correct"><span class="letter">B.</span> The student's performance may decrease due to inadequate muscle repair. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The student's performance will improve with less protein.</li>
+            <li><span class="letter">D.</span> The student's performance will stay the same regardless of protein intake.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. True or False: Inadequate protein intake can lead to slower recovery after physical activity.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A student who rarely eats protein gets injured during basketball. What is most likely to happen during their recovery?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student will have stronger immune function.</li>
+            <li><span class="letter">B.</span> The student will gain muscle mass quickly.</li>
+            <li class="correct"><span class="letter">C.</span> The student may be at risk of muscle loss and slower healing. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student will recover from injuries faster.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. A student feels sore after lifting weights and wants to recover faster. What is the best habit to develop?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student should avoid protein to prevent soreness.</li>
+            <li class="correct"><span class="letter">B.</span> The student should increase protein intake to support muscle repair. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The student should decrease all food intake after exercise.</li>
+            <li><span class="letter">D.</span> The student should only focus on carbohydrates for recovery.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A student eats very little protein but continues to exercise regularly. What is most likely to happen?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student will gain muscle without exercising.</li>
+            <li class="correct"><span class="letter">B.</span> The student may feel tired and take longer to recover from workouts. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The student will have more energy and recover faster.</li>
+            <li><span class="letter">D.</span> The student will not be affected by protein intake.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. Why is protein important for students who participate in physical activity?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Protein is only important for hydration.</li>
+            <li class="correct"><span class="letter">B.</span> Protein helps repair and build muscle after exercise. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Protein slows down recovery from exercise.</li>
+            <li><span class="letter">D.</span> Protein is not needed for athletes.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. True or False: Eating enough protein can help reduce muscle soreness after exercise.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. False</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> True</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. A student trains for a marathon but rarely includes protein in their diet. What is most likely to happen?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student will recover faster than others.</li>
+            <li><span class="letter">B.</span> The student will not need rest days.</li>
+            <li><span class="letter">C.</span> The student will have stronger muscles without protein.</li>
+            <li class="correct"><span class="letter">D.</span> The student may have weaker muscles and slower progress. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. After a tough workout, what is the best habit for a student to support recovery?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student should eat protein-rich foods after exercise. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student should only drink water after exercise.</li>
+            <li><span class="letter">C.</span> The student should eat only sugary snacks after exercise.</li>
+            <li><span class="letter">D.</span> The student should avoid eating after exercise.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. A student wants to improve athletic performance but eats very little protein. What is most likely to happen?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student will only need vitamins for recovery.</li>
+            <li class="correct"><span class="letter">B.</span> The student may have trouble building muscle and recovering quickly. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The student will not be affected by diet.</li>
+            <li><span class="letter">D.</span> The student will build muscle faster without protein.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. What habit should a student develop to improve recovery after physical activity?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student should skip meals after exercise.</li>
+            <li><span class="letter">B.</span> The student should only eat carbohydrates for recovery.</li>
+            <li class="correct"><span class="letter">C.</span> The student should include protein in meals to help muscles recover. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student should avoid protein to prevent muscle soreness.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. A student who eats less protein than recommended gets injured during sports. What is most likely to happen during their recovery?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student may experience slower healing and more fatigue. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student will only need to drink water to recover.</li>
+            <li><span class="letter">C.</span> The student will not be affected by protein intake.</li>
+            <li><span class="letter">D.</span> The student will heal faster and have more energy.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+6%2C+Lesson+1%3A+Inadequate%20Protein%20and%20Poor%20Recovery" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="/" class="prev">← Course Outline</a>
+        <a href="hs-6-2.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

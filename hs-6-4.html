@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 4: Carbohydrates and Fuel Depletion — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 6: Common Athlete Mistakes / Lesson 4
+    </div>
+
+    <div class="lesson">
+      <h1>Carbohydrates and Fuel Depletion</h1>
+      <div class="meta">High School Course 6, Lesson 4</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Carbohydrates and Fuel Depletion <span class="module-time">3 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/7YsETJCCpIk" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Inadequate Carbs and Fuel Depletion Effects on Performance <span class="module-time">10 min</span></h2>
+                <p>Picture this: You start practice feeling confident. During the warm-up, everything feels easy. But halfway through drills, your legs suddenly feel heavy. You struggle to keep up with your teammates. Your shots fall short, your sprint times slow down, and you can't seem to focus on what your coach is saying. By the end of practice, you're frustrated because you know you can perform better.</p>
+        <p>Many athletes think this happens because they aren't working hard enough or aren't in good enough shape. But sometimes the real problem starts long before practice begins—with what you ate (or didn't eat).</p>
+        <p>Your body needs fuel to move, think, react, and recover. One of the most important sources of that fuel is carbohydrates.</p>
+        <p>What Are Carbohydrates?</p>
+        <p>Carbohydrates are one of the three main macronutrients your body needs, along with protein and fat. They are found in foods such as:</p>
+        <ul>
+          <li>Bread</li>
+          <li>Rice</li>
+          <li>Pasta</li>
+          <li>Oatmeal</li>
+          <li>Potatoes</li>
+          <li>Fruit</li>
+          <li>Milk</li>
+          <li>Beans</li>
+          <li>Yogurt</li>
+          <li>Whole-grain cereals</li>
+        </ul>
+        <p>Some carbohydrates digest quickly and provide fast energy, while others digest more slowly and provide energy over a longer period of time.</p>
+        <p>Every time you eat carbohydrates, you are giving your body the fuel it needs to stay active throughout the day.</p>
+        <p>Personal Connection: When you regularly eat enough healthy carbohydrates, you are more likely to feel energized during class, stay focused on schoolwork, and have enough energy left for practice or competition.</p>
+        <p>What Do Carbohydrates Do in the Body?</p>
+        <p>Carbohydrates are your body's preferred source of energy.</p>
+        <p>After you eat carbohydrates, your digestive system breaks them down into glucose, a simple sugar that enters your bloodstream.</p>
+        <p>Your body uses glucose to:</p>
+        <ul>
+          <li>Power your muscles during movement</li>
+          <li>Fuel your brain so you can think clearly</li>
+          <li>Support your nervous system</li>
+          <li>Keep your organs functioning properly</li>
+        </ul>
+        <p>Any extra glucose your body doesn't immediately use is stored in your muscles and liver as glycogen.</p>
+        <p>Think of glycogen as your body's rechargeable battery. During exercise, your muscles draw from these stored carbohydrates to keep you moving.</p>
+        <p>Personal Connection: The more prepared your glycogen stores are before activity, the longer you can maintain your speed, strength, and concentration.</p>
+        <p>How Does the Body Use Carbohydrates During Exercise?</p>
+        <p>The harder and faster you exercise, the more your body depends on carbohydrates.</p>
+        <p>During activities like:</p>
+        <ul>
+          <li>Basketball</li>
+          <li>Soccer</li>
+          <li>Volleyball</li>
+          <li>Football</li>
+          <li>Track</li>
+          <li>Wrestling</li>
+          <li>Tennis</li>
+          <li>High-intensity workouts</li>
+        </ul>
+        <p>your muscles quickly use stored glycogen for energy.</p>
+        <p>As exercise continues, your glycogen stores gradually decrease. If they become too low, your body struggles to keep producing energy fast enough.</p>
+        <p>Athletes often describe this feeling as "hitting the wall" or running out of gas.</p>
+        <p>Personal Connection: When your carbohydrate stores are full, you can sprint harder, react faster, make better decisions, and finish practices with more energy.</p>
+        <p>What Happens When You Don't Eat Enough Carbohydrates?</p>
+        <p>If your body doesn't receive enough carbohydrates, it cannot fully replace the glycogen used during previous workouts.</p>
+        <p>Over time, this leads to fuel depletion, meaning your muscles no longer have enough stored energy to perform at their best.</p>
+        <p>Common signs of carbohydrate depletion include:</p>
+        <ul>
+          <li>Feeling tired early during activity</li>
+          <li>Heavy or weak legs</li>
+          <li>Slower sprint speed</li>
+          <li>Poor endurance</li>
+          <li>Difficulty concentrating</li>
+          <li>Irritability</li>
+          <li>Feeling mentally "foggy"</li>
+          <li>Needing more rest between drills</li>
+          <li>Reduced motivation to exercise</li>
+        </ul>
+        <p>Because your brain also depends on glucose, inadequate carbohydrate intake can affect more than athletic performance.</p>
+        <p>You may notice:</p>
+        <ul>
+          <li>Trouble paying attention in class</li>
+          <li>Slower reaction time</li>
+          <li>Difficulty remembering information</li>
+          <li>Mood changes</li>
+          <li>Feeling sleepy throughout the day</li>
+        </ul>
+        <p>Personal Connection: You might blame yourself for having a "bad practice," when the real issue is that your body simply didn't have enough fuel.</p>
+        <p>What Does the Body Do When Carbohydrates Are Too Low?</p>
+        <p>When carbohydrate stores become depleted, your body must find another way to make energy.</p>
+        <p>It begins relying more heavily on stored fat and may even break down some muscle protein to help meet energy needs.</p>
+        <p>Although fat provides energy, it cannot supply energy as quickly as carbohydrates during high-intensity exercise.</p>
+        <p>This means you may experience:</p>
+        <ul>
+          <li>Slower movements</li>
+          <li>Earlier fatigue</li>
+          <li>Lower power output</li>
+          <li>Less explosive jumping and sprinting</li>
+          <li>Harder recovery after workouts</li>
+        </ul>
+        <p>If inadequate carbohydrate intake continues for weeks or months, athletes may struggle to improve their performance despite training hard.</p>
+        <p>Personal Connection: You can work just as hard as everyone else, but without enough carbohydrates, your body cannot fully support your effort.</p>
+        <p>How Can You Prevent Carbohydrate Depletion?</p>
+        <p>The best way to avoid fuel depletion is to eat carbohydrates consistently throughout the day instead of waiting until right before practice.</p>
+        <p>Healthy carbohydrate choices include:</p>
+        <ul>
+          <li>Fruit</li>
+          <li>Whole-grain bread</li>
+          <li>Brown rice</li>
+          <li>Oatmeal</li>
+          <li>Whole-grain cereal</li>
+          <li>Sweet potatoes</li>
+          <li>Potatoes</li>
+          <li>Beans</li>
+          <li>Yogurt</li>
+          <li>Pasta</li>
+        </ul>
+        <p>Eating carbohydrates at breakfast, lunch, dinner, and snacks helps keep your body's fuel stores ready.</p>
+        <p>Before exercise, eating carbohydrates provides energy for the upcoming activity.</p>
+        <p>After exercise, eating carbohydrates helps replace the glycogen your muscles used during the workout.</p>
+        <p>Pairing carbohydrates with protein after activity can also support muscle recovery.</p>
+        <p>Personal Connection: Consistent fueling helps you feel stronger during practice, recover faster afterward, and be ready to perform again the next day.</p>
+        <p>Building a Healthy Carbohydrate Habit</p>
+        <p>Healthy athletes don't wait until they feel exhausted before thinking about nutrition.</p>
+        <p>Instead, they build simple daily habits such as:</p>
+        <ul>
+          <li>Eating breakfast before school.</li>
+          <li>Including a carbohydrate source with each meal.</li>
+          <li>Choosing a healthy snack before practice when needed.</li>
+          <li>Refueling after exercise with carbohydrates and protein.</li>
+          <li>Drinking enough water throughout the day.</li>
+        </ul>
+        <p>Small habits repeated every day help keep your body's fuel tank full.</p>
+        <p>Personal Connection: These habits can improve your energy, help you stay focused in class, support a positive mood, and allow you to perform closer to your potential during practices and games.</p>
+        <p>The Bottom Line</p>
+        <p>Carbohydrates are your body's primary fuel source. They provide the glucose your muscles and brain need to perform at their best. Your body stores extra carbohydrates as glycogen, which acts as a reserve fuel supply during exercise.</p>
+        <p>When you don't eat enough carbohydrates, those fuel stores become depleted. As a result, you may feel tired sooner, lose focus, perform below your ability, and recover more slowly.</p>
+        <p>The good news is that carbohydrate depletion is preventable. By eating balanced meals and snacks that include healthy carbohydrates throughout the day, you give your body the energy it needs to learn, compete, recover, and feel your best—both in the classroom and during athletic performance.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Carbohydrate Fueling Reflection <span class="module-time">60 min</span></h2>
+        <div class="activity-box">
+                  <p>Think about a practice, game, workout, or physical activity where you became unusually tired, slowed down, or felt like you "ran out of gas."</p>
+        <p>Write a short paragraph describing what happened.</p>
+        <p>Describe the situation:</p>
+        <ul>
+          <li>What sport or activity was I doing?</li>
+          <li>About how long had I been exercising before I noticed a change?</li>
+          <li>What was happening when I first realized my energy was dropping?</li>
+          <li>What did I have to do next even though I felt tired?</li>
+        </ul>
+        <p>Part 2: Investigate Your Fuel</p>
+        <p>Think back to everything you ate and drank before the activity.</p>
+        <p>Question</p>
+        <p>My Response</p>
+        <p><strong>What time was my activity?</strong></p>
+        <p><strong>What did I eat for breakfast?</strong></p>
+        <p><strong>What did I eat for lunch?</strong></p>
+        <p><strong>Did I eat any snacks before practice? What were they?</strong></p>
+        <p><strong>About how long before practice did I last eat?</strong></p>
+        <p><strong>Did I drink water throughout the day?</strong></p>
+        <p><strong>Did I skip any meals or snacks? Why?</strong></p>
+        <p>Looking Back...</p>
+        <p>Circle every carbohydrate food you ate before your activity.</p>
+        <ul>
+          <li>Fruit</li>
+          <li>Bread</li>
+          <li>Rice</li>
+          <li>Pasta</li>
+          <li>Oatmeal</li>
+          <li>Cereal</li>
+          <li>Crackers</li>
+          <li>Potatoes</li>
+          <li>Tortillas</li>
+          <li>Pretzels</li>
+          <li>Yogurt</li>
+          <li>Granola Bar</li>
+          <li>Other: ______________________</li>
+        </ul>
+        <p>Reflection: Do you think you ate enough carbohydrates to fuel your activity? Why or why not?</p>
+        <p>Part 3: Listen to Your Body</p>
+        <p>Rate how you felt during your activity.</p>
+        <p>Feeling</p>
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <p>4</p>
+        <p>5</p>
+        <p>Energy</p>
+        <p>Very Low</p>
+        <p>Low</p>
+        <p>Average</p>
+        <p>High</p>
+        <p>Very High</p>
+        <p>Focus</p>
+        <p>Very Poor</p>
+        <p>Poor</p>
+        <p>Average</p>
+        <p>Good</p>
+        <p>Excellent</p>
+        <p>Endurance</p>
+        <p>Very Poor</p>
+        <p>Poor</p>
+        <p>Average</p>
+        <p>Good</p>
+        <p>Excellent</p>
+        <p>Mood</p>
+        <p>Frustrated</p>
+        <p>Irritable</p>
+        <p>Neutral</p>
+        <p>Positive</p>
+        <p>Very Positive</p>
+        <p>Effort</p>
+        <p>Extremely Difficult</p>
+        <p>Difficult</p>
+        <p>Moderate</p>
+        <p>Easy</p>
+        <p>Very Easy</p>
+        <p>Check every symptom you experienced.</p>
+        <p>☐ Heavy legs</p>
+        <p>☐ Low energy</p>
+        <p>☐ Slower than normal</p>
+        <p>☐ Trouble concentrating</p>
+        <p>☐ Felt weak</p>
+        <p>☐ Needed frequent breaks</p>
+        <p>☐ Felt unmotivated</p>
+        <p>☐ Could not keep up with teammates</p>
+        <p>☐ Became frustrated</p>
+        <p><strong>☐ None of these</strong></p>
+        <p>Part 4: Be the Nutrition Detective</p>
+        <p>Use what you learned about carbohydrates to investigate your experience.</p>
+        <p>Answer the following questions.</p>
+        <p><strong>What clues suggest your body may have been running low on carbohydrate fuel?</strong></p>
+        <p>Besides food, what other factors could have affected your performance (sleep, hydration, stress, illness, weather, etc.)?</p>
+        <p>Looking back, do you think inadequate carbohydrate intake played:</p>
+        <ul>
+          <li>A major role</li>
+          <li>A small role</li>
+          <li>No role</li>
+          <li>I'm not sure yet</li>
+        </ul>
+        <p><strong>Explain your reasoning using evidence from your experience.</strong></p>
+        <p>Part 5: Commit to One Change</p>
+        <p>Choose one realistic habit you will practice over the next week.</p>
+        <p>☐ Eat breakfast before school.</p>
+        <p>☐ Include a carbohydrate food with lunch.</p>
+        <p>☐ Eat a healthy carbohydrate snack 30–90 minutes before practice.</p>
+        <p>☐ Stop skipping meals.</p>
+        <p>☐ Eat a recovery snack with carbohydrates after exercise.</p>
+        <p>☐ Pack a snack on practice days.</p>
+        <p>☐ Other: __________________________________</p>
+        <p>My Action Plan</p>
+        <p><strong>The habit I am choosing is:</strong></p>
+        <p><strong>I chose this habit because:</strong></p>
+        <p>I will practice this habit on these days:</p>
+        <p>☐ Monday ☐ Tuesday ☐ Wednesday ☐ Thursday ☐ Friday ☐ Saturday ☐ Sunday</p>
+        <p>How will I know this habit is working?</p>
+        <p>☐ I have more energy.</p>
+        <p>☐ I stay focused longer.</p>
+        <p>☐ I recover faster.</p>
+        <p>☐ I perform better during practice.</p>
+        <p>☐ My mood improves.</p>
+        <p><strong>☐ Other: _______________________________</strong></p>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Carbohydrates and Fueling Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. A student skips breakfast and feels fine at first, but during second-period PE they feel slow, tired, and struggle to finish warm-ups. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their muscles are growing faster than normal</li>
+            <li class="correct"><span class="letter">B.</span> Their body is low on available glucose for energy <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> They are overhydrated</li>
+            <li><span class="letter">D.</span> Their protein levels are too high</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student eats only a small salad for lunch before basketball practice and feels exhausted halfway through drills. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their fat intake is too high</li>
+            <li class="correct"><span class="letter">B.</span> Their body is running low on stored carbohydrate fuel <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Their hydration is improving performance too much</li>
+            <li><span class="letter">D.</span> Their body is producing extra glycogen</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. A student eats breakfast but skips lunch before a soccer game. During the second half, they feel slow and cannot sprint like usual. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Their glycogen stores are becoming depleted <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Their body has excess energy stored</li>
+            <li><span class="letter">C.</span> Their protein is being used too quickly</li>
+            <li><span class="letter">D.</span> Their digestion is too fast</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. A student eats a carbohydrate-rich meal 2 hours before practice and maintains steady energy throughout training. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their hydration has replaced carbohydrate needs</li>
+            <li class="correct"><span class="letter">B.</span> Their body has adequate glucose and glycogen stores for fuel <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Their protein intake is preventing fatigue</li>
+            <li><span class="letter">D.</span> Their energy is unrelated to food intake</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A student feels fine at the start of practice but becomes irritable, tired, and unfocused halfway through. They skipped breakfast and had no snack. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their body is overheating</li>
+            <li><span class="letter">B.</span> Their muscles are overdeveloped</li>
+            <li class="correct"><span class="letter">C.</span> Their brain is receiving less glucose for focus and mood regulation <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Their protein levels are too high</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A student eats only protein before practice and feels sluggish during sprint drills. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their hydration is too high</li>
+            <li><span class="letter">B.</span> Their glycogen stores are fully loaded</li>
+            <li class="correct"><span class="letter">C.</span> Their body lacks quick-access carbohydrate fuel <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Their muscles are producing excess glucose</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. A student eats consistently throughout the day and performs well in practice from start to finish. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their body is avoiding all fuel use</li>
+            <li class="correct"><span class="letter">B.</span> Their carbohydrate intake is supporting stable energy levels <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Their fat is the only energy source being used</li>
+            <li><span class="letter">D.</span> Their muscles are not working hard enough</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A student reports heavy legs, slow reaction time, and trouble keeping up during practice. They have not eaten since lunch. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their protein intake is too high</li>
+            <li><span class="letter">B.</span> Their hydration is increasing fatigue</li>
+            <li class="correct"><span class="letter">C.</span> Their glycogen stores are becoming too low for high-intensity movement <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Their body is producing extra glucose</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student eats a banana and granola bar before practice and notices better endurance and focus. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their protein is replacing glycogen</li>
+            <li class="correct"><span class="letter">B.</span> Their carbohydrate intake is improving glucose availability for energy <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Their hydration is eliminating fatigue completely</li>
+            <li><span class="letter">D.</span> Their muscles are growing instantly</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. A student trains hard daily but often skips meals and notices their performance is getting worse over time. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Their body is unable to consistently replenish glycogen stores <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Their fat intake is too low</li>
+            <li><span class="letter">C.</span> Their hydration is increasing fatigue</li>
+            <li><span class="letter">D.</span> Their muscles are becoming too efficient</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. A student eats a large breakfast with carbohydrates but still feels tired during practice because they skipped lunch. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their protein intake canceled out energy use</li>
+            <li><span class="letter">B.</span> Their hydration caused fatigue</li>
+            <li class="correct"><span class="letter">C.</span> Their morning glycogen was not enough to fully fuel later activity <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Their body no longer uses carbohydrates</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. A student feels mentally foggy and struggles to focus during class after a morning workout without eating. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Their brain is low on glucose needed for focus and cognitive function <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Their hydration is too high</li>
+            <li><span class="letter">C.</span> Their muscles are too strong</li>
+            <li><span class="letter">D.</span> Their fat stores are overactive</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. A student eats regularly and notices they recover faster after workouts compared to days they skip meals. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their hydration replaces energy needs</li>
+            <li><span class="letter">B.</span> Their protein is stopping all fatigue</li>
+            <li class="correct"><span class="letter">C.</span> Their carbohydrate intake is helping restore glycogen stores quicker <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Their body is not using energy</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. A student feels fine during light activity but struggles during sprinting and high-intensity drills after not eating enough earlier. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their protein is too high</li>
+            <li class="correct"><span class="letter">B.</span> Their body has enough slow energy but not enough fast carbohydrate fuel <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Their hydration is too low</li>
+            <li><span class="letter">D.</span> Their muscles are overtrained</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. A student starts practicing with full energy after eating a balanced meal and finishes practice still feeling strong. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Their protein replaced all energy use</li>
+            <li class="correct"><span class="letter">B.</span> Their carbohydrate stores supported both immediate and sustained energy needs <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Their body did not use any fuel</li>
+            <li><span class="letter">D.</span> Their hydration eliminated fatigue completely</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+6%2C+Lesson+4%3A+Carbohydrates%20and%20Fuel%20Depletion" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-6-3.html" class="prev">← Previous Lesson</a>
+        <a href="hs-6-5.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

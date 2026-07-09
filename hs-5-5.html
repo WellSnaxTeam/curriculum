@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 5: Eating Habits Throughout the Day — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 5: Daily Fueling Basics / Lesson 5
+    </div>
+
+    <div class="lesson">
+      <h1>Eating Habits Throughout the Day</h1>
+      <div class="meta">High School Course 5, Lesson 5</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Eating Habits Throughout the Day <span class="module-time">5 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/3DM3_ocFy0U" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Eating Habits Throughout the Day <span class="module-time">5 min</span></h2>
+                <p>Imagine sitting in class after lunch, struggling to keep your eyes open, or feeling jittery before a big game because you skipped breakfast. Most high school students have experienced how their eating habits can directly impact their energy, mood, and performance throughout the day. What you eat—and when you eat it—can make a huge difference in how you feel, how well you focus, and even how you look.</p>
+        <p>Starting the Day Off Right</p>
+        <p>Breakfast is often called the most important meal of the day, and for good reason. After a night of sleep, your body needs fuel to kickstart your metabolism and provide energy for the morning. Skipping breakfast can leave you feeling sluggish, irritable, and unable to concentrate in your first period class. Eating a balanced breakfast with protein, whole grains, and some fruit can help you feel more alert and ready to learn. For example, a breakfast of eggs, whole wheat toast, and berries can give you lasting energy and help you stay focused during exams or presentations.</p>
+        <p>Lunch and Snacks Throughout the Day</p>
+        <p>As the day goes on, what you eat for lunch and snacks matters just as much. Lunch is your chance to refuel after a busy morning and prepare for the afternoon. If you grab a quick meal high in sugar or fat—like pizza, chips, or soda—you might feel a burst of energy, but it won’t last. Soon, you’ll crash and feel tired or distracted. On the other hand, a lunch with lean protein (like chicken or beans), vegetables, and whole grains can help you maintain steady energy and keep your mood positive. This is especially important if you have sports practice or extracurricular activities after school, since your body needs nutrients to perform at its best.</p>
+        <p>Snacking is another part of eating habits that can affect your daily performance. Many students reach for candy, soda, or energy drinks to get through the afternoon slump. While these might give you a quick boost, they often lead to a crash that leaves you feeling worse. Choosing healthier snacks—like yogurt, nuts, fruit, or granola bars—can help you stay energized and focused without the negative side effects. These snacks also support your athletic performance by providing nutrients your muscles need to recover and grow.</p>
+        <p>Ending the Day Strong</p>
+        <p>Dinner is the final opportunity to nourish your body before another night’s rest. Eating a balanced dinner with protein, vegetables, and whole grains can help your body repair itself and prepare for the next day. If you eat too late or choose heavy, greasy foods, you might have trouble sleeping, which can affect your mood and focus the next day. On the other hand, a healthy dinner can help you wake up feeling refreshed and ready to take on new challenges.</p>
+        <p>Hydration Matters Too</p>
+        <p>Hydration is also a key part of healthy eating habits. Drinking enough water throughout the day helps you stay alert, keeps your skin clear, and supports athletic performance. Dehydration can cause headaches, fatigue, and trouble concentrating. Try to keep a water bottle with you and sip regularly, especially if you’re active or spend time outdoors.</p>
+        <p>The Impact of Your Habits</p>
+        <p>Your eating habits don’t just affect your energy and focus—they also impact your appearance and overall health. Eating lots of processed foods, sugar, and unhealthy fats can lead to skin problems, weight gain, and lower self-confidence. On the other hand, choosing whole foods, fruits, vegetables, and lean proteins can help you look and feel your best. These habits also set the foundation for a healthy lifestyle in adulthood.</p>
+        <p>Changing your eating habits isn’t always easy, especially with a busy school schedule, limited options in the cafeteria, or temptations from fast food. But small changes—like eating breakfast every day, choosing healthier snacks, and drinking more water—can make a big difference. You might notice you have more energy in class, perform better in sports, and feel more confident about your appearance.</p>
+        <p>The Bottom Line</p>
+        <p>The way you eat throughout the day has a direct impact on your energy, mood, athletic performance, focus, and appearance. By making thoughtful choices about what and when you eat, you can improve your daily performance and set yourself up for long-term health and success. Next time you reach for a snack or skip a meal, remember how your eating habits shape not just your day, but your future.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Full Day Fuel Map <span class="module-time">60 min</span></h2>
+        <div class="activity-box">
+                  <p>You will track and analyze your complete daily fueling patterns to understand how food timing, choices, and balance impact energy, focus, mood, and physical performance throughout the day.</p>
+        <ul>
+          <li>Breakfast</li>
+          <li>Lunch</li>
+          <li>Dinner</li>
+          <li>All snacks and drinks (including school, after school, and evening)</li>
+        </ul>
+        <p>For each entry, think about and document:</p>
+        <ol>
+          <li>What I consumed</li>
+          <li>Food and drink items</li>
+          <li>Approximate portion or serving size</li>
+          <li>When I ate</li>
+          <li>Time of day</li>
+          <li>Context (before school, between classes, practice, homework, etc.)</li>
+          <li>Immediate body response (0–15 minutes after eating)</li>
+          <li>Hunger level before eating (1–10)</li>
+          <li>Fullness after eating (1–10)</li>
+          <li>Performance response (30–90 minutes after eating)</li>
+          <li>Energy level (1–10)</li>
+          <li>Focus level (1–10)</li>
+          <li>Mood (positive, neutral, stressed, tired, alert, etc.)</li>
+          <li>Physical feeling descriptors (choose all that apply):</li>
+          <li>energized</li>
+          <li>sluggish</li>
+          <li>bloated</li>
+          <li>steady</li>
+          <li>tired</li>
+          <li>satisfied</li>
+          <li>distracted</li>
+        </ol>
+        <p>Step 2: Pattern Analysis</p>
+        <p>Review your full day and begin identifying patterns across meals and snacks.</p>
+        <p>Answer these guided analysis questions:</p>
+        <p>Timing Patterns</p>
+        <ul>
+          <li>When during the day do I feel my highest energy?</li>
+          <li>When do I experience the biggest energy drops?</li>
+          <li>Do I go long gaps without eating? What happens when I do?</li>
+        </ul>
+        <p>Meal Quality Patterns</p>
+        <ul>
+          <li>Which meals feel balanced and keep me full longer?</li>
+          <li>Which meals or snacks lead to quick energy spikes followed by crashes?</li>
+          <li>Do I notice differences between school-day food and home food?</li>
+        </ul>
+        <p>Behavior Patterns</p>
+        <ul>
+          <li>Am I eating based on hunger, habit, stress, or convenience?</li>
+          <li>Do I rush meals or skip meals? How does that affect my performance later?</li>
+        </ul>
+        <p>Performance Connection</p>
+        <ul>
+          <li>How does my eating pattern impact my focus in class?</li>
+          <li>How does it affect my performance in sports, workouts, or after-school activities?</li>
+        </ul>
+        <p>Step 3: Data Interpretation (Big Picture Thinking)</p>
+        <p>Synthesize your findings into a clear insight statement:</p>
+        <ul>
+          <li>“I notice that when I ___, I tend to feel ___.”</li>
+          <li>“My best energy happens when I ___.”</li>
+          <li>“My biggest energy crash usually happens after ___.”</li>
+        </ul>
+        <p>Identify:</p>
+        <ul>
+          <li>One positive fueling pattern you already do</li>
+          <li>One pattern that is limiting your energy or focus</li>
+        </ul>
+        <p>Step 4: Personal Fuel Adjustment Plan</p>
+        <p>Choose one specific, realistic adjustment based on your data.</p>
+        <p>Adjustments must focus on one change only, such as:</p>
+        <ul>
+          <li>Meal timing (e.g., not skipping breakfast)</li>
+          <li>Snack timing (e.g., adding a mid-afternoon snack)</li>
+          <li>Meal balance (e.g., adding protein or fruit)</li>
+          <li>Reducing long gaps between meals</li>
+          <li>Improving hydration alongside meals</li>
+        </ul>
+        <p>Complete a commitment statement:</p>
+        <p>Commitment:</p>
+        <ul>
+          <li>“Based on my Fuel Map, I will change ___ by ___ because I notice ___ affects my ___.”</li>
+        </ul>
+        <p>Example:</p>
+        <ul>
+          <li>“I will eat a small balanced snack after school because I notice I get tired and unfocused before practice.”</li>
+        </ul>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Daily Eating Habits Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. Before a morning exam, Jordan skips breakfast and drinks only coffee. During the test, Jordan feels shaky, has trouble concentrating, and becomes irritable. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Jordan is experiencing increased focus from caffeine.</li>
+            <li><span class="letter">B.</span> Jordan is showing signs of dehydration from coffee intake.</li>
+            <li class="correct"><span class="letter">C.</span> Jordan is showing signs of low blood glucose from skipping breakfast. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Jordan has excessive protein in their bloodstream.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A friend packs a lunch with a turkey sandwich on whole-grain bread, apple slices, and water. In the afternoon she notices she can concentrate well during her study period. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The balanced meal provided sustained energy and nutrients for mental focus. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The low-fiber lunch is causing a late energy crash.</li>
+            <li><span class="letter">C.</span> The water is causing her to feel sleepy.</li>
+            <li><span class="letter">D.</span> The sandwich caused an immediate spike and crash in blood sugar.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. After soccer practice, Luis eats a handful of chips and then lies down; he feels sluggish and sore later that evening. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The chips provided ideal post-exercise protein for recovery.</li>
+            <li><span class="letter">B.</span> The chips prevented muscle soreness by supplying electrolytes.</li>
+            <li><span class="letter">C.</span> The snack promoted rapid muscle repair due to high fiber.</li>
+            <li class="correct"><span class="letter">D.</span> Eating mostly refined carbohydrates and fat delayed muscle recovery and did not replenish fluids or protein. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. You frequently eat large portions of sugary cereal at breakfast, then snacks on candy before lunch. By midafternoon you often experience headaches and tiredness. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Constant high-quality protein intake is preventing fatigue.</li>
+            <li><span class="letter">B.</span> Stable blood sugar from sugary foods maintains consistent energy.</li>
+            <li class="correct"><span class="letter">C.</span> Repeated sugar spikes and drops are causing energy crashes and headaches. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> High fiber from cereal is causing drowsiness.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A student brings a balanced snack of Greek yogurt and berries between classes and notices she has fewer mood swings and less hunger before dinner. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The snack’s combination of protein and fiber is helping stabilize blood sugar and mood. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The snack contains stimulants that artificially boost mood.</li>
+            <li><span class="letter">C.</span> The dairy is causing rapid energy loss and increased hunger.</li>
+            <li><span class="letter">D.</span> The berries are increasing her blood sugar volatility.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. After an all-nighter, you skip lunch and try to focus on a long afternoon lab. You find it hard to concentrate and make mistakes. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Sleep loss has no effect if calories are sufficient.</li>
+            <li class="correct"><span class="letter">B.</span> Sleep deprivation combined with missed meals impairs cognitive function and decision-making. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Skipping lunch improves alertness by lowering blood sugar.</li>
+            <li><span class="letter">D.</span> All-nighters increase metabolic rate enough to enhance focus.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. Sam replaces a sugary afternoon soda with water and a small handful of nuts. Over the next hour, Sam feels more steady and less jittery. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The nuts and water caused a sudden insulin spike.</li>
+            <li><span class="letter">B.</span> Replacing soda with water depleted essential electrolytes and increased fatigue.</li>
+            <li><span class="letter">C.</span> The nuts immediately converted to muscle energy and made Sam hyperactive.</li>
+            <li class="correct"><span class="letter">D.</span> Switching to water plus protein/fat from nuts reduced a rapid sugar spike and steadied energy. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. Elena often eats late-night fast food before bed and notices poor sleep quality and morning grogginess. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Eating late helps the body enter deeper sleep stages.</li>
+            <li><span class="letter">B.</span> Late fast food increases REM sleep and improves memory.</li>
+            <li class="correct"><span class="letter">C.</span> High-fat and heavy meals before bedtime can disrupt sleep and reduce next-day alertness. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Heavy meals before bed accelerate overnight muscle recovery.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. During a heavy exam week, Devon keeps hydrated, has regular meals with vegetables and lean protein, and reports feeling less stressed and more able to study. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Proper hydration and nutrient-dense meals support brain function and stress management. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Eating regular meals causes increased cortisol and worsened stress.</li>
+            <li><span class="letter">C.</span> Lean protein reduces concentration compared with sugary snacks.</li>
+            <li><span class="letter">D.</span> Vegetables decrease energy availability for studying.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. Riley eats a candy bar during class because they feel bored, not hungry. Afterwards they still feel bored and end up eating more. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The candy satisfies long-term nutritional needs and reduces future eating.</li>
+            <li class="correct"><span class="letter">B.</span> Eating for emotional reasons (not hunger) can lead to temporary pleasure followed by persistent cravings and overeating. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Candy increases satiety for several hours and prevents further snacking.</li>
+            <li><span class="letter">D.</span> The sugar fully replenishes nutrients and ends boredom.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. A student reads food labels and chooses snacks with higher fiber and protein rather than high sugar. She notices steadier energy between meals. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Fiber and protein slow digestion and promote steadier blood glucose and energy. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Higher fiber causes immediate blood sugar spikes.</li>
+            <li><span class="letter">C.</span> Food labels have no relationship to energy levels.</li>
+            <li><span class="letter">D.</span> Protein-rich snacks always cause headaches.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. After practicing for two hours in hot weather, Jamal drinks a sports drink with electrolytes and eats a banana. He recovers faster and feels less dizzy. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The sports drink and banana helped replace fluids, electrolytes, and carbohydrates lost through sweat, aiding recovery. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Sports drinks and fruit cause dehydration and slower recovery.</li>
+            <li><span class="letter">C.</span> Electrolytes make muscles weaker after exercise.</li>
+            <li><span class="letter">D.</span> Replacing fluids with sugary drinks immediately causes fatigue.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. Taylor often skips snacks and then overeats at dinner because they feel extremely hungry by evening. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Regular small meals increase the chance of evening overeating.</li>
+            <li class="correct"><span class="letter">B.</span> Skipping snacks leads to greater hunger later, promoting larger meals and possible overeating. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Skipping snacks trains the body to reduce appetite and prevents overeating.</li>
+            <li><span class="letter">D.</span> Evening overeating is unrelated to earlier meal patterns.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. Morgan chooses whole fruits instead of fruit juice at breakfast and notices they stay full longer. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Fruit juice has more fiber than whole fruit and keeps you fuller.</li>
+            <li><span class="letter">B.</span> Whole fruit causes a faster blood sugar spike than juice.</li>
+            <li><span class="letter">C.</span> Whole fruit lacks nutrients present in juice that aid fullness.</li>
+            <li class="correct"><span class="letter">D.</span> Whole fruit provides fiber that slows absorption of sugars and increases satiety compared to juice. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. After weeks of regular balanced meals and consistent sleep, your test scores and mood both improve. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Consistent healthy eating and sleep can enhance cognitive performance and emotional regulation. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Regular meals and sleep have no measurable effect on academic performance.</li>
+            <li><span class="letter">C.</span> Improved scores are always due to study time only, not nutrition or sleep.</li>
+            <li><span class="letter">D.</span> Sleep consistency reduces cognitive ability while increasing stress.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+5%2C+Lesson+5%3A+Eating%20Habits%20Throughout%20the%20Day" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-5-4.html" class="prev">← Previous Lesson</a>
+        <a href="hs-6-1.html" class="next">Next Course →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

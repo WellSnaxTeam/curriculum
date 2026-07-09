@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 3: Key Vitamins- Water Soluble — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 2: Micronutrients / Lesson 3
+    </div>
+
+    <div class="lesson">
+      <h1>Key Vitamins- Water Soluble</h1>
+      <div class="meta">High School Course 2, Lesson 3</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Key Vitamins- Water Soluble <span class="module-time">7 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/FmafhSMv0e0" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Key Vitamins- Water Soluble <span class="module-time">10 min</span></h2>
+                <p>Water Soluble Vitamins</p>
+        <p>Imagine you have a big exam, a sports meet, or a performance coming up. You want steady energy, sharp focus, stable mood, clear skin, and quick recovery. Water soluble vitamins are small but powerful nutrients that affect all of those things — and because your body doesn’t store most of them, you need to get them regularly from food to keep feeling and performing your best.</p>
+        <p>Water-soluble vitamins dissolve in water, go straight into your bloodstream, and are not stored in large amounts. That means extra amounts leave your body quickly in urine, so you need a steady daily supply. If you don’t get enough, you may notice low energy, poor concentration, mood swings, slower recovery after workouts, or skin and hair changes — things that matter to students every day.</p>
+        <p>B-Complex Vitamins — Why they matter to you</p>
+        <p>The B vitamins work like a team of helpers inside your cells. They mainly act as coenzymes, which means they assist the chemical reactions that turn the food you eat into usable energy, help build red blood cells that carry oxygen to your brain and muscles, and support healthy nerves. Put simply: B vitamins affect your energy, focus, mood stability, and how quickly you recover after exercise.</p>
+        <p>Vitamin B1 (Thiamin)</p>
+        <p>Why it matters: Thiamin helps turn carbs into energy and keeps your nerves working well. If you’re low in B1 you may feel tired during classes or workouts and notice slower reaction times in sports.</p>
+        <p>Found in: Pork tenderloin, whole grains, legumes.</p>
+        <p>Vitamin B2 (Riboflavin)</p>
+        <p>Why it matters: Riboflavin supports energy production and helps keep your skin and eyes healthy. That can mean more stamina during long study sessions and fewer skin or eye problems from stress or late nights.</p>
+        <p>Found in: Dairy, organ meats, fortified cereals, bread, oats.</p>
+        <p>Vitamin B3 (Niacin)</p>
+        <p>Why it matters: Niacin helps digestion and supports your nervous system and skin. Good niacin levels can help you stay alert and keep your skin looking healthy when you’re under stress.</p>
+        <p>Found in: Meat, poultry, fish, peanuts, brown rice, mushrooms.</p>
+        <p>Vitamin B5 (Pantothenic Acid)</p>
+        <p>Why it matters: Pantothenic acid helps make and break down proteins, carbs, and fats for energy. It’s one of the reasons you can power through a long day of classes or recover after practice.</p>
+        <p>Found in: Organ meats, avocados, broccoli.</p>
+        <p>Vitamin B6 (Pyridoxine)</p>
+        <p>Why it matters: B6 supports immune function, brain development, and the production of neurotransmitters (chemicals that influence mood and focus). Adequate B6 can help with concentration, better mood regulation, and a stronger immune system during exam season.</p>
+        <p>Found in: Fish, bananas, potatoes, legumes.</p>
+        <p>Vitamin B7 (Biotin)</p>
+        <p>Why it matters: Biotin helps your body process fats and glucose, which affects energy availability and can influence hair and skin health. Good biotin support can help your appearance and keep energy levels more stable.</p>
+        <p>Found in: Eggs, salmon, sweet potatoes, avocados.</p>
+        <p>Vitamin B9 (Folate / Folic Acid)</p>
+        <p>Why it matters: Folate is essential for making DNA and for cell growth. For students, that means it supports overall body repair and healthy cells — important for growth, recovery after workouts, and maintaining healthy skin.</p>
+        <p>Found in: Dark leafy greens, legumes, organ meats.</p>
+        <p>Vitamin B12 (Cobalamin)</p>
+        <p>Why it matters: B12 keeps nerves and red blood cells healthy and helps make DNA. It’s crucial for sustained energy and clear thinking — low B12 can cause fatigue and brain fog that hurt study and sports performance. Unlike the other water-soluble vitamins, small amounts of B12 can be stored in the liver, but many people (especially those on plant-based diets) need to watch their intake.</p>
+        <p>Found in: Clams, beef liver, fortified cereals and plant milks.</p>
+        <p>Vitamin C (Ascorbic Acid)</p>
+        <p>Why it matters: Vitamin C supports several things high school students care about — skin, immune defense, mood, and recovery.</p>
+        <ul>
+          <li>Collagen and appearance: Vitamin C is essential for making collagen, the protein that keeps skin, blood vessels, cartilage, and wounds healthy. If you want clearer skin and faster healing from scrapes or acne-related inflammation, vitamin C is part of that process.</li>
+          <li>Immunity and staying in school: It helps immune cells work better, so you’re less likely to be sidelined by colds before exams or big games.</li>
+          <li>Antioxidant protection: Vitamin C neutralizes free radicals (damaging molecules) that build up from stress, pollution, or intense exercise. Less damage can mean lower risk of long-term issues and better overall recovery.</li>
+          <li>Iron absorption and energy: Vitamin C helps your body absorb iron from plant foods. Better iron absorption means more oxygen reaches your brain and muscles, improving energy and focus.</li>
+          <li>Brain and mood: Vitamin C helps produce neurotransmitters involved in mood regulation. Adequate levels can support steadier mood and clearer thinking under pressure.</li>
+        </ul>
+        <p>Found in: Citrus fruits, strawberries, bell peppers, broccoli, and other fruits and vegetables.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Water-Soluble Vitamins Energy Tracker <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+                  <ul>
+          <li>Draw a timeline of yesterday:</li>
+          <li>morning → night</li>
+          <li>Add:</li>
+          <li>energy level at 3–5 points</li>
+          <li>foods eaten before each point</li>
+        </ul>
+        <p>Then:</p>
+        <ul>
+          <li>Circle patterns:</li>
+          <li>energy dips</li>
+          <li>focus loss</li>
+          <li>Label missing nutrients (B vitamins, Vitamin C)</li>
+        </ul>
+        <p>Reflect:</p>
+        <ul>
+          <li>“How does my eating pattern affect my energy stability?”</li>
+          <li>“Where am I under-fueling my body?”</li>
+          <li>How do my eating patterns around water soluble vitamins affect my performance in the classroom and athletics?</li>
+        </ul>
+        <p>Commitment:</p>
+        <p>Create a commitment to change 1 habit to improve your energy levels.</p>
+        <p>Example: “I will eat a fruit or vegetable with at least 2 meals per day for the next week and track my energy.”</p>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Water Soluble Vitamins Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. A student notices frequent bruising and slow wound healing after not eating fruits and vegetables for weeks. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is likely experiencing symptoms of vitamin D deficiency.</li>
+            <li class="correct"><span class="letter">B.</span> The student is likely experiencing symptoms of vitamin C deficiency. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The student is likely experiencing symptoms of vitamin K deficiency.</li>
+            <li><span class="letter">D.</span> The student is likely experiencing symptoms of vitamin A deficiency.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student who eats eggs, dairy, and meat regularly is less likely to be deficient in which water soluble vitamin?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is likely getting enough vitamin C from animal products.</li>
+            <li><span class="letter">B.</span> The student is likely getting enough vitamin D from animal products.</li>
+            <li><span class="letter">C.</span> The student is likely getting enough vitamin E from animal products.</li>
+            <li class="correct"><span class="letter">D.</span> The student is likely getting enough vitamin B12 from animal products. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. True or False: Water soluble vitamins are not stored in large amounts in the body and must be consumed regularly.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> A student feels tired, has skin rashes, and eats mostly refined grains with little variety. What is most likely happening?</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. The student is likely experiencing symptoms of folic acid deficiency.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">B.</span> The student is likely experiencing symptoms of vitamin C deficiency. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The student is likely experiencing symptoms of vitamin D deficiency.</li>
+            <li><span class="letter">D.</span> The student is likely experiencing symptoms of niacin deficiency.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A student eats plenty of leafy greens, beans, and citrus fruits. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is likely getting enough vitamin D to support cell growth.</li>
+            <li><span class="letter">B.</span> The student is likely getting enough calcium to support cell growth.</li>
+            <li class="correct"><span class="letter">C.</span> The student is likely getting enough folic acid to support cell growth. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is likely getting enough iron to support cell growth.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A student avoids eating bananas, potatoes, and chicken. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student may be at risk for vitamin K deficiency.</li>
+            <li class="correct"><span class="letter">B.</span> The student may be at risk for vitamin B6 deficiency. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The student may be at risk for vitamin A deficiency.</li>
+            <li><span class="letter">D.</span> The student may be at risk for vitamin E deficiency.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. A student who eats mostly white rice and very few whole grains starts to feel weak and has trouble concentrating. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is likely experiencing symptoms of vitamin C deficiency.</li>
+            <li><span class="letter">B.</span> The student is likely experiencing symptoms of vitamin B12 deficiency.</li>
+            <li><span class="letter">C.</span> The student is likely experiencing symptoms of vitamin D deficiency.</li>
+            <li class="correct"><span class="letter">D.</span> The student is likely experiencing symptoms of thiamine deficiency. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. True or False: Excess water soluble vitamins are usually excreted in urine.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student drinks orange juice daily and eats bell peppers and strawberries. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is likely getting enough vitamin D to support immune function.</li>
+            <li><span class="letter">B.</span> The student is likely getting enough vitamin K to support immune function.</li>
+            <li class="correct"><span class="letter">C.</span> The student is likely getting enough vitamin C to support immune function. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is likely getting enough vitamin A to support immune function.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. A student who skips breakfast and rarely eats vegetables or beans feels tired and has trouble focusing in class. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student may be at risk for vitamin D deficiency, which can affect performance.</li>
+            <li><span class="letter">B.</span> The student may be at risk for vitamin K deficiency, which can affect performance.</li>
+            <li><span class="letter">C.</span> The student may be at risk for vitamin E deficiency, which can affect performance.</li>
+            <li class="correct"><span class="letter">D.</span> The student may be at risk for folic acid deficiency, which can affect performance. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. True or False: Water soluble vitamins include vitamin C and the B vitamins.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. A student who follows a strict vegan diet and does not take supplements feels tired and has trouble with memory. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student is likely experiencing symptoms of vitamin B12 deficiency. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student is likely experiencing symptoms of vitamin C deficiency.</li>
+            <li><span class="letter">C.</span> The student is likely experiencing symptoms of vitamin D deficiency.</li>
+            <li><span class="letter">D.</span> The student is likely experiencing symptoms of vitamin K deficiency.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. A student eats chicken, peanuts, and whole grains regularly. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is likely getting enough vitamin D to help convert food into energy.</li>
+            <li class="correct"><span class="letter">B.</span> The student is likely getting enough niacin to help convert food into energy. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The student is likely getting enough vitamin K to help convert food into energy.</li>
+            <li><span class="letter">D.</span> The student is likely getting enough vitamin E to help convert food into energy.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. A student has cracked lips, sore throat, and rarely eats dairy or eggs. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is likely experiencing symptoms of vitamin D deficiency.</li>
+            <li><span class="letter">B.</span> The student is likely experiencing symptoms of vitamin A deficiency.</li>
+            <li class="correct"><span class="letter">C.</span> The student is likely experiencing symptoms of riboflavin deficiency. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is likely experiencing symptoms of vitamin K deficiency.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. True or False: Water soluble vitamins can be stored in the body for long periods of time.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+2%2C+Lesson+3%3A+Key%20Vitamins-%20Water%20Soluble" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-2-2.html" class="prev">← Previous Lesson</a>
+        <a href="hs-2-4.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

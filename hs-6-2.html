@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 2: Underfueling and Energy Deficiency — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 6: Common Athlete Mistakes / Lesson 2
+    </div>
+
+    <div class="lesson">
+      <h1>Underfueling and Energy Deficiency</h1>
+      <div class="meta">High School Course 6, Lesson 2</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Underfueling and Energy Deficiency <span class="module-time">5 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/5ub5MX7OMvM" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Why Fueling Matters <span class="module-time">10 min</span></h2>
+                <p>Have you ever walked into practice feeling confident, only to find yourself tired halfway through? Maybe your legs felt heavy, you couldn't focus on your coach, or you became frustrated over mistakes you normally wouldn't make. Sometimes athletes think they just had a "bad day," but often the real problem started long before practice—with what they did (or didn't) eat.</p>
+        <p>Your body is like a car. Even the fastest sports car cannot go very far without fuel. Your muscles and brain work the same way. Before physical activity, your body needs energy from food to help you move, think, react, and recover. When you don't eat enough—or you eat foods that don't provide lasting energy—you may experience underfueling.</p>
+        <p>What Is Underfueling?</p>
+        <p>Underfueling happens when your body does not receive enough energy (calories) or nutrients to meet the demands of your daily activities and exercise. This can happen if you skip meals, avoid certain foods, wait too long to eat before activity, or simply don't eat enough throughout the day.</p>
+        <p>When your body doesn't have enough fuel, it has to work harder to perform the same tasks. Instead of feeling strong and energized, you may feel like you're running on empty.</p>
+        <p>How Underfueling Affects You</p>
+        <p>Underfueling doesn't just affect your workout—it affects your entire day.</p>
+        <ul>
+          <li>Energy: You tire more quickly and may struggle to finish practices or games.</li>
+          <li>Focus: Your brain depends on glucose from carbohydrates. Without enough fuel, it becomes harder to pay attention, make quick decisions, and remember plays.</li>
+          <li>Mood: Low energy can make you feel irritable, frustrated, or unmotivated.</li>
+          <li>Athletic Performance: Your speed, strength, endurance, coordination, and reaction time can all decrease.</li>
+          <li>Appearance and Recovery: Over time, underfueling may slow muscle recovery, increase injury risk, and make it harder to maintain healthy hair, skin, and muscle.</li>
+        </ul>
+        <p>What Are Energy Deficiencies?</p>
+        <p>An energy deficiency happens when your body consistently uses more energy than it receives from food. While one skipped meal may leave you tired for a few hours, repeated underfueling can create a long-term energy deficiency.</p>
+        <p>Your body begins to conserve energy by slowing down important functions. Instead of using energy for athletic performance and muscle recovery, it focuses on keeping your heart, lungs, and other organs working.</p>
+        <p>This means you may notice:</p>
+        <ul>
+          <li>Feeling tired even after sleeping</li>
+          <li>Declining athletic performance</li>
+          <li>Difficulty concentrating in class</li>
+          <li>Slower recovery after workouts</li>
+          <li>Frequent soreness</li>
+          <li>Increased illness because your immune system is weaker</li>
+          <li>Feeling cold more often</li>
+          <li>Increased hunger or cravings later in the day</li>
+        </ul>
+        <p>These are signs that your body is asking for more fuel.</p>
+        <p>Common Symptoms of Underfueling</p>
+        <p>Everyone experiences underfueling differently, but common signs include:</p>
+        <ul>
+          <li>Low energy during practice</li>
+          <li>Feeling dizzy or lightheaded</li>
+          <li>Headaches</li>
+          <li>Shakiness</li>
+          <li>Trouble concentrating</li>
+          <li>Mood swings or irritability</li>
+          <li>Weakness</li>
+          <li>Early muscle fatigue</li>
+          <li>Slower running speeds or lower strength</li>
+          <li>Needing longer to recover after exercise</li>
+        </ul>
+        <p>Ignoring these symptoms can make practices feel harder than they should and reduce your ability to improve.</p>
+        <p>The Role of Macronutrients</p>
+        <p>The foods you eat before activity matter just as much as eating enough. Your body depends on three major nutrients called macronutrients.</p>
+        <p>Carbohydrates: Your Primary Fuel</p>
+        <p>Carbohydrates are your body's preferred source of energy during exercise. They are broken down into glucose, which powers both your muscles and your brain.</p>
+        <p>Good carbohydrate choices include:</p>
+        <ul>
+          <li>Fruit</li>
+          <li>Oatmeal</li>
+          <li>Whole-grain bread</li>
+          <li>Rice</li>
+          <li>Pasta</li>
+          <li>Potatoes</li>
+          <li>Whole-grain cereal</li>
+        </ul>
+        <p>Eating carbohydrates before activity helps you:</p>
+        <ul>
+          <li>Maintain energy throughout practice</li>
+          <li>Stay mentally focused</li>
+          <li>Delay fatigue</li>
+          <li>Improve endurance and speed</li>
+        </ul>
+        <p>Protein: Helps You Recover</p>
+        <p>Protein is not your main fuel during exercise, but it helps repair and build muscles after activity.</p>
+        <p>Healthy protein choices include:</p>
+        <ul>
+          <li>Greek yogurt</li>
+          <li>Eggs</li>
+          <li>Lean chicken or turkey</li>
+          <li>Peanut butter</li>
+          <li>Beans</li>
+          <li>Cottage cheese</li>
+          <li>Milk</li>
+        </ul>
+        <p>Including some protein before activity can help you stay satisfied and begin supporting muscle recovery.</p>
+        <p>Healthy Fats: Long-Lasting Energy</p>
+        <p>Healthy fats provide long-lasting energy throughout the day, although they digest more slowly than carbohydrates.</p>
+        <p>Healthy fat sources include:</p>
+        <ul>
+          <li>Nuts</li>
+          <li>Seeds</li>
+          <li>Peanut butter</li>
+          <li>Avocados</li>
+        </ul>
+        <p>Large amounts of high-fat foods immediately before intense exercise may leave you feeling sluggish because they take longer to digest.</p>
+        <p>What Should You Eat Before Activity?</p>
+        <p>A good pre-activity meal combines carbohydrates with a moderate amount of protein.</p>
+        <p>Examples include:</p>
+        <ul>
+          <li>Oatmeal with fruit</li>
+          <li>Peanut butter on whole-grain toast</li>
+          <li>Greek yogurt with berries</li>
+          <li>Turkey sandwich on whole-grain bread</li>
+          <li>Banana with peanut butter</li>
+          <li>Trail mix with dried fruit and nuts</li>
+        </ul>
+        <p>If you have less than an hour before activity, choose a lighter snack that is mostly carbohydrates, such as fruit, applesauce, or whole-grain crackers.</p>
+        <p>Healthy Habits That Keep You Fueled</p>
+        <p>Good fueling is not just about one meal before practice. It is built through daily habits.</p>
+        <p>Try these habits:</p>
+        <ul>
+          <li>Eat breakfast every day.</li>
+          <li>Avoid skipping meals.</li>
+          <li>Eat every 3–4 hours during the day.</li>
+          <li>Include carbohydrates in meals and snacks.</li>
+          <li>Add protein to help with recovery.</li>
+          <li>Drink water throughout the day instead of waiting until practice.</li>
+          <li>Plan ahead by packing snacks when you know you'll be active after school.</li>
+          <li>Try new pre-practice meals during regular practices instead of on game day.</li>
+        </ul>
+        <p>Small habits repeated every day lead to better performance when it matters most.</p>
+        <p>Putting It All Together</p>
+        <p>Your body performs best when it has enough fuel. Underfueling can lower your energy, hurt your mood, reduce your focus, slow your recovery, and keep you from performing at your best. By eating enough throughout the day and choosing meals that include carbohydrates, protein, and healthy fats, you give your body what it needs to train hard, recover well, and continue improving.</p>
+        <p>The next time you step onto the field, court, track, or weight room, remember this: your performance doesn't just begin when practice starts—it begins with how you fuel your body beforehand.</p>
+        <p>If you are concerned that you may be struggling with underfueling, reach out to a trusted adult or doctor to ensure your safety and health.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Fuel and Energy Patterns <span class="module-time">0 min</span></h2>
+        <div class="activity-box">
+                  <p>You will connect nutrition to athletic performance.</p>
+        <p>My Habit</p>
+        <p>How I Feel</p>
+        <p>Why It Happens</p>
+        <p><strong>One Change I Will Make</strong></p>
+        <p>Examples habits include:</p>
+        <ul>
+          <li>Skip breakfast</li>
+          <li>Drink only an energy drink</li>
+          <li>Eat chips before practice</li>
+          <li>Eat fruit and peanut butter before activity</li>
+          <li>Drink water consistently</li>
+        </ul>
+        <p>Students finish by choosing the one habit that would have the biggest positive impact. Create a goal around the habit that will have the biggest positive impact.</p>
+        <p>Part 2: My Energy Pattern</p>
+        <p>You will discover relationships between food and energy.</p>
+        <p>Students:</p>
+        <ul>
+          <li>Think about your last three practices, workouts, or games.</li>
+          <li>Record:</li>
+          <li>What you ate beforehand</li>
+          <li>When you ate</li>
+          <li>Energy level before, during, and after</li>
+          <li>Focus</li>
+          <li>Athletic performance</li>
+          <li>Look for trends.</li>
+          <li>Write one conclusion about how nutrition affects their performance.</li>
+        </ul>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Underfueling and Energy Deficiency Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. A high school athlete skips breakfast and eats very little throughout the day before practice. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> They may be experiencing an energy deficiency that could affect their performance and health. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> They are preventing dehydration.</li>
+            <li><span class="letter">C.</span> They are likely to gain muscle mass quickly.</li>
+            <li><span class="letter">D.</span> They will have more energy throughout the day.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student trains intensely but does not increase their food intake. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They are improving their endurance by eating less.</li>
+            <li><span class="letter">B.</span> They are building stronger bones.</li>
+            <li class="correct"><span class="letter">C.</span> They may be at risk for underfueling, which can lead to fatigue and slower recovery. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> They are preventing muscle cramps.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. A student consistently under-eats while balancing school and sports. What is a likely effect on their body?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> They might experience decreased concentration and mood swings. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> They will have improved focus in class.</li>
+            <li><span class="letter">C.</span> They are likely to gain weight quickly.</li>
+            <li><span class="letter">D.</span> They will sleep better at night.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. A student feels tired, has frequent injuries, and struggles to concentrate during class. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They are likely to be well-hydrated.</li>
+            <li><span class="letter">B.</span> They are getting enough vitamins and minerals.</li>
+            <li><span class="letter">C.</span> They are building muscle mass.</li>
+            <li class="correct"><span class="letter">D.</span> They may be experiencing symptoms of energy deficiency. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. What is the best way for an athlete to fix energy deficiencies?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> They should increase their calorie intake to match their activity level. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> They should skip meals to lose weight.</li>
+            <li><span class="letter">C.</span> They should decrease their water intake.</li>
+            <li><span class="letter">D.</span> They should avoid carbohydrates.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. How can a student create healthy habits to prevent underfueling?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They should eat as little as possible.</li>
+            <li><span class="letter">B.</span> They should avoid eating breakfast.</li>
+            <li class="correct"><span class="letter">C.</span> They should plan balanced meals and snacks throughout the day. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> They should eat only after practice.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. True or False: Underfueling can lead to weakened bones and increased risk of injury.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. False</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> True</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. True or False: Eating less food always improves athletic performance.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student notices they are losing muscle and taking longer to recover after workouts. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They are likely to build muscle faster.</li>
+            <li><span class="letter">B.</span> They are improving their immune system.</li>
+            <li><span class="letter">C.</span> They are preventing injuries.</li>
+            <li class="correct"><span class="letter">D.</span> They may be experiencing muscle loss and slower recovery. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. If a student suspects they are underfueling, what is the best action to take?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They should eat less to avoid weight gain.</li>
+            <li class="correct"><span class="letter">B.</span> They should talk to a coach or nutritionist about their eating habits. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> They should ignore the symptoms and keep training.</li>
+            <li><span class="letter">D.</span> They should skip meals to save time.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. A student starts a new sport and practices every day. What is most likely happening regarding their nutrition needs?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They are likely to need fewer calories than before.</li>
+            <li class="correct"><span class="letter">B.</span> They may be at risk for energy deficiency due to increased calorie needs. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> They are preventing dehydration by eating less.</li>
+            <li><span class="letter">D.</span> They should avoid eating before practice.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. What is a healthy habit for athletes to prevent underfueling?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They should only eat protein.</li>
+            <li class="correct"><span class="letter">B.</span> They should include carbohydrates, proteins, and fats in their meals. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> They should skip snacks.</li>
+            <li><span class="letter">D.</span> They should avoid eating after practice.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. A student feels tired and has trouble concentrating after several days of intense training and little food. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They are gaining strength quickly.</li>
+            <li><span class="letter">B.</span> They are likely to be fully recovered.</li>
+            <li><span class="letter">C.</span> They are improving their immune system.</li>
+            <li class="correct"><span class="letter">D.</span> They may be experiencing symptoms of energy deficiency. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. A student skips meals to lose weight but continues to train hard. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> They are likely to be well-nourished.</li>
+            <li><span class="letter">B.</span> They are preventing muscle cramps.</li>
+            <li><span class="letter">C.</span> They are improving their endurance.</li>
+            <li class="correct"><span class="letter">D.</span> They may be at risk for underfueling and energy deficiency. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. What is a good strategy for athletes to avoid energy deficiency?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> They should eat regular meals and snacks to support their energy needs. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> They should skip breakfast.</li>
+            <li><span class="letter">C.</span> They should avoid eating after practice.</li>
+            <li><span class="letter">D.</span> They should eat only once a day.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+6%2C+Lesson+2%3A+Underfueling%20and%20Energy%20Deficiency" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-6-1.html" class="prev">← Previous Lesson</a>
+        <a href="hs-6-3.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

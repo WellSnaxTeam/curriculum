@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 7: Counting Macronutrients — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 1: Macronutrients / Lesson 7
+    </div>
+
+    <div class="lesson">
+      <h1>Counting Macronutrients</h1>
+      <div class="meta">High School Course 1, Lesson 7</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Counting Macronutrients <span class="module-time">10 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/Sc4rj3OiVV8" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Counting Macronutrients for Fueling All Day <span class="module-time">5 min</span></h2>
+                <p>Understanding Your Macronutrients</p>
+        <p>You know that feeling around 2 p.m. when you hit a wall? Your eyes get heavy, your focus disappears, and you can barely get through your last class or practice. Or maybe you're an athlete who feels completely drained halfway through a game, even though you "ate breakfast." Or perhaps you're trying to build muscle, feel confident in your body, or just want to stop the energy roller coaster that's been messing with your mood and performance.</p>
+        <p>Here's what most people don't realize: the food you eat isn't just about calories—it's about the specific mix of nutrients your body needs to actually work the way you want it to. This mix is called your macronutrients, and learning to balance them could be the difference between crushing your day and barely getting through it.</p>
+        <p>Why Tracking Macronutrients Actually Matters to You</p>
+        <p>You'll finally understand what's really in your food. Most people have no idea what they're eating or how it impacts their energy, mood, and performance. When you start tracking, you realize that a candy bar and a chicken breast might have similar calories, but they affect your body completely differently. One leaves you crashed and tired; the other keeps you steady and focused.</p>
+        <p>You'll build habits that last. Learning to read food labels and manage portion sizes now means you'll never feel confused about nutrition again. This knowledge stays with you for life—and it's way more powerful than any diet.</p>
+        <p>You'll stop the energy crashes. The right balance of macronutrients keeps your blood sugar stable throughout the day. No more 3 p.m. crash. No more feeling shaky or irritable. Just consistent energy when you need it most.</p>
+        <p>You'll recover better and perform stronger. If you're an athlete or active person, macronutrients are everything. The right fuel before activity powers your performance. The right recovery nutrition afterward rebuilds your muscles so you actually get stronger. Without it, you're just going through the motions.</p>
+        <p>You'll feel more satisfied. Eating the right macronutrient balance keeps you full longer and prevents those constant cravings that derail your goals. You'll actually feel good, not deprived.</p>
+        <p>How to Calculate Your Personal Macronutrient Targets</p>
+        <p>Step 1: Find Your Basal Metabolic Rate (BMR)</p>
+        <p>Your BMR is how many calories your body burns just existing—breathing, thinking, keeping your heart beating. It's your baseline. Here's the formula based on your sex:</p>
+        <p>Males:</p>
+        <p>(10 × weight in kg) + (6.25 × height in cm) - (5 × age in years) + 5 = BMR</p>
+        <p>Females:</p>
+        <p>(10 × weight in kg) + (6.25 × height in cm) - (5 × age in years) - 161 = BMR</p>
+        <p>Why this matters: This is the starting point. It tells you your body's baseline demand for energy. Knowing this helps you understand how much fuel you actually need—not what diet culture tells you to eat, but what your body requires.</p>
+        <p>Step 2: Multiply by Your Activity Level to Get Your TDEE (Total Daily Energy Expenditure)</p>
+        <p>Your activity level is how much you move around. Multiply your BMR by the factor that matches your lifestyle:</p>
+        <ul>
+          <li>Sedentary (mostly sitting): BMR × 1.2</li>
+          <li>Lightly Active (light exercise 1-3 days/week): BMR × 1.375</li>
+          <li>Moderately Active (exercise 3-5 days/week): BMR × 1.55</li>
+          <li>Very Active (exercise 6-7 days/week or intense sports): BMR × 1.725</li>
+          <li>Super Active (intense daily training or physical job): BMR × 1.9</li>
+        </ul>
+        <p>The result is your TDEE—how many calories you actually burn in a day.</p>
+        <p>Why this matters: This is where your personal goals come in. Your TDEE tells you exactly how much energy your body needs based on what you actually do. An athlete training hard needs way more fuel than someone who sits in class all day. Honoring that difference means you have the energy to perform and recover—or, if you're trying to lose fat, you know how much you can safely reduce without tanking your performance and mood.</p>
+        <p>Step 3: Adjust for Your Goal</p>
+        <p>Now you customize based on what you want:</p>
+        <ul>
+          <li>Building Muscle: TDEE + 250–500 calories</li>
+          <li>Losing Fat: TDEE − 250–500 calories</li>
+          <li>Maintaining Weight: TDEE stays the same</li>
+        </ul>
+        <p>Why this matters: This is crucial. If you want to build muscle or lose fat, you can't just eat random amounts. You need a specific target. But notice the range—you're not doing anything extreme. Small, sustainable adjustments are what actually work and keep you healthy.</p>
+        <p>Step 4: Calculate Protein</p>
+        <p>Protein is your muscle-building, recovery, and satiety superpower.</p>
+        <p>Formula: Target weight in lbs × (1.25–1.5g) = grams of protein per day</p>
+        <p>Then convert to calories: Protein grams × 4 = calories from protein</p>
+        <p>Why this matters: Protein is non-negotiable if you want to feel full, build or maintain muscle, and recover from activity. It's also the most satiating macronutrient, meaning it keeps you feeling satisfied longer. This is why you don't feel as hungry after eating chicken compared to eating bread—even if they have similar calories. Prioritize protein and you'll naturally make better choices throughout the day.</p>
+        <p>Step 5: Calculate Fats</p>
+        <p>Fats support hormone production, brain function, and nutrient absorption. Don't skip them.</p>
+        <p>Formula: Adjusted total calories × 0.25 = fat calories</p>
+        <p>Then convert to grams: Fat calories ÷ 9 = grams of fat per day</p>
+        <p>Why this matters: Fats are essential for your hormones, mood, and brain power. Cutting them out leaves you feeling foggy, irritable, and unmotivated. The right amount of fat supports focus, stable mood, and energy.</p>
+        <p>Step 6: Calculate Carbohydrates</p>
+        <p>Carbs are your energy source—especially important if you're active or an athlete.</p>
+        <p>Formula: Adjusted total calories − (protein calories + fat calories) = carbohydrate calories</p>
+        <p>Then convert to grams: Carbohydrate calories ÷ 4 = grams of carbs per day</p>
+        <p>Why this matters: Carbs fuel your brain and muscles. They're what gives you energy during workouts, focus in class, and the stamina to get through your day. If you cut carbs too low, you'll feel sluggish, unfocused, and your athletic performance will suffer. The right amount of carbs is what keeps you performing at your best.</p>
+        <p>The General Macronutrient Balance</p>
+        <p>A solid baseline to aim for is:</p>
+        <ul>
+          <li>50% Carbohydrates (fuel and brain power)</li>
+          <li>25% Protein (muscle, recovery, and satiety)</li>
+          <li>25% Fats (hormones, mood, and absorption)</li>
+        </ul>
+        <p>This balance works for most high schoolers and supports both brain power and physical activity.</p>
+        <p>Important Reminders</p>
+        <p>Track macronutrients with adult supervision. Always do this under the guidance of a parent, doctor, or registered dietician. They can make sure you're doing it safely and that your targets are appropriate for your age and development.</p>
+        <p>Never drop your calories too low. Restricting calories too much will actually harm your physical development into adulthood and tank your athletic performance. You need enough fuel to grow, learn, and perform. Slow, sustainable changes are what work.</p>
+        <p>Use tracking tools to make it easier. Apps like Cronometer or MacrosFirst make tracking simple and convenient. You don't have to do math in your head—let the app do it.</p>
+        <p>Track consistently for at least 2 weeks. You need time to see what's actually working. After 2 weeks, look at the results—are you gaining or losing weight at a reasonable pace? If things are moving too fast or too slow, adjust your calorie intake slightly and try again.</p>
+        <p>Remember: counting macros isn't required to be healthy. If tracking stresses you out or makes eating feel like a chore, stop. You don't have to count every gram to be healthy. Instead, focus on eating whole foods with a priority on protein, and practice mindful eating—listen to your hunger and fullness cues. Your body often knows what it needs.</p>
+        <p>Quiz:</p>
+        <p><strong>Module Title: Counting Macronutrients</strong></p>
+        <p><strong>Module Time: 25 minutes</strong></p>
+        <p><strong>Quiz Title: Counting Macronutrients Quiz</strong></p>
+        <p><strong>Passing Score %: 70</strong></p>
+        <p>Questions- (MC or T/F):</p>
+        <ol>
+          <li>Alex is preparing for a soccer game and wants to eat something that will give him quick energy. Which macronutrient should he focus on for this purpose?</li>
+          <li>Vitamins</li>
+          <li>Carbohydrates</li>
+          <li>Minerals</li>
+          <li>Water</li>
+          <li>Maria is recovering from a muscle injury and wants to help her muscles rebuild. Which macronutrient is most important for muscle repair?</li>
+          <li>Fat</li>
+          <li>Carbohydrates</li>
+          <li>Protein</li>
+          <li>Fiber</li>
+          <li>Jamal is planning a long-distance bike ride and wants to include foods that provide sustained energy. Which macronutrient should he prioritize for endurance?</li>
+          <li>Fat</li>
+          <li>Protein</li>
+          <li>Carbohydrates</li>
+          <li>Calcium</li>
+        </ol>
+        <p>4. If a meal contains rice, beans, and avocado, which macronutrient is most likely to be found in the rice?</p>
+        <ol>
+          <li>Protein</li>
+          <li>Carbohydrates</li>
+          <li>Fat</li>
+          <li>Iron</li>
+        </ol>
+        <p>5. Samantha is tracking her macronutrients and notices that her lunch of grilled chicken and broccoli is high in which macronutrient?</p>
+        <ol>
+          <li>Fat</li>
+          <li>Carbohydrates</li>
+          <li>Vitamin C</li>
+          <li>Protein</li>
+        </ol>
+        <p>6. A student eats a handful of almonds as a snack. Which macronutrient is most abundant in almonds?</p>
+        <ol>
+          <li>Carbohydrates</li>
+          <li>Fat</li>
+          <li>Protein</li>
+          <li>Vitamin D</li>
+        </ol>
+        <p>7. Ethan wants to fuel up before a track meet and chooses a banana. Which macronutrient is he mainly getting from the banana?</p>
+        <ol>
+          <li>Protein</li>
+          <li>Fat</li>
+          <li>Potassium</li>
+          <li>Carbohydrates</li>
+        </ol>
+        <p>8. If you are trying to build muscle and your daily meals include eggs, tofu, and lentils, which macronutrient are you focusing on?</p>
+        <ol>
+          <li>Carbohydrates</li>
+          <li>Fat</li>
+          <li>Magnesium</li>
+          <li>Protein</li>
+        </ol>
+        <p>9. A meal consists of salmon, brown rice, and steamed vegetables. Which macronutrient is most prominent in the salmon?</p>
+        <ol>
+          <li>Protein</li>
+          <li>Carbohydrates</li>
+          <li>Fat</li>
+          <li>Fiber</li>
+        </ol>
+        <p>10. If you are counting macronutrients and your breakfast is oatmeal with berries, which macronutrient is likely to be highest?</p>
+        <ol>
+          <li>Fat</li>
+          <li>Carbohydrates</li>
+          <li>Protein</li>
+          <li>Zinc</li>
+        </ol>
+        <p>11. A student wants to increase their intake of protein for athletic performance. Which food should they choose: Greek yogurt, olive oil, white bread, or apples?</p>
+        <ol>
+          <li>Protein</li>
+          <li>Fat</li>
+          <li>Carbohydrates</li>
+          <li>Vitamin A</li>
+        </ol>
+        <p>12. If you are making a smoothie with avocado, which macronutrient are you adding most?</p>
+        <ol>
+          <li>Carbohydrates</li>
+          <li>Fat</li>
+          <li>Protein</li>
+          <li>Vitamin B12</li>
+        </ol>
+        <p>13. During exam week, a student wants to avoid feeling sluggish and chooses whole grain toast for breakfast. Which macronutrient is the main source of energy in this meal?</p>
+        <ol>
+          <li>Carbohydrates</li>
+          <li>Protein</li>
+          <li>Fat</li>
+          <li>Vitamin E</li>
+        </ol>
+        <p>14. A vegetarian student wants to meet their protein needs. Which macronutrient should they track when eating foods like chickpeas and quinoa?</p>
+        <ol>
+          <li>Fat</li>
+          <li>Carbohydrates</li>
+          <li>Vitamin K</li>
+          <li>Protein</li>
+        </ol>
+        <p>15. If you are counting macronutrients and your lunch includes cheese, which macronutrient are you likely increasing?</p>
+        <ol>
+          <li>Carbohydrates</li>
+          <li>Protein</li>
+          <li>Vitamin C</li>
+          <li>Fat</li>
+        </ol>
+        <p>Answer Key</p>
+        <ol>
+          <li>B</li>
+          <li>C</li>
+          <li>A</li>
+          <li>B</li>
+          <li>D</li>
+          <li>B</li>
+          <li>D</li>
+          <li>D</li>
+          <li>C</li>
+          <li>B</li>
+          <li>A</li>
+          <li>B</li>
+          <li>A</li>
+          <li>D</li>
+          <li>D</li>
+        </ol>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Counting Macronutrients Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. Alex is preparing for a soccer game and wants to eat something that will give him quick energy. Which macronutrient should he focus on for this purpose?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Vitamins</li>
+            <li class="correct"><span class="letter">B.</span> Carbohydrates <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Minerals</li>
+            <li><span class="letter">D.</span> Water</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. Maria is recovering from a muscle injury and wants to help her muscles rebuild. Which macronutrient is most important for muscle repair?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Fat</li>
+            <li><span class="letter">B.</span> Carbohydrates</li>
+            <li class="correct"><span class="letter">C.</span> Protein <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Fiber</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. Jamal is planning a long-distance bike ride and wants to include foods that provide sustained energy. Which macronutrient should he prioritize for endurance?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Fat <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Protein</li>
+            <li><span class="letter">C.</span> Carbohydrates</li>
+            <li><span class="letter">D.</span> Calcium</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. If a meal contains rice, beans, and avocado, which macronutrient is most likely to be found in the rice?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Protein</li>
+            <li class="correct"><span class="letter">B.</span> Carbohydrates <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Fat</li>
+            <li><span class="letter">D.</span> Iron</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. Samantha is tracking her macronutrients and notices that her lunch of grilled chicken and broccoli is high in which macronutrient?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Fat</li>
+            <li><span class="letter">B.</span> Carbohydrates</li>
+            <li><span class="letter">C.</span> Vitamin C</li>
+            <li class="correct"><span class="letter">D.</span> Protein <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A student eats a handful of almonds as a snack. Which macronutrient is most abundant in almonds?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Carbohydrates</li>
+            <li class="correct"><span class="letter">B.</span> Fat <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Protein</li>
+            <li><span class="letter">D.</span> Vitamin D</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. Ethan wants to fuel up before a track meet and chooses a banana. Which macronutrient is he mainly getting from the banana?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Protein</li>
+            <li><span class="letter">B.</span> Fat</li>
+            <li><span class="letter">C.</span> Potassium</li>
+            <li class="correct"><span class="letter">D.</span> Carbohydrates <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. If you are trying to build muscle and your daily meals include eggs, tofu, and lentils, which macronutrient are you focusing on?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Carbohydrates</li>
+            <li><span class="letter">B.</span> Fat</li>
+            <li><span class="letter">C.</span> Magnesium</li>
+            <li class="correct"><span class="letter">D.</span> Protein <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A meal consists of salmon, brown rice, and steamed vegetables. Which macronutrient is most prominent in the salmon?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Protein</li>
+            <li><span class="letter">B.</span> Carbohydrates</li>
+            <li class="correct"><span class="letter">C.</span> Fat <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Fiber</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. If you are counting macronutrients and your breakfast is oatmeal with berries, which macronutrient is likely to be highest?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Fat</li>
+            <li class="correct"><span class="letter">B.</span> Carbohydrates <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Protein</li>
+            <li><span class="letter">D.</span> Zinc</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. A student wants to increase their intake of protein for athletic performance. Which food should they choose: Greek yogurt, olive oil, white bread, or apples?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Protein <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Fat</li>
+            <li><span class="letter">C.</span> Carbohydrates</li>
+            <li><span class="letter">D.</span> Vitamin A</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. If you are making a smoothie with avocado, which macronutrient are you adding most?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Carbohydrates</li>
+            <li class="correct"><span class="letter">B.</span> Fat <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Protein</li>
+            <li><span class="letter">D.</span> Vitamin B12</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. During exam week, a student wants to avoid feeling sluggish and chooses whole grain toast for breakfast. Which macronutrient is the main source of energy in this meal?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Carbohydrates <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Protein</li>
+            <li><span class="letter">C.</span> Fat</li>
+            <li><span class="letter">D.</span> Vitamin E</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. A vegetarian student wants to meet their protein needs. Which macronutrient should they track when eating foods like chickpeas and quinoa?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Fat</li>
+            <li><span class="letter">B.</span> Carbohydrates</li>
+            <li><span class="letter">C.</span> Vitamin K</li>
+            <li class="correct"><span class="letter">D.</span> Protein <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. If you are counting macronutrients and your lunch includes cheese, which macronutrient are you likely increasing?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Carbohydrates</li>
+            <li><span class="letter">B.</span> Protein</li>
+            <li><span class="letter">C.</span> Vitamin C</li>
+            <li class="correct"><span class="letter">D.</span> Fat <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+1%2C+Lesson+7%3A+Counting%20Macronutrients" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-1-6.html" class="prev">← Previous Lesson</a>
+        <a href="hs-2-1.html" class="next">Next Course →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 1: Energy and Calories — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 5: Daily Fueling Basics / Lesson 1
+    </div>
+
+    <div class="lesson">
+      <h1>Energy and Calories</h1>
+      <div class="meta">High School Course 5, Lesson 1</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Energy and Calories <span class="module-time">5 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/3-qJdA7kUTQ" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Energy and Calories <span class="module-time">5 min</span></h2>
+                <p>Imagine waking up for school feeling groggy and sluggish, barely able to keep your eyes open during first period. Or maybe you remember the last time you tried to play basketball after skipping lunch, and your legs felt heavy and slow. These moments are all connected to how your body uses energy, and that energy comes from the calories in the food you eat. Understanding the relationship between energy and calories can help you make choices that improve your mood, athletic performance, focus, and even your appearance.</p>
+        <p>What are calories?</p>
+        <p>Calories are units of energy. They are also referred to as kilocalories or kcals. When you eat food, your body breaks it down and converts it into energy that fuels everything you do—from running laps in gym class to thinking through a tough math problem. If you don’t get enough calories, you might feel tired, irritable, or unable to concentrate. On the other hand, getting too many calories without enough activity can lead to excess weight, which can affect your confidence and health. The key is finding the right balance so your body has the energy it needs to perform at its best. Your body is always burning calories even during rest and sleep to keep organs functioning.</p>
+        <p>Why do calories matter?</p>
+        <p>The foods you choose matter as much as the number of calories you consume. For example, eating a donut and drinking soda might give you a quick burst of energy, but it won’t last long. You might crash and feel sleepy or cranky soon after. In contrast, eating a balanced meal with whole grains, lean proteins, fruits, and vegetables provides steady energy throughout the day. This helps you stay alert in class, perform better in sports, and maintain a positive mood.</p>
+        <p>Where do they come from?</p>
+        <p>Calories come from three main sources: carbohydrates, proteins, and fats. Each plays a unique role in your body. Carbohydrates are your body’s preferred source of energy, especially for activities that require quick bursts of movement, like sprinting or jumping. Carbs provide the body with 4 calories of energy per gram. Proteins help build and repair muscles, which is important if you’re active or want to look and feel strong. Proteins provide the body with 4 calories of energy per gram. Fats provide long-lasting energy and are essential for healthy skin and brain function. Fats provide the body with 9 grams of energy per calorie. Choosing foods that combine these nutrients helps you feel full, focused, and ready to take on challenges.</p>
+        <p>Calorie Needs</p>
+        <p>It’s not just about what you eat, but also when you eat. Skipping breakfast can leave you feeling drained and unable to concentrate during morning classes. Eating regular meals and snacks keeps your energy levels steady, so you’re less likely to feel tired or lose focus. If you’re involved in sports, eating a healthy snack before practice can boost your performance and help you recover faster afterward.</p>
+        <p>Your calorie needs depend on your age, gender, activity level, and metabolism. Someone who plays soccer every day needs more calories than someone who spends most of their time studying or gaming. If you eat too few calories, your body may break down muscle for energy, which can make you feel weak and affect your athletic performance. Eating too many calories without enough activity can lead to weight gain, which might make you feel sluggish and less confident. Learning to listen to your body’s hunger and fullness signals can help you find the right balance.</p>
+        <p>Making Healthy Habits</p>
+        <p>Making healthy habits starts with small changes. Try swapping sugary drinks for water, or choose fruit instead of chips for a snack. Pay attention to how different foods make you feel—do you have more energy after eating a balanced meal? Are you able to focus better in class? Over time, these choices add up and can improve your mood, appearance, and overall health.</p>
+        <p>Remember, calories aren’t just numbers on a label—they’re the fuel your body needs to live, learn, and grow. By understanding how energy and calories work together, you can make choices that help you feel your best every day. Whether you want to run faster, think more clearly, or simply feel happier, fueling your body with the right foods and the right amount of calories is the first step toward creating healthy habits that last a lifetime.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Daily Fueling Habits Reflection <span class="module-time">0 min</span></h2>
+        <div class="activity-box">
+                  <p>Complete a checklist of daily fueling habits, including eating breakfast, staying hydrated, eating fruits and vegetables, including protein, choosing whole grains, and limiting sugary drinks. Score your current habits and identify your strengths and areas for improvement.</p>
+        <p>Daily Fueling Habits Checklist</p>
+        <p>Think about your typical eating habits over the past week. For each statement, circle the response that best describes how often you do the habit.</p>
+        <p>Scoring:</p>
+        <ul>
+          <li>3 points = Almost Always</li>
+          <li>2 points = Sometimes</li>
+          <li>1 point = Rarely</li>
+          <li>0 points = Never</li>
+        </ul>
+        <p>Daily Fueling Habit</p>
+        <p>Almost Always (3)</p>
+        <p>Sometimes (2)</p>
+        <p>Rarely (1)</p>
+        <p>Never (0)</p>
+        <p>I eat breakfast before school or within two hours of waking up.</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>I eat meals at regular times instead of skipping meals.</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>I include a source of protein with most meals or snacks.</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>I eat fruits at least twice each day.</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>I eat vegetables at least twice each day.</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>I choose whole grains (whole wheat bread, oatmeal, brown rice, whole grain cereal, etc.) more often than refined grains.</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>I drink water throughout the day to stay hydrated.</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>I choose water instead of sugary drinks most of the time.</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>I eat healthy snacks that help keep my energy steady.</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>I stop eating when I feel comfortably full instead of overly full.</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>I eat foods that give me steady energy instead of relying mostly on sweets or junk food.</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>I plan ahead so I have healthy foods available during busy days.</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>☐</p>
+        <p>Total Score</p>
+        <p>Add your points: ________ / 36</p>
+        <p>Score Interpretation</p>
+        <ul>
+          <li>31–36 points: Excellent! Your daily fueling habits are supporting your energy and performance. Continue building on these habits.</li>
+          <li>25–30 points: Good job! You have many healthy habits. Identify one or two areas to improve.</li>
+          <li>18–24 points: You're developing healthy habits, but there are several opportunities to improve your daily fueling routine.</li>
+          <li>0–17 points: Your current fueling habits may not consistently support your energy, focus, and overall health. Small changes can make a big difference.</li>
+        </ul>
+        <p>Reflection</p>
+        <p>Strengths</p>
+        <p>Which three fueling habits received your highest scores?</p>
+        <ol>
+          <li>________________</li>
+          <li>________________</li>
+          <li>Areas for Improvement</li>
+        </ol>
+        <p>Which two fueling habits received your lowest scores?</p>
+        <ol>
+          <li>________________</li>
+          <li>Make the Connection</li>
+          <li>Which of your current habits helps you feel your best during school, sports, work, or other daily activities?</li>
+        </ol>
+        <ol>
+          <li>Which habit may be contributing to low energy, difficulty concentrating, or feeling hungry throughout the day?</li>
+        </ol>
+        <ol>
+          <li>What patterns do you notice about your eating habits?</li>
+        </ol>
+        <p>Action Commitment</p>
+        <p>Choose one fueling habit you will improve this week.</p>
+        <p><strong>My goal is:</strong></p>
+        <p><strong>I will achieve this goal by:</strong></p>
+        <p><strong>How will improving this habit help my daily performance, energy, or focus?</strong></p>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Energy and Calories Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. A student notices they are gaining weight over time, even though their activity level hasn't changed. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is not consuming any calories at all.</li>
+            <li><span class="letter">B.</span> The student is burning more calories than they are consuming.</li>
+            <li><span class="letter">C.</span> The student is balancing calorie intake and expenditure.</li>
+            <li class="correct"><span class="letter">D.</span> The student is consuming more calories than they are burning. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student goes for a 30-minute run after school. What is most likely happening inside their body?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is gaining energy from the environment.</li>
+            <li><span class="letter">B.</span> The student is not using any energy during the run.</li>
+            <li><span class="letter">C.</span> The student is losing energy through sweating only.</li>
+            <li class="correct"><span class="letter">D.</span> The student is using stored energy to fuel their run. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. A student eats a sandwich for lunch. What is most likely happening as they digest it?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is burning calories by chewing.</li>
+            <li><span class="letter">B.</span> The student is storing calories in their hair.</li>
+            <li class="correct"><span class="letter">C.</span> The student is consuming calories that will be used for energy. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is losing calories through eating.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. A student sits in a cold classroom and starts to shiver. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is not using any calories while sitting.</li>
+            <li><span class="letter">B.</span> The student is losing calories only through breathing.</li>
+            <li class="correct"><span class="letter">C.</span> The student is burning calories to keep their body warm. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is gaining calories from the cold air.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A student lifts weights during gym class. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is burning calories only through sweating.</li>
+            <li><span class="letter">B.</span> The student is storing calories in their muscles.</li>
+            <li><span class="letter">C.</span> The student is gaining calories from the weights.</li>
+            <li class="correct"><span class="letter">D.</span> The student is using calories to fuel their muscles. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. True or False: Calories are a unit of energy that our bodies use to function.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. A student notices they are losing weight after joining the track team. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is burning no calories at all.</li>
+            <li><span class="letter">B.</span> The student is consuming more calories than they are burning.</li>
+            <li><span class="letter">C.</span> The student is gaining calories from exercise.</li>
+            <li class="correct"><span class="letter">D.</span> The student is consuming fewer calories than they are burning. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A student wonders if their body uses energy while they sleep. What is most likely true?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student only burns calories when awake.</li>
+            <li><span class="letter">B.</span> The student gains calories from sleep.</li>
+            <li class="correct"><span class="letter">C.</span> The student is burning calories even while sleeping. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is not burning any calories while sleeping.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student eats a healthy breakfast before school. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is storing calories in their backpack.</li>
+            <li class="correct"><span class="letter">B.</span> The student is fueling their body for daily activities. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The student is burning calories by eating breakfast.</li>
+            <li><span class="letter">D.</span> The student is losing calories through their breakfast food.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. A student spends an hour studying for a math test. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is burning calories only through physical activity.</li>
+            <li><span class="letter">B.</span> The student is not using any calories while studying.</li>
+            <li><span class="letter">C.</span> The student is gaining calories from their textbook.</li>
+            <li class="correct"><span class="letter">D.</span> The student is using calories to concentrate and learn. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. True or False: If a student eats more calories than their body needs, the extra calories are stored as fat.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. A student spends the day walking, talking, and breathing. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is burning calories only through movement.</li>
+            <li class="correct"><span class="letter">B.</span> The student is burning calories through both movement and basic body functions. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The student is not burning any calories during the day.</li>
+            <li><span class="letter">D.</span> The student is gaining calories from breathing.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. A student is recovering from a sports injury. What is most likely happening in their body?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> The student is using calories to repair and grow body tissues. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> The student is storing calories in their skin.</li>
+            <li><span class="letter">C.</span> The student is losing calories through their hair.</li>
+            <li><span class="letter">D.</span> The student is burning calories only during exercise.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. A student plays soccer after school. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The student is burning calories only when running.</li>
+            <li><span class="letter">B.</span> The student is storing calories in their shoes.</li>
+            <li class="correct"><span class="letter">C.</span> The student is burning calories to fuel their activity. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> The student is gaining calories from the soccer ball.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. True or False: Calories can only be burned during intense exercise.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+5%2C+Lesson+1%3A+Energy%20and%20Calories" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="/" class="prev">← Course Outline</a>
+        <a href="hs-5-2.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

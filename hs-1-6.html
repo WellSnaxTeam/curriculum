@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 6: Macronutrients and Physical Activity — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 1: Macronutrients / Lesson 6
+    </div>
+
+    <div class="lesson">
+      <h1>Macronutrients and Physical Activity</h1>
+      <div class="meta">High School Course 1, Lesson 6</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Macronutrients and Physical Activity <span class="module-time">6 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/wOCfhDvwsCA" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Macronutrients and Physical Activity <span class="module-time">10 min</span></h2>
+                <p>Picture this: You're halfway through your soccer game, basketball practice, or workout. You started strong, felt great in the first half, but now? Your legs feel heavy. Your mind is foggy. You can't quite push as hard as you want to, and you're frustrated because you know you have more in you. What's happening? It's not a lack of willpower—it's likely a fuel problem.</p>
+        <p>The truth is, what you eat before, during, and after physical activity directly impacts how you perform, how quickly you recover, and even how you feel for the rest of the day. Macronutrients—carbohydrates, proteins, and fats—are the building blocks that keep your body energized, rebuild muscle, and keep your hormones balanced. When you time them right, you'll notice the difference immediately: more energy, sharper focus, better recovery, and stronger athletic performance.</p>
+        <p>Carbohydrates: Your Quick Energy Powerhouse</p>
+        <p>What They Do for Your Body</p>
+        <p>Carbohydrates are your body's primary and preferred source of energy. When you eat carbs, your body breaks them down into glucose, which gets stored as glycogen in your liver and muscles. This is your immediate energy reserve—the fuel your body reaches for first when you need a quick burst of power.</p>
+        <p>Why This Matters to You</p>
+        <p>As exercise intensity increases, your body primarily burns carbohydrates. This means carbs are what fuel your sprint to the finish line, your explosive jump, or your ability to push hard during the final minutes of competition. Without enough carbs, you lose that quick energy, and your athletic performance takes a hit. You'll feel that sudden energy crash—the "wall" athletes talk about—that makes it impossible to give your best effort.</p>
+        <p>When to Eat Them</p>
+        <p>Consume simple carbohydrates before and during intense activities or workouts lasting longer than 60 minutes. This keeps your energy levels stable and your performance sharp throughout.</p>
+        <p>What Happens When You Don't Eat Enough Carbs</p>
+        <ul>
+          <li>Sudden energy crash: You hit the wall and feel completely drained</li>
+          <li>Heavy legs: Your muscles feel sluggish and slow to respond, making it harder to move explosively</li>
+          <li>Brain fog: Your focus deteriorates, making it difficult to concentrate during competition or training</li>
+          <li>Dizziness: Low blood sugar can make you feel lightheaded or uncoordinated</li>
+          <li>Poor athletic performance: You can't push as hard or perform at your best</li>
+        </ul>
+        <p>Protein: The Recovery and Strength Builder</p>
+        <p>What It Does for Your Body</p>
+        <p>Protein provides the components your body needs to rebuild muscle and tissue, helping your body adapt to the stress of exercise. During any workout, you create tiny microtears in your muscle fibers. Protein is what repairs these tears and builds stronger muscle in their place.</p>
+        <p>Why This Matters to You</p>
+        <p>This is where your strength gains come from. Without adequate protein after exercise, your body can't rebuild muscle effectively, which means you won't get stronger, faster, or more powerful. Instead, your body shifts into a catabolic state—meaning it actually breaks down muscle tissue rather than building it up. This directly impacts your athletic performance, your appearance, and your ability to progress in your sport or fitness goals.</p>
+        <p>When to Eat It</p>
+        <p>Consume protein after physical activity, paired with carbohydrates. This combination helps your body recover faster and replaces the energy stores you used during exercise. The sooner you eat after working out, the sooner your muscles can start rebuilding.</p>
+        <p>What Happens When You Don't Eat Enough Protein</p>
+        <ul>
+          <li>Increased and prolonged muscle soreness: Recovery takes longer, and you feel sore for days</li>
+          <li>Loss of strength and endurance: Your athletic performance plateaus or declines because your muscles aren't being rebuilt stronger</li>
+          <li>Decreased coordination: Without proper muscle recovery, your body can't perform complex movements as effectively</li>
+          <li>No visible progress: You won't see the physical changes or strength gains you're working hard to achieve</li>
+        </ul>
+        <p>Fats: Your Endurance and Recovery Fuel</p>
+        <p>What They Do for Your Body</p>
+        <p>Fats are a concentrated source of energy that's especially important for sustaining moderate-intensity or endurance activities. They're the primary fuel source during low-energy, low-intensity activities. Once your glycogen stores run low after a long period of exercise, your body switches to burning fat for sustained energy.</p>
+        <p>Why This Matters to You</p>
+        <p>Fats provide long-lasting energy, which is crucial if you're doing cardio, distance running, or any activity that requires sustained effort over time. They also play a critical role in hormone balance—when fat intake is too low, your hormones become imbalanced, which affects your mood, energy levels, and recovery speed. Plus, fats help reduce inflammation after intense workouts, which means faster recovery and less prolonged soreness.</p>
+        <p>When to Eat Them</p>
+        <p>Consume fats 2–3 hours before or after physical activity. Fats digest slowly, so eating them right before or during exercise can cause digestive discomfort and actually hurt your performance. However, during recovery hours after activity, your body needs fats to reduce inflammation and support hormone balance.</p>
+        <p>What Happens When You Don't Eat Enough Fats</p>
+        <ul>
+          <li>Early fatigue during endurance activities: You run out of sustained energy and hit a wall</li>
+          <li>Poor exercise performance: Your body struggles to meet the demands of prolonged activity</li>
+          <li>Delayed recovery: Inflammation lingers longer, and you feel sore and stiff for days</li>
+          <li>Hormone imbalances: Your mood suffers, your energy becomes inconsistent, and your body can't regulate stress hormones effectively</li>
+          <li>Difficulty concentrating: Hormone imbalances directly impact focus and mental clarity</li>
+        </ul>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Fuel Check: Your Personal Performance Audit <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+                  <p>Think about the last time you felt really energized during a workout, practice, or physical activity. What was different about that day?</p>
+        <ul>
+          <li>What did you eat that day (and when)?</li>
+          <li>How did your body feel?</li>
+          <li>What was your performance like?</li>
+        </ul>
+        <p>Now think about a time you felt sluggish, tired, or couldn't push as hard as you wanted to during activity.</p>
+        <ul>
+          <li>What was different?</li>
+          <li>What had you eaten (or not eaten)?</li>
+        </ul>
+        <p><strong>Don't overthink this—just notice the pattern.</strong></p>
+        <p>Part 2: Your Current Fuel Habits</p>
+        <p>Track Your Week</p>
+        <p>For the next few questions, be honest about what you actually do, not what you think you should do.</p>
+        <p>Before your workouts or practices, what do you typically eat or drink?</p>
+        <ul>
+          <li>Nothing</li>
+          <li>Something light (snack)</li>
+          <li>A full meal</li>
+          <li>Energy drink/sports drink only</li>
+          <li>Other: ________________</li>
+        </ul>
+        <p>How long before activity do you eat?</p>
+        <ul>
+          <li>Right before (0-15 minutes)</li>
+          <li>30 minutes to 1 hour before</li>
+          <li>1-2 hours before</li>
+          <li>2+ hours before</li>
+          <li>I don't plan it; it just happens</li>
+        </ul>
+        <p>What's your go-to pre-activity food?</p>
+        <p><strong>(Examples: granola bar, banana, toast, pizza, nothing, energy drink, etc.)</strong></p>
+        <p>After your workouts or practices, what do you typically eat or drink?</p>
+        <ul>
+          <li>Nothing</li>
+          <li>Protein shake/bar</li>
+          <li>Regular meal</li>
+          <li>Snack</li>
+          <li>Sports drink</li>
+          <li>Other: ________________</li>
+        </ul>
+        <p>How soon after activity do you eat?</p>
+        <ul>
+          <li>Right away (0-30 minutes)</li>
+          <li>30 minutes to 1 hour after</li>
+          <li>1-2 hours after</li>
+          <li>Several hours later</li>
+          <li>I don't usually eat after</li>
+        </ul>
+        <p>On a typical day, how many hours are you physically active? (Include practice, sports, workouts, PE class, walking, etc.)</p>
+        <p>Part 3: Connect Your Habits to How You Feel</p>
+        <p>The Real-Life Check-In</p>
+        <p>Read each scenario. Mark which one sounds most like YOU.</p>
+        <p>Energy During Activity:</p>
+        <ul>
+          <li>I start strong but hit a wall halfway through</li>
+          <li>I feel consistently tired from the beginning</li>
+          <li>I have good energy throughout</li>
+          <li>It depends on the day (no clear pattern)</li>
+        </ul>
+        <p>How your legs feel during intense activity:</p>
+        <ul>
+          <li>They feel powerful and responsive</li>
+          <li>They feel heavy or sluggish</li>
+          <li>They feel sore or tight</li>
+          <li>They feel fine at first, then fade</li>
+        </ul>
+        <p>Your focus and mental clarity during practice/workouts:</p>
+        <ul>
+          <li>Sharp and locked in</li>
+          <li>Foggy or hard to concentrate</li>
+          <li>Okay at first, then fades</li>
+          <li>Inconsistent</li>
+        </ul>
+        <p>How sore you are the day after activity:</p>
+        <ul>
+          <li>Barely sore at all</li>
+          <li>Moderately sore (normal)</li>
+          <li>Very sore for multiple days</li>
+          <li>Depends on the workout</li>
+        </ul>
+        <p>Your overall mood and energy level on days you work out:</p>
+        <ul>
+          <li>Better than usual</li>
+          <li>About the same</li>
+          <li>Worse/more tired</li>
+          <li>Depends on when I eat</li>
+        </ul>
+        <p>Now Make the Connection</p>
+        <p>Look at your answers above. Circle the feelings that match YOUR experience.</p>
+        <p>If you circled "hit a wall," "heavy legs," "foggy," or "very sore"—what might be missing from your fuel plan?</p>
+        <p>Think about the macronutrient guide you learned:</p>
+        <ul>
+          <li>Carbs = quick energy (prevents the wall and brain fog)</li>
+          <li>Protein = muscle repair (reduces soreness and builds strength)</li>
+          <li>Fats = sustained energy and recovery (reduces inflammation)</li>
+        </ul>
+        <p>My biggest fuel gap right now is probably:</p>
+        <p>(Circle one or write your own)</p>
+        <ul>
+          <li>Not eating enough before activity</li>
+          <li>Not eating soon enough after activity</li>
+          <li>Not eating the right type of food</li>
+          <li>Not eating enough overall</li>
+          <li>Eating too close to activity (causing discomfort)</li>
+          <li>Other: ________________</li>
+        </ul>
+        <p>How is this affecting my performance or how I feel?</p>
+        <p>Example: "I skip breakfast before morning practice, so by the second half I'm exhausted and can't focus."</p>
+        <p><strong>Your answer:</strong></p>
+        <p>Part 4: Your Commitment</p>
+        <p>Choose ONE Change—Make It Real</p>
+        <p>You don't need to overhaul everything. Pick one specific, measurable change you will make this week. It needs to be:</p>
+        <ul>
+          <li>Specific (not "eat better"—but "eat a banana 30 minutes before practice")</li>
+          <li>Realistic (something you can actually do)</li>
+          <li>Measurable (you'll know if you did it)</li>
+        </ul>
+        <p>Here are some examples:</p>
+        <ul>
+          <li>Eat a carb snack 30-45 minutes before my 3 workouts this week</li>
+          <li>Drink a protein shake within 30 minutes after practice</li>
+          <li>Pack a post-workout snack on practice days</li>
+          <li>Eat a real meal 2-3 hours before my weekend game</li>
+          <li>Stop eating right before activity (wait 2+ hours instead)</li>
+        </ul>
+        <p><strong>My one commitment this week is:</strong></p>
+        <p>Why I'm choosing this:</p>
+        <p><strong>(How will this help how you feel or perform?)</strong></p>
+        <p>How will I remember to do this?</p>
+        <p><strong>(Phone reminder? Tell a teammate? Pack it the night before? Write it down?)</strong></p>
+        <p>When will I start?</p>
+        <p><strong>Today / Tomorrow / [Specific date]: ________________</strong></p>
+        <p>Part 5: Closing Reflection</p>
+        <p>How confident are you that you can make this change?</p>
+        <ul>
+          <li>10/10 (totally confident)</li>
+          <li>7-9/10 (pretty confident)</li>
+          <li>5-6/10 (somewhat confident)</li>
+          <li>Below 5 (I need help)</li>
+        </ul>
+        <p><strong>If you're below a 7, what would make it easier?</strong></p>
+        <p><strong>One thing you learned about your own body today:</strong></p>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Macronutrients and Physical Activity Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. Alex is preparing for a soccer match and wants to eat something that will give him quick energy. Which macronutrient should he focus on?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Vitamins</li>
+            <li><span class="letter">B.</span> Minerals</li>
+            <li><span class="letter">C.</span> Water</li>
+            <li class="correct"><span class="letter">D.</span> Carbohydrates <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. After a tough workout, Sarah wants to know why she should include protein in her meal. Which statement best explains the role of protein?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Protein is mainly used for hydration.</li>
+            <li class="correct"><span class="letter">B.</span> Protein helps repair muscles after exercise. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Protein is the primary source of energy during sprinting.</li>
+            <li><span class="letter">D.</span> Protein is not needed for athletes.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. During a marathon, which function does dietary fat serve for runners?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Fat is only stored and never used for energy.</li>
+            <li><span class="letter">B.</span> Fat is needed for building muscle quickly.</li>
+            <li class="correct"><span class="letter">C.</span> Fat provides long-lasting energy for endurance activities. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Fat is the fastest source of energy for short bursts.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. What happens to carbohydrates in the body during physical activity?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Carbohydrates are converted directly into protein.</li>
+            <li><span class="letter">B.</span> Carbohydrates are stored as vitamins.</li>
+            <li><span class="letter">C.</span> Carbohydrates are used to build bones.</li>
+            <li class="correct"><span class="letter">D.</span> Carbohydrates are broken down into glucose for energy. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. If a student wants to build muscle through strength training, which macronutrient should they prioritize in their diet?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Carbohydrates</li>
+            <li><span class="letter">B.</span> Fat</li>
+            <li><span class="letter">C.</span> Water</li>
+            <li class="correct"><span class="letter">D.</span> Protein <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. Maria has a basketball game in two hours. What is the best nutrition strategy to help her perform well?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She should avoid eating any food before the game.</li>
+            <li><span class="letter">B.</span> She should eat only protein before the game.</li>
+            <li class="correct"><span class="letter">C.</span> She should eat a meal rich in carbohydrates before the game. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> She should drink only water before the game.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. Which macronutrient is most important for providing energy during long-distance cycling?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Minerals</li>
+            <li class="correct"><span class="letter">B.</span> Fat <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Fiber</li>
+            <li><span class="letter">D.</span> Water</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. During intense exercise, which macronutrient is the body’s preferred source of energy?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Protein</li>
+            <li><span class="letter">B.</span> Fat</li>
+            <li class="correct"><span class="letter">C.</span> Carbohydrates <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Vitamins</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. Why is protein important for athletes after a workout?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Protein is used to provide immediate energy during exercise.</li>
+            <li><span class="letter">B.</span> Protein is only needed for brain function.</li>
+            <li class="correct"><span class="letter">C.</span> Protein helps rebuild and strengthen muscles after exercise. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Protein helps store vitamins in the body.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. Jessica is training for a track meet. What is the best approach to her nutrition plan?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She should only eat carbohydrates.</li>
+            <li><span class="letter">B.</span> She should avoid eating fat.</li>
+            <li><span class="letter">C.</span> She should eat only protein.</li>
+            <li class="correct"><span class="letter">D.</span> She should include all three macronutrients in her meals. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. How does the body use fat during physical activity?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Fat is only used for energy during high-intensity activities.</li>
+            <li><span class="letter">B.</span> Fat is not used for energy at all.</li>
+            <li><span class="letter">C.</span> Fat is only needed for brain function.</li>
+            <li class="correct"><span class="letter">D.</span> Fat is used for energy during low-intensity, long-duration activities. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. Which macronutrient should a weightlifter focus on to help repair muscle tissue after a workout?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Protein <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Carbohydrates</li>
+            <li><span class="letter">C.</span> Fat</li>
+            <li><span class="letter">D.</span> Fiber</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. If someone is about to run a sprint race, which macronutrient will provide the fastest energy?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Carbohydrates <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> Protein</li>
+            <li><span class="letter">C.</span> Fat</li>
+            <li><span class="letter">D.</span> Minerals</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. Emily wants to improve her performance in volleyball. What is the best nutritional strategy?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She should eat only carbohydrates.</li>
+            <li class="correct"><span class="letter">B.</span> She should eat a balanced meal with carbohydrates, protein, and fat. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> She should eat only fat.</li>
+            <li><span class="letter">D.</span> She should eat only protein.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. How does fat contribute to physical activity during a day-long hike?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Fat is only used for building muscle.</li>
+            <li><span class="letter">B.</span> Fat is not needed for physical activity.</li>
+            <li><span class="letter">C.</span> Fat is used for quick bursts of energy.</li>
+            <li class="correct"><span class="letter">D.</span> Fat provides energy for long-duration activities like hiking. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+1%2C+Lesson+6%3A+Macronutrients%20and%20Physical%20Activity" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-1-5.html" class="prev">← Previous Lesson</a>
+        <a href="hs-1-7.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

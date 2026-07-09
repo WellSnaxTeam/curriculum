@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 4: Building a Balanced Plate & Meal Planning — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 4: Making Smart Food Choices / Lesson 4
+    </div>
+
+    <div class="lesson">
+      <h1>Building a Balanced Plate & Meal Planning</h1>
+      <div class="meta">High School Course 4, Lesson 4</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Building a Balanced Plate & Meal Planning <span class="module-time">9 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/81G22t2UHxA" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Building a Balanced Plate & Meal Planning <span class="module-time">20 min</span></h2>
+                <p>You're sitting in your third-period class, and your eyelids feel like they weigh five pounds. You had breakfast—or at least, you grabbed something—but by now, you're operating on fumes. Your brain feels fuzzy. You can't remember what the teacher just said. You're tempted to put your head down.</p>
+        <p>Or maybe it's game day. You crushed practice yesterday, but today you feel sluggish on the field or court. Your usual speed isn't there. Your reflexes are slower. You're frustrated because you know you're better than this.</p>
+        <p>Or perhaps it's the afternoon mood swings—you're irritable with your friends, snappy with your family, and you can't figure out why you feel so blah.</p>
+        <p>Here's the thing: what you eat directly impacts how you feel, think, and perform—every single day. This isn't some distant health lecture. It's about why you crashed in class, why you underperformed at your game, and why your mood tanked before dinner.</p>
+        <p>The good news? You don't need to eat "perfectly" or follow some complicated diet. You just need to understand how to build balanced meals that keep your body and brain running at full capacity. Let's break it down.</p>
+        <p>The Building Blocks of a Balanced Plate</p>
+        <p>Think of your body like a high-performance machine. It needs different types of fuel to run properly. A balanced plate includes four key components, and each one does something specific for you.</p>
+        <p>Protein: Your Body's Building Material</p>
+        <p>What it does: Protein builds and repairs muscle tissue, makes hormones, creates enzymes, and keeps you feeling full longer.</p>
+        <p>Why you care: If you're an athlete, protein is non-negotiable. After a workout, your muscles have tiny tears in them (that's actually how they grow). Protein repairs those tears, making you stronger. But protein isn't just for athletes. If you eat enough protein at breakfast, you won't crash by mid-morning. You'll have sustained energy and better focus because protein stabilizes your blood sugar. Plus, protein helps regulate your mood—it's involved in creating neurotransmitters like serotonin, which affects how happy and calm you feel.</p>
+        <p>Where to find it: Chicken, turkey, fish, eggs, Greek yogurt, cottage cheese, beans, lentils, tofu, nuts, and nut butter.</p>
+        <p>Real-world example: Compare two breakfasts.</p>
+        <p>Breakfast A: a bowl of sugary cereal with milk. By 10 a.m., your energy crashes. Breakfast B: scrambled eggs with whole-grain toast and almond butter.</p>
+        <p>You stay energized and focused all the way to lunch.</p>
+        <p>Complex Carbohydrates: Your Brain's Fuel</p>
+        <p>What it does: Carbs break down into glucose, which is literally the fuel your brain runs on. Complex carbs (whole grains, oats, sweet potatoes, beans) release glucose slowly, keeping your energy stable. Simple carbs (white bread, sugary snacks) spike your blood sugar fast, then crash hard.</p>
+        <p>Why you care: Your brain uses about 20% of your body's energy, and it prefers glucose. If you skip carbs or eat only simple carbs, your focus suffers. You'll have trouble concentrating in class, remembering information, or solving problems. On the flip side, eating the right carbs before a test or study session sharpens your mental performance. If you're an athlete, carbs are your performance fuel—they give you the energy for explosive movements and endurance.</p>
+        <p>Where to find it: Whole-grain bread and pasta, brown rice, oats, quinoa, sweet potatoes, beans, lentils, fruit, and vegetables.</p>
+        <p>Real-world example: The night before a big test, eat a dinner with brown rice or sweet potato instead of skipping carbs. The next morning, your brain will have the fuel it needs to recall information and think clearly. Compare that to cramming on black coffee alone—your focus will be sharper with proper carbs in your system.</p>
+        <p>Healthy Fats: Your Hormone and Brain Support</p>
+        <p>What it does: Fat is essential for brain health, hormone production, vitamin absorption, and reducing inflammation in your body. Your brain is about 60% fat, so it literally needs fat to function.</p>
+        <p>Why you care: Healthy fats support focus and mental clarity. They also help regulate your mood and reduce anxiety. If you're not eating enough fat, you might feel foggy, irritable, or emotionally flat. For athletes, healthy fats reduce inflammation after workouts, helping your body recover faster. They also keep you feeling satisfied after meals, so you're not raiding the snack cabinet an hour later.</p>
+        <p>Where to find it: Olive oil, avocados, nuts, seeds, fatty fish (salmon, mackerel), nut butters, and chia seeds.</p>
+        <p>Real-world example: A snack of apple slices with almond butter (carbs + fat + a bit of protein) will keep you satisfied and focused for hours. The same apple with nothing? You'll be hungry again in 30 minutes.</p>
+        <p>Vegetables and Fruits: Your Micronutrient Powerhouses</p>
+        <p>What it does: Vegetables and fruits are packed with vitamins, minerals, and fiber. Fiber keeps your digestive system healthy and helps you feel full. Micronutrients support energy production, immune function, mood, and recovery.</p>
+        <p>Why you care: Vegetables and fruits are like insurance for your health. They reduce inflammation, support your immune system (so you get sick less often and miss fewer classes and games), improve your skin, and boost your mood. Some vitamins, like B vitamins, are directly involved in energy production—without them, you'll feel tired even if you're eating enough calories. Folate and magnesium, found in leafy greens, actually support mental health and can reduce anxiety and depression.</p>
+        <p>Where to find it: Leafy greens (spinach, kale), broccoli, carrots, bell peppers, berries, oranges, apples, bananas, and sweet potatoes.</p>
+        <p>Real-world example: A salad with dark leafy greens at lunch isn't just "healthy eating." It's giving your body the micronutrients to maintain steady energy, keep your skin clear, and support your mood through the afternoon.</p>
+        <p>How Your Meals Affect Your Performance (And Not Just Athletic Performance)</p>
+        <p>Academic Performance</p>
+        <p>Your performance in class depends on your brain having enough fuel and the right nutrients.</p>
+        <p>The focus factor: Eating a balanced breakfast with protein, complex carbs, and healthy fat before school sets you up for better concentration in first and second period. Your brain has glucose for thinking, amino acids for neurotransmitters, and fat for brain cell health. Skip breakfast? Your brain is operating on reserves. You'll struggle to focus, take longer to process information, and have a harder time remembering what you learned.</p>
+        <p>The test-day advantage: Eating a balanced meal a couple of hours before a big exam gives your brain optimal fuel. You'll think faster, recall information more easily, and stay calm under pressure. A meal with protein and complex carbs—like oatmeal with eggs and berries—beats cramming on coffee and energy drinks.</p>
+        <p>The homework grind: When you're studying at night, having a snack with protein and healthy fat (like nuts or Greek yogurt) keeps your brain alert without the crash that comes from sugary snacks.</p>
+        <p>Athletic Performance</p>
+        <p>If you play a sport, what you eat directly impacts your performance on the field or court.</p>
+        <p>Pre-game fuel: Eating a balanced meal 2-3 hours before competition gives your muscles the energy they need for explosive movements. Carbs fuel your muscles, protein supports muscle function, and adequate hydration keeps everything running smoothly. Eat too little, and you'll feel sluggish. Eat the wrong thing (like heavy fried food), and you'll feel bloated and slow.</p>
+        <p>Recovery after workouts: Your muscles need protein to repair and grow stronger. Eating protein within a couple of hours after a hard workout speeds up recovery. This means less muscle soreness, faster strength gains, and better performance at your next practice. Carbs also help replenish the energy your muscles used during exercise.</p>
+        <p>Endurance and stamina: If you need sustained energy for long competitions or practices, complex carbs are your best friend. They provide steady glucose so you don't hit a wall midway through.</p>
+        <p>Social and Mental Health Performance</p>
+        <p>What you eat affects your mood, confidence, and how you interact with others.</p>
+        <p>Mood stability: Eating balanced meals with protein, complex carbs, and fat stabilizes your blood sugar, which stabilizes your mood. You'll be less irritable, less anxious, and more emotionally resilient. Skipping meals or eating only junk food often leads to mood swings, irritability, and low motivation.</p>
+        <p>Confidence and appearance: When you're eating nutritious foods, your skin looks clearer, you have more energy, and you feel better about yourself. These things add up to more confidence in social situations.</p>
+        <p>Social eating situations: Understanding nutrition helps you make choices at parties, restaurants, and social events that align with how you want to feel and perform. You're not depriving yourself; you're choosing foods that make you feel good.</p>
+        <p>Simple Meal-Planning Strategies You Can Actually Use</p>
+        <p>Meal planning sounds complicated, but it doesn't have to be. Here are practical strategies that fit into a high school student's life.</p>
+        <p>The Plate Method</p>
+        <p>The simplest approach: fill half your plate with vegetables or fruit, one quarter with protein, and one quarter with complex carbs. Add a small amount of healthy fat (olive oil, nuts, avocado). Done. This takes the guesswork out of "Is this balanced?"</p>
+        <p>Example dinner: Grilled chicken (protein), brown rice (carbs), roasted broccoli and sweet potato (vegetables), drizzled with olive oil (fat).</p>
+        <p>Build-Your-Own Meals</p>
+        <p>Choose one item from each category and you've got a balanced meal:</p>
+        <p>Protein: Chicken, turkey, fish, eggs, tofu, beans, Greek yogurt</p>
+        <p>Carbs: Brown rice, whole-grain pasta, sweet potato, oats, quinoa, whole-grain bread</p>
+        <p>Vegetables: Broccoli, spinach, carrots, bell peppers, tomatoes, cucumbers</p>
+        <p>Healthy fat: Olive oil, avocado, nuts, nut butter, seeds</p>
+        <p>Mix and match. Breakfast: eggs + oatmeal + berries + almond butter. Lunch: turkey sandwich on whole-grain bread + carrots + hummus. Dinner: salmon + sweet potato + roasted vegetables + olive oil.</p>
+        <p>Prep One Thing a Week</p>
+        <p>You don't need to meal prep your entire week. Pick one thing: cook a batch of brown rice, grill a few chicken breasts, chop vegetables, or cook a pot of beans. Having one prepped component makes it way easier to throw together balanced meals throughout the week.</p>
+        <p>Keep a Simple Snack List</p>
+        <p>Between meals, snacks should combine protein, carbs, and/or fat to keep you satisfied:</p>
+        <ul>
+          <li>Apple with almond butter</li>
+          <li>Greek yogurt with berries</li>
+          <li>Cheese and whole-grain crackers</li>
+          <li>Nuts and dried fruit</li>
+          <li>Hummus and vegetables</li>
+          <li>String cheese and an orange</li>
+        </ul>
+        <p>Breakfast Doesn't Have to Be Complicated</p>
+        <p>A balanced breakfast doesn't require cooking. Examples:</p>
+        <ul>
+          <li>Whole-grain toast + peanut butter + banana</li>
+          <li>Greek yogurt + granola + berries</li>
+          <li>Oatmeal + nuts + fruit</li>
+          <li>Cereal (the less sugary kind) + milk + fruit</li>
+          <li>Bagel + cream cheese + cucumber slices</li>
+        </ul>
+        <p>The key: include protein and complex carbs, ideally with some fat.</p>
+        <p>Plan for the Realities of High School</p>
+        <p>You're busy. Some days you'll grab food between classes or eat on the go. That's fine. The goal isn't perfection; it's consistency. If you eat balanced meals 80% of the time, you're doing great. Here's how to handle busy days:</p>
+        <ul>
+          <li>Pack snacks the night before (nuts, fruit, cheese)</li>
+          <li>Keep backup options at school (granola bar, apple, peanut butter packets)</li>
+          <li>Eat lunch even if you're busy (don't skip it to study or socialize)</li>
+          <li>If you grab fast food, try to balance it: burger + side salad, not just fries</li>
+        </ul>
+        <p>Building Sustainable Habits</p>
+        <p>The goal isn't to eat "perfectly" forever. It's to build habits that make you feel good, perform well, and become automatic over time.</p>
+        <p>Start Small</p>
+        <p>Don't overhaul your entire diet tomorrow. Pick one change: eat breakfast on school days, or add vegetables to dinner, or swap sugary drinks for water. Master that habit over a few weeks, then add another.</p>
+        <p>Focus on How You Feel</p>
+        <p>Pay attention to what happens when you eat balanced meals versus junk food. After eating a balanced breakfast, do you have more focus? After a balanced lunch, is your mood better? After eating mostly junk food, do you feel sluggish or irritable? Use your own experience as motivation. You don't need to believe us; you can prove it to yourself.</p>
+        <p>Don't Demonize Foods</p>
+        <p>You don't have to cut out foods you love. The goal is balance. If you love pizza, eat pizza—just add a side salad and you've got vegetables and fat to balance the meal. If you love soda, you can still have it sometimes. The key is that most of your meals are balanced, not that every single thing you eat is "perfect."</p>
+        <p>Get Your People Involved</p>
+        <p>If your family is cooking dinner, help plan meals that are balanced. If your friends grab food after school, suggest places where you can get balanced options. If you have a sports team, talk to your coach or teammates about fueling strategies. You're more likely to stick with habits when the people around you support them.</p>
+        <p>Remember: This Is About You</p>
+        <p>Eating well isn't about looking a certain way or following rules. It's about feeling your best, performing your best, and having the energy and mental clarity to do the things you care about. Whether that's crushing your next test, dominating at your sport, or just getting through the day with steady energy and a good mood—balanced nutrition is your foundation.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Meal Planning on a Budget <span class="module-time">60 min</span></h2>
+        <div class="activity-box">
+                  <p>In this activity, you will practice budgeting and meal planning for 1 week using online grocery ads or grocery store websites to find food items to plan meals.</p>
+        <p>You have a weekly budget of $75 to spend on groceries. You plan six days of meals (breakfast, lunch, and dinner). As you build your plan, continuously make choices about which foods to include, compare prices, and adjust your selections to stay within budget while meeting dietary guideline recommendations for your needs.</p>
+        <p>Throughout the process, you will examine your own behavior by noticing how you make decisions. Pay attention to what influences your choices (cost, preference, convenience, nutrition) and how those choices change your overall plan. You will also connect your behavior to how you feel during the activity—such as feeling confident, frustrated, stressed, rushed, or in control—and consider what is causing those feelings.</p>
+        <p>Stay within budget and meet your individual dietary recommendations as you revise and finalize your meal plan.</p>
+        <p>Reflection:</p>
+        <p>After creating your one-week meal plan, write about what you learned from your budgeting and planning behavior. Explain what choices were easy or difficult, how your decisions affected your budget and nutrition goals, and how you felt during the process. Identify one specific behavior change you will make next time you plan meals (such as comparing more prices, planning meals before selecting items, or choosing more nutrient-dense foods within a budget). Commit to applying this change in your next meal planning activity.</p>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Building a Balanced Plate & Meal Planning Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. A student chooses grilled chicken, brown rice, steamed broccoli, and a side of fruit for lunch. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She is eating only fruits for lunch.</li>
+            <li><span class="letter">B.</span> She is focusing only on carbohydrates for her meal.</li>
+            <li><span class="letter">C.</span> She is avoiding all sources of protein.</li>
+            <li class="correct"><span class="letter">D.</span> She is building a balanced plate by including a variety of food groups. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student prepares a meal with lean beef, whole wheat bread, and carrots but leaves out any sources of fat. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He is consuming excess sugar in his meal.</li>
+            <li><span class="letter">B.</span> He is avoiding carbohydrates, which should be included.</li>
+            <li><span class="letter">C.</span> He is eating too much protein for one meal.</li>
+            <li class="correct"><span class="letter">D.</span> He is missing healthy fats, which are important for a balanced plate. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. A student eats a lunch that includes whole grains, lean protein, vegetables, and a small amount of healthy fat. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She will not get enough nutrients for her day.</li>
+            <li><span class="letter">B.</span> She will probably feel tired right after eating.</li>
+            <li class="correct"><span class="letter">C.</span> She is likely to have steady energy throughout the afternoon. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> She is likely to experience a sugar crash soon.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. A student eats only pizza and soda for lunch. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He is following a vegetarian diet.</li>
+            <li><span class="letter">B.</span> He is getting enough vitamins and minerals from his meal.</li>
+            <li><span class="letter">C.</span> He is building a balanced plate by including all food groups.</li>
+            <li class="correct"><span class="letter">D.</span> He is not building a balanced plate because he is missing vegetables and healthy fats. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A student decides to drink water with her meal instead of soda. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> She is making a healthy habit by choosing water instead of sugary drinks. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> She is missing out on important nutrients from soda.</li>
+            <li><span class="letter">C.</span> She is increasing her sugar intake for better energy.</li>
+            <li><span class="letter">D.</span> She is not hydrating properly for her day.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A student includes fiber-rich foods like beans and whole grains in his lunch. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He is missing carbohydrates for energy.</li>
+            <li><span class="letter">B.</span> He will feel hungry soon after eating.</li>
+            <li class="correct"><span class="letter">C.</span> He is likely to feel full longer and avoid overeating. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> He is not getting enough protein in his meal.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. A student uses her hand to estimate serving sizes for her meal. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She is avoiding all sources of fat.</li>
+            <li class="correct"><span class="letter">B.</span> She is practicing portion control to build a balanced plate. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> She is eating only one food group.</li>
+            <li><span class="letter">D.</span> She is skipping meals to lose weight.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A student eats eggs, whole grain toast, and fruit for breakfast. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He is eating only sugary foods in the morning.</li>
+            <li class="correct"><span class="letter">B.</span> He is likely to improve his daily performance by eating a balanced breakfast. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> He is skipping breakfast to save time.</li>
+            <li><span class="letter">D.</span> He is avoiding all carbohydrates in his breakfast.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student adds spinach and tomatoes to her sandwich at lunch. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She is focusing only on protein for her meal.</li>
+            <li><span class="letter">B.</span> She is avoiding all sources of carbohydrates.</li>
+            <li><span class="letter">C.</span> She is eating only dairy products.</li>
+            <li class="correct"><span class="letter">D.</span> She is making a healthy choice by including vegetables in her lunch. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. A student eats only chicken for dinner and skips vegetables, grains, and fruits. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> He is likely to miss important nutrients by eating only one food group. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> He is getting enough vitamins and minerals from his meal.</li>
+            <li><span class="letter">C.</span> He is building a balanced plate by including all food groups.</li>
+            <li><span class="letter">D.</span> He is following a vegan diet.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. True or False: Including a variety of food groups in each meal helps build a balanced plate.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. False</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> True</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. True or False: Eating only desserts for lunch is a healthy habit for daily performance.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. A student prepares her meals for the week on Sunday night. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> She is making a healthy habit by planning her meals ahead of time. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> She is avoiding all carbohydrates in her meals.</li>
+            <li><span class="letter">C.</span> She is skipping meals to save time.</li>
+            <li><span class="letter">D.</span> She is eating only snacks throughout the day.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. A student consistently eats meals that include whole grains, lean protein, vegetables, and healthy fats. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> He is likely to improve his focus and energy by eating balanced meals. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> He is avoiding all sources of protein.</li>
+            <li><span class="letter">C.</span> He will feel tired and sluggish throughout the day.</li>
+            <li><span class="letter">D.</span> He is not getting enough nutrients for his activities.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. A student chooses nuts and fruit as a snack between classes. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She is skipping snacks to lose weight.</li>
+            <li><span class="letter">B.</span> She is eating only processed foods for snacks.</li>
+            <li class="correct"><span class="letter">C.</span> She is making a healthy habit by choosing snacks like nuts and fruit. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> She is avoiding all sources of protein in her snacks.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+4%2C+Lesson+4%3A+Building%20a%20Balanced%20Plate%20%26%20Meal%20Planning" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-4-3.html" class="prev">← Previous Lesson</a>
+        <a href="hs-4-5.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

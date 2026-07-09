@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 3: Overhydration and Dehydration — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 6: Common Athlete Mistakes / Lesson 3
+    </div>
+
+    <div class="lesson">
+      <h1>Overhydration and Dehydration</h1>
+      <div class="meta">High School Course 6, Lesson 3</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Overhydration and Dehydration <span class="module-time">7 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/tXFZW_DhdUM" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> The Effects of Dehydration and Overhydration on the Body <span class="module-time">10 min</span></h2>
+                <p>Imagine finishing a tough practice and feeling completely wiped out—your muscles ache, your head feels foggy, and your performance just wasn’t what you hoped for. Chances are, your hydration habits played a bigger role than you realize. Whether you’re sprinting down the field, shooting hoops, or powering through a swim meet, how much and what you drink can directly impact your energy, mood, focus, and even your appearance. Hydration isn’t just about quenching thirst; it’s about fueling your body to perform at its best.</p>
+        <p>Dehydration</p>
+        <p>Let’s start with dehydration. When you don’t drink enough water, your body struggles to keep up with the demands of exercise. You might feel tired, sluggish, or dizzy—sometimes even before you realize you’re thirsty. Dehydration can cause headaches, make it harder to concentrate in class, and slow your reaction time during games. If you’re dehydrated, your muscles won’t work as efficiently, which means you’ll fatigue faster and your performance will drop. You might even notice your skin looking dull or dry, since water helps keep your body and appearance healthy.</p>
+        <p>The Effects of Dehydration</p>
+        <p>Dehydration isn’t just about feeling thirsty. It can lead to serious health issues like heat exhaustion or heat stroke, especially during intense workouts or hot weather. Your body loses water through sweat, and if you don’t replace it, your internal cooling system can fail. This can make you feel overheated, nauseous, or even cause you to faint. For athletes, staying hydrated is crucial not only for performance but for safety.</p>
+        <p>Overhydration</p>
+        <p>On the flip side, overhydration—drinking too much water—can also be dangerous. While it’s less common, it’s important to understand. Overhydration dilutes the sodium in your blood, which can lead to a condition called hyponatremia. Symptoms include confusion, headaches, nausea, and in severe cases, seizures. For athletes, this can happen if you drink excessive amounts of water without replacing electrolytes lost through sweat. It’s a reminder that balance is key: more isn’t always better.</p>
+        <p>Finding the Right Balance</p>
+        <p>So, how do you find the right balance? Start by listening to your body. Thirst is a good indicator, but it’s not always reliable—especially during intense activity. A simple way to check your hydration is by looking at your urine; pale yellow usually means you’re hydrated, while dark yellow or amber suggests you need more fluids. Don’t wait until you’re thirsty to drink. Instead, sip water regularly throughout the day, especially before, during, and after exercise.</p>
+        <p>What You Drink Matters</p>
+        <p>It’s also important to consider what you’re drinking. Water is usually the best choice, but during long or intense workouts, sports drinks can help replace electrolytes like sodium and potassium. These minerals are essential for muscle function and preventing cramps. However, avoid sugary drinks or energy drinks—they can lead to a quick energy crash and don’t provide the hydration your body needs.</p>
+        <p>Hydration Needs</p>
+        <p>Your hydration needs depend on your body size, activity level, and environmental conditions. If you’re sweating a lot, you’ll need more fluids. If it’s hot and humid, your body loses water faster. Make it a habit to carry a water bottle and take regular sips, even if you don’t feel thirsty. After exercise, rehydrate with water and eat foods rich in water, like fruits and vegetables. This helps your body recover and keeps your energy and mood stable.</p>
+        <p>The Bottom Line</p>
+        <p>Proper hydration isn’t just about avoiding negative consequences—it’s about maximizing your potential. When you’re hydrated, you’ll notice better focus in school, more energy during workouts, and faster recovery after games. Your skin will look healthier, and your mood will be more stable. Hydration is a simple habit that can give you a real edge, both on and off the field.</p>
+        <p>In conclusion, healthy hydration habits are essential for high school athletes. Dehydration can sap your energy, dull your focus, and put your health at risk, while overhydration can be just as dangerous. By paying attention to your body, choosing the right fluids, and making hydration a daily priority, you’ll set yourself up for better performance, improved mood, and greater overall well-being. Remember: what you drink matters as much as how you train. Make hydration part of your game plan, and you’ll see the difference in every aspect of your life.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Hydration Habits Reflection <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+                  <p>Think about your most recent practice, workout, or PE class.</p>
+        <ul>
+          <li>What did I drink before activity?</li>
+          <li>Did I drink during activity?</li>
+          <li>What did I drink afterward?</li>
+          <li>How did my body feel during exercise?</li>
+          <li>Did I feel energized, sluggish, thirsty, bloated, dizzy, or cramp?</li>
+        </ul>
+        <p>Identify one strength and one improvement.</p>
+        <p>Finish the following statement:</p>
+        <p>"At my next workout, I will __________________ to improve my hydration."</p>
+        <p>Part 2: Build A Personal Hydration Plan</p>
+        <p>Create a plan that includes:</p>
+        <ul>
+          <li>Morning hydration</li>
+          <li>During school</li>
+          <li>Before physical activity</li>
+          <li>During activity</li>
+          <li>After activity</li>
+        </ul>
+        <p>Explain:</p>
+        <ul>
+          <li>Why this plan fits my daily routine.</li>
+          <li>Which mistake I am trying to avoid (dehydration or overhydration).</li>
+        </ul>
+        <p><strong>Commit to following your new plan for 1 week.</strong></p>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Proper Hydration Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. A student feels tired and dizzy during soccer practice after forgetting to drink water all day. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He is likely experiencing over hydration, which causes muscle cramps.</li>
+            <li class="correct"><span class="letter">B.</span> He is likely experiencing dehydration, which can cause fatigue and dizziness. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> He is likely experiencing low blood sugar, unrelated to hydration.</li>
+            <li><span class="letter">D.</span> He is likely experiencing a sprained ankle, which affects hydration.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student drinks several bottles of water in a short period before a track meet and then complains of a headache. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She may be experiencing muscle soreness from exercise.</li>
+            <li><span class="letter">B.</span> She may be allergic to water, causing headaches.</li>
+            <li class="correct"><span class="letter">C.</span> She may be over hydrated, which can dilute sodium levels and cause headaches. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> She may be dehydrated, which increases sodium levels.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. A student gets muscle cramps during a basketball game after sweating a lot and not drinking enough water. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He is experiencing a muscle tear, unrelated to hydration.</li>
+            <li><span class="letter">B.</span> He is over hydrated, which prevents muscle cramps.</li>
+            <li><span class="letter">C.</span> He is experiencing low potassium, which is not related to dehydration.</li>
+            <li class="correct"><span class="letter">D.</span> He is dehydrated, which can cause muscle cramps. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. A student notices her mouth is dry and she feels sluggish during a tennis match. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> She is dehydrated, which can cause dry mouth and poor performance. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> She is experiencing a cold, which causes dry mouth.</li>
+            <li><span class="letter">C.</span> She is over hydrated, which causes dry mouth.</li>
+            <li><span class="letter">D.</span> She is experiencing anxiety, which causes dry mouth.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A student drinks excessive amounts of water during football practice and then feels nauseous and bloated. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> He may be over hydrated, which can cause nausea and bloating. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> He may be experiencing a muscle injury, unrelated to hydration.</li>
+            <li><span class="letter">C.</span> He may be dehydrated, which causes nausea.</li>
+            <li><span class="letter">D.</span> He may be experiencing food poisoning, unrelated to hydration.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A student has trouble focusing during a volleyball game after not drinking water for several hours. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She is experiencing stage fright, unrelated to hydration.</li>
+            <li><span class="letter">B.</span> She is experiencing low blood pressure, unrelated to hydration.</li>
+            <li class="correct"><span class="letter">C.</span> She is dehydrated, which can cause confusion and difficulty concentrating. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> She is over hydrated, which improves concentration.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. A student notices his heart is beating faster than usual after running laps without drinking water. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He is likely experiencing over hydration, which slows the heartbeat.</li>
+            <li class="correct"><span class="letter">B.</span> He is likely experiencing dehydration, which can cause rapid heartbeat. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> He is likely experiencing muscle soreness, unrelated to hydration.</li>
+            <li><span class="letter">D.</span> He is likely experiencing a fever, unrelated to hydration.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A student drinks large amounts of water before a swim meet and notices her hands and feet are swollen. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She is dehydrated, which causes swelling.</li>
+            <li><span class="letter">B.</span> She is experiencing an allergic reaction, unrelated to hydration.</li>
+            <li><span class="letter">C.</span> She is experiencing a sprained wrist, unrelated to hydration.</li>
+            <li class="correct"><span class="letter">D.</span> She is over hydrated, which can cause swelling in her hands and feet. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student notices his urine is dark yellow after a long workout without drinking water. What is most likely happening?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> He is dehydrated, which can cause dark yellow urine. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> He is experiencing a kidney infection, unrelated to hydration.</li>
+            <li><span class="letter">C.</span> He is over hydrated, which causes dark yellow urine.</li>
+            <li><span class="letter">D.</span> He is experiencing a muscle injury, unrelated to hydration.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. A student drinks too much water during a cross-country race and feels confused and weak. What is most likely happening?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She is experiencing low blood sugar, unrelated to hydration.</li>
+            <li><span class="letter">B.</span> She is dehydrated, which causes confusion and weakness.</li>
+            <li class="correct"><span class="letter">C.</span> She is over hydrated, which can cause confusion and weakness. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> She is experiencing a muscle strain, unrelated to hydration.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. True or False: Drinking too much water too quickly can be dangerous for athletes.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. True or False: Dehydration only affects athletes during hot weather.</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. True or False: Over hydration can lead to a dangerous drop in sodium levels in the body.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. True</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. True or False: Athletes should only drink water when they feel thirsty.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">1. False</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">B.</span> True <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. A student wants to improve his hydration habits during basketball practice. What is the healthiest approach?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He should wait until practice is over to drink water.</li>
+            <li class="correct"><span class="letter">B.</span> He should drink water regularly throughout practice to prevent dehydration. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> He should avoid drinking water to improve performance.</li>
+            <li><span class="letter">D.</span> He should drink only sports drinks during practice.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+6%2C+Lesson+3%3A+Overhydration%20and%20Dehydration" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-6-2.html" class="prev">← Previous Lesson</a>
+        <a href="hs-6-4.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

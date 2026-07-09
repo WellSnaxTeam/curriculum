@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 5: Macronutrient Balance — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax High School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">High School Curriculum</a> / Course 1: Macronutrients / Lesson 5
+    </div>
+
+    <div class="lesson">
+      <h1>Macronutrient Balance</h1>
+      <div class="meta">High School Course 1, Lesson 5</div>
+
+      <!-- VIDEO SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Macronutrient Balance <span class="module-time">10 min</span></h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/X8Pf62GhoG4" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Macronutrient Balance <span class="module-time">5 min</span></h2>
+                <p>Ever notice how you crash hard after eating a giant bowl of pasta for lunch, or how you feel jittery after pounding energy drinks before a test? Your body isn't being dramatic — it's literally running out of fuel or getting too much of the wrong kind. The food you eat doesn't just fill your stomach; it directly controls your energy levels, mood, focus, and how you look and perform. Understanding macronutrients isn't about becoming a nutrition expert — it's about taking control of how you feel every single day.</p>
+        <p>What Are Macronutrients?</p>
+        <p>Macronutrients are the three main nutrients your body needs in large amounts: carbohydrates, fats, and proteins. Think of them as different types of fuel and building blocks your body uses for different jobs.</p>
+        <p>The General Guidelines</p>
+        <p>Here's what nutrition experts recommend:</p>
+        <ul>
+          <li>Carbohydrates: 45–65% — Your brain's preferred fuel source, which directly impacts your focus, mood, and energy for school and sports</li>
+          <li>Fats: 20–35% — Essential for hormone production, brain health, and sustained energy so you don't hit that 3 p.m. wall</li>
+          <li>Protein: 10–35% — Rebuilds muscle after workouts, keeps you feeling full longer, and supports clear skin and strong hair</li>
+        </ul>
+        <p>Why this matters: These ranges give your body what it needs to actually function — not just survive, but thrive.</p>
+        <p>Tailored Splits Based on Your Goals</p>
+        <p>Not everyone needs the same balance. Here's how to adjust based on what you want:</p>
+        <p>Goal</p>
+        <p>Carbs</p>
+        <p>Fats</p>
+        <p>Protein</p>
+        <p>General Health & Maintenance</p>
+        <p>40%</p>
+        <p>30%</p>
+        <p>30%</p>
+        <p>Weight Loss</p>
+        <p>40%</p>
+        <p>20%</p>
+        <p>40%</p>
+        <p>Muscle Gain</p>
+        <p>50%</p>
+        <p>25%</p>
+        <p>25%</p>
+        <p>Recomposition</p>
+        <p>30–35%</p>
+        <p>30–35%</p>
+        <p>35%</p>
+        <hr style="margin:1rem 0;border:none;border-top:1px solid #e2e8f0;">
+        <p>Why This Actually Matters to You</p>
+        <ul>
+          <li>Better focus in class — Balanced carbs and fats prevent energy crashes</li>
+          <li>Improved athletic performance — Right macro ratios mean more power and faster recovery</li>
+          <li>Better mood and less anxiety — Stable blood sugar = stable emotions</li>
+          <li>Looking how you want — Protein supports muscle definition; balance prevents bloating</li>
+          <li>Actual energy — No more 2 p.m. zombie mode</li>
+        </ul>
+        <p>The key? Pick the split that matches your goals, then build meals around it. One size doesn't fit all — and that's actually good news.</p>
+
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Balanced Macronutrient Meal Planning <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+                  <p>You're going to run a quick investigation on yourself in this lesson. You'll reflect on your eating patterns from the past few days, connect them to how you've been feeling, and identify one specific change that will actually improve your life. No tracking for a week. No complicated planning. Just honest reflection and real commitment.</p>
+        <p>By the end of this lesson, you'll understand macronutrient balance not as a concept, but as something you've personally experienced.</p>
+        <p>Part 1: Honest Reflection</p>
+        <p>Think back to the past 3–4 days. What have you actually been eating?</p>
+        <p>Typical Day for You:</p>
+        <p>Breakfast: ___________________________</p>
+        <p>Lunch: ___________________________</p>
+        <p>Dinner: ___________________________</p>
+        <p><strong>Snacks/drinks: ___________________________</strong></p>
+        <p>Part 2: Connect Your Food to How You Feel</p>
+        <p>Be brutally honest. How have you been feeling lately?</p>
+        <p>Energy</p>
+        <p>Rate your typical energy level: _____ (1–10, where 10 is energized all day)</p>
+        <p><strong>When do you crash? (What time? After what?)</strong></p>
+        <p>What does that crash feel like?</p>
+        <ul>
+          <li>Foggy brain ☐</li>
+          <li>Exhausted ☐</li>
+          <li>Can't focus ☐</li>
+          <li>Irritable ☐</li>
+          <li>Other: ___________________________</li>
+        </ul>
+        <p>Focus & School Performance</p>
+        <p>Rate your ability to focus in class: _____ (1–10)</p>
+        <p><strong>When is it hardest to concentrate? (What time of day? After what?)</strong></p>
+        <p>What does that feel like?</p>
+        <ul>
+          <li>Mind wandering ☐</li>
+          <li>Can't remember what you just read ☐</li>
+          <li>Procrastinating ☐</li>
+          <li>Falling asleep ☐</li>
+          <li>Other: ___________________________</li>
+        </ul>
+        <p>Hunger</p>
+        <p>How often do you feel hungry?</p>
+        <ul>
+          <li>All day ☐</li>
+          <li>After meals within an hour ☐</li>
+          <li>A few times a day ☐</li>
+          <li>Not very often ☐</li>
+        </ul>
+        <p><strong>When do you get the strongest cravings? (Time and for what?)</strong></p>
+        <p><strong>What triggers your cravings? (Boredom? Low energy? Stress?)</strong></p>
+        <p>Mood</p>
+        <p>How's your mood generally been?</p>
+        <ul>
+          <li>Stable ☐</li>
+          <li>Moody/irritable ☐</li>
+          <li>Anxious ☐</li>
+          <li>Depressed ☐</li>
+          <li>All over the place ☐</li>
+        </ul>
+        <p><strong>When is your mood the worst? (Time of day? After what?)</strong></p>
+        <p>Athletic/Physical Performance</p>
+        <p><strong>If you exercise, how do you feel during it?</strong></p>
+        <p><strong>Do you have energy or do you tire quickly?</strong></p>
+        <p><strong>How's your recovery?</strong></p>
+        <p>Part 3: Decode Your Pattern</p>
+        <p>Now let's figure out what's actually happening.</p>
+        <p>Look at Your Typical Day</p>
+        <p>In the meals you listed earlier, identify what's in them:</p>
+        <p>Breakfast contains:</p>
+        <ul>
+          <li>Mostly carbs (bread, cereal, fruit, juice)? ☐</li>
+          <li>Mostly protein (eggs, yogurt, meat)? ☐</li>
+          <li>Mostly fats (butter, oil, nuts)? ☐</li>
+          <li>A mix of all three? ☐</li>
+        </ul>
+        <p>Lunch contains:</p>
+        <ul>
+          <li>Mostly carbs (bread, pasta, rice)? ☐</li>
+          <li>Mostly protein (chicken, fish, beans)? ☐</li>
+          <li>Mostly fats (oil, cheese, nuts)? ☐</li>
+          <li>A mix of all three? ☐</li>
+        </ul>
+        <p>Dinner contains:</p>
+        <ul>
+          <li>Mostly carbs? ☐</li>
+          <li>Mostly protein? ☐</li>
+          <li>Mostly fats? ☐</li>
+          <li>A mix of all three? ☐</li>
+        </ul>
+        <p>The Real Question: What's Missing?</p>
+        <p>Look at your answers. What do you notice?</p>
+        <ul>
+          <li>Are you eating mostly carbs and not enough protein? ☐</li>
+          <li>Are you eating protein but no healthy fats? ☐</li>
+          <li>Are you eating fats and carbs but skipping protein? ☐</li>
+          <li>Are you eating one macronutrient at a time instead of together? ☐</li>
+          <li>Are you skipping meals? ☐</li>
+          <li>Are you eating balanced meals? ☐</li>
+        </ul>
+        <p><strong>What's the pattern? ___________________________</strong></p>
+        <p>Part 4: Make the Connection</p>
+        <p>Now here's the critical thinking part: Connect your eating pattern to how you feel.</p>
+        <p>Your Energy Crashes</p>
+        <p>When do you crash? ___________________________</p>
+        <p>What did you eat before the crash? ___________________________</p>
+        <p>Was it:</p>
+        <ul>
+          <li>Only carbs? (Quick energy spike, then crash)</li>
+          <li>Only protein? (Filling but no quick energy)</li>
+          <li>Only fats? (Slow energy, but no spike)</li>
+          <li>A mix? (Steady energy)</li>
+        </ul>
+        <p>The connection: If you eat _________________________, you feel _________________________.</p>
+        <p>Your Focus Problems</p>
+        <p>When is it hardest to focus? ___________________________</p>
+        <p>What did you eat that morning or before? ___________________________</p>
+        <p>What was missing?</p>
+        <ul>
+          <li>Protein to keep you alert? ☐</li>
+          <li>Carbs for brain fuel? ☐</li>
+          <li>Fats for sustained focus? ☐</li>
+          <li>A combination? ☐</li>
+        </ul>
+        <p>The connection: When you skip _________________________, you can't focus on _________________________.</p>
+        <p>Your Hunger & Cravings</p>
+        <p>You get hungry soon after eating. Why?</p>
+        <p>What meals leave you hungry within an hour? ___________________________</p>
+        <p>What's missing from those meals?</p>
+        <ul>
+          <li>Protein (keeps you full)? ☐</li>
+          <li>Fats (slows digestion, keeps you satisfied)? ☐</li>
+          <li>Fiber (fills you up)? ☐</li>
+        </ul>
+        <p>The connection: When I eat _________________________, I get hungry because _________________________.</p>
+        <p>Your Mood Issues</p>
+        <p>Your mood crashes or becomes irritable. Why?</p>
+        <p>When does it happen? ___________________________</p>
+        <p>What did you eat that day? ___________________________</p>
+        <p>Blood sugar connection: If you eat only carbs without protein or fat, your blood sugar spikes then crashes — and your mood crashes with it.</p>
+        <p>The connection: My mood gets _________________________ when I eat too much _________________________ and not enough _________________________.</p>
+        <p>Part 5: Your Personal Aha Moment</p>
+        <p>Write It Down — Your Real Discovery</p>
+        <p><strong>What I've realized about my eating and how I feel:</strong></p>
+        <p><strong>The biggest problem I've identified:</strong></p>
+        <p><strong>How it affects me:</strong></p>
+        <p><strong>What I could change to feel better:</strong></p>
+        <p>Part 6: Your Commitment</p>
+        <p>This is where it gets real. You're going to commit to ONE specific change — not a diet, not a whole lifestyle overhaul. Just ONE thing.</p>
+        <p>Choose Your Change</p>
+        <p>Pick ONE meal or eating habit to change:</p>
+        <ul>
+          <li>☐ Add protein to my breakfast (eggs, yogurt, nuts, meat) so I don't crash by 3rd period</li>
+          <li>☐ Eat my meals with carbs + protein + fat together instead of one at a time</li>
+          <li>☐ Stop skipping breakfast/lunch because it's making me exhausted and moody</li>
+          <li>☐ Add a healthy fat (nuts, avocado, olive oil) to my meals so I stay satisfied</li>
+          <li>☐ Swap out sugary snacks for something with protein and fat</li>
+          <li>☐ Eat more balanced meals so my focus improves during my hardest class</li>
+          <li>☐ Other: ___________________________</li>
+        </ul>
+        <p>Make It Specific</p>
+        <p>My change: ___________________________</p>
+        <p>Which meal or snack will I change? ___________________________</p>
+        <p><strong>Starting when? (Tomorrow? Monday? Next meal?)</strong></p>
+        <p>What will I actually eat instead? (Be specific — not "healthier," but actual food)</p>
+        <p>Why This Matters to YOU</p>
+        <p>This change will improve:</p>
+        <p>My energy because: ___________________________</p>
+        <p>My focus because: ___________________________</p>
+        <p>My mood because: ___________________________</p>
+        <p><strong>My performance because: ___________________________</strong></p>
+        <p>How You'll Know It's Working</p>
+        <p><strong>In 2–3 days, I'll notice:</strong></p>
+        <p><strong>In 1 week, I'll feel:</strong></p>
+        <p><strong>I'll know it's working when: ___________________________</strong></p>
+        <p>When You Slip Up (and you will)</p>
+        <p><strong>What will you do to get back on track?</strong></p>
+        <p><strong>Who can support you?</strong></p>
+        <p>The Bottom Line</p>
+        <p>You just figured something out that most adults never do: the direct connection between what you eat and how you feel. You're not doing this because someone told you to. You're doing it because you discovered that one small change could actually make your day better — more energy, better focus, better mood.</p>
+        <p>That's the real power of understanding macronutrients. It's not about perfection. It's about taking control of how you feel.</p>
+
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Macronutrient Balance Quiz <span class="module-time">25 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+                <div class="quiz-question">
+          <p class="q">1. Maria notices she feels tired after lunch and realizes her meal mostly consists of bread and pasta. What change could help her achieve better macronutrient balance?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She should eat more sugary snacks.</li>
+            <li><span class="letter">B.</span> She should reduce her intake of fruits and vegetables.</li>
+            <li><span class="letter">C.</span> She should only eat carbohydrates.</li>
+            <li class="correct"><span class="letter">D.</span> She should add more protein-rich foods to her meals. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. Jalen tracks his diet and sees he rarely eats foods containing fat. What could he do to improve his macronutrient balance?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He should eat only vegetables for every meal.</li>
+            <li><span class="letter">B.</span> He should avoid all sources of fat completely.</li>
+            <li class="correct"><span class="letter">C.</span> He should include healthy fats like avocado or nuts in his meals. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> He should double his carbohydrate intake.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. A student eats a lunch of rice, broccoli, and apple slices. What macronutrient is most likely missing from this meal?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The meal is missing a source of carbohydrates.</li>
+            <li class="correct"><span class="letter">B.</span> The meal is missing a source of protein. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> The meal is missing a source of vitamins.</li>
+            <li><span class="letter">D.</span> The meal is missing a source of water.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. Samantha wants to improve her macronutrient balance at lunch. She usually eats only a salad with vegetables. What could she do to achieve better balance?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She could add extra croutons to her salad.</li>
+            <li><span class="letter">B.</span> She could drink soda with her meal.</li>
+            <li><span class="letter">C.</span> She could skip lunch entirely.</li>
+            <li class="correct"><span class="letter">D.</span> She could add grilled chicken or tofu to her salad. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. Carlos notices he eats a lot of carbohydrates and very little protein. What is a healthy way to adjust his macronutrient balance?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> He should reduce his intake of sugary drinks and increase protein-rich foods. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> He should eat more desserts after dinner.</li>
+            <li><span class="letter">C.</span> He should avoid all fats in his diet.</li>
+            <li><span class="letter">D.</span> He should only eat bread and pasta.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A breakfast of oatmeal and berries provides carbohydrates and some protein. What macronutrient is missing, and why is it important?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> The meal lacks fiber, which is important for digestion.</li>
+            <li><span class="letter">B.</span> The meal lacks water, which is important for hydration.</li>
+            <li><span class="letter">C.</span> The meal lacks vitamins, which are important for immunity.</li>
+            <li class="correct"><span class="letter">D.</span> The meal lacks healthy fats, which are important for energy and cell function. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. What is a possible consequence of consistently eating meals high in protein but low in carbohydrates?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Eating too much protein and too little carbohydrates can cause dehydration.</li>
+            <li><span class="letter">B.</span> Eating too much protein and too little carbohydrates can improve athletic performance.</li>
+            <li class="correct"><span class="letter">C.</span> Eating too much protein and too little carbohydrates can lead to low energy levels. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> Eating too much protein and too little carbohydrates can boost vitamin absorption.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A student wants to improve his macronutrient balance for better health. What is the best approach to achieve this?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He should eat only one type of macronutrient each day.</li>
+            <li><span class="letter">B.</span> He should avoid eating after 6 PM.</li>
+            <li class="correct"><span class="letter">C.</span> He should include a variety of foods to get all three macronutrients. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> He should only eat snacks instead of meals.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student avoids all fats because she thinks they are unhealthy. What advice would help her achieve a balanced intake of macronutrients?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She should eat more candy and chips.</li>
+            <li class="correct"><span class="letter">B.</span> She should add healthy fats like olive oil or nuts to her meals. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> She should avoid all sources of fat.</li>
+            <li><span class="letter">D.</span> She should only eat protein shakes.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. A student eats only cereal with milk for breakfast. How can he improve his macronutrient balance in the morning?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> He should eat more toast and jam.</li>
+            <li><span class="letter">B.</span> He should skip breakfast to reduce calories.</li>
+            <li><span class="letter">C.</span> He should only drink fruit juice.</li>
+            <li class="correct"><span class="letter">D.</span> He should add protein-rich foods like eggs or yogurt to his breakfast. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">11. Why is it important to include different types of foods in your daily meals when considering macronutrient balance?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Eating only one type of food is the healthiest way to balance macronutrients.</li>
+            <li class="correct"><span class="letter">B.</span> Eating a variety of foods helps ensure all macronutrients are consumed in proper amounts. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Skipping meals is the best way to balance macronutrients.</li>
+            <li><span class="letter">D.</span> Eating more snacks than meals improves macronutrient balance.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">12. A student eats only pasta and tomato sauce for dinner. What could she do to improve her macronutrient balance?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> She should eat only vegetables for dinner.</li>
+            <li><span class="letter">B.</span> She should avoid all carbohydrates at dinner.</li>
+            <li class="correct"><span class="letter">C.</span> She should include a source of protein and healthy fats in her dinner. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">D.</span> She should eat dessert instead of dinner.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">13. A student’s lunch consists of a sandwich with only lettuce and tomato. What could he do to achieve better macronutrient balance?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> He should add healthy fats and protein to his lunch. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> He should eat more bread and pasta.</li>
+            <li><span class="letter">C.</span> He should avoid eating lunch altogether.</li>
+            <li><span class="letter">D.</span> He should only drink water at lunch.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">14. How does eating balanced meals with carbohydrates, proteins, and fats benefit high school students?</p>
+          <ul class="options">
+            <li><span class="letter">A.</span> Eating only carbohydrates supports muscle growth.</li>
+            <li class="correct"><span class="letter">B.</span> Eating balanced meals with all three macronutrients supports growth and energy. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">C.</span> Eating only protein supports brain function.</li>
+            <li><span class="letter">D.</span> Eating only fats supports bone health.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">15. A student eats only fruit for breakfast. What could she do to achieve better macronutrient balance?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> She should include protein and healthy fats in her breakfast. <span class="correct-badge">Correct</span></li>
+            <li><span class="letter">B.</span> She should eat only fruit for breakfast.</li>
+            <li><span class="letter">C.</span> She should avoid eating breakfast.</li>
+            <li><span class="letter">D.</span> She should only drink coffee for breakfast.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Review notes for this lesson. Please flag any factual errors, age-appropriateness concerns, unclear content, or suggested improvements.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf2eqTyfTnyxzsw2NbQS4pvV-4IJBEPH9XQuidwWLWoFNxTRA/viewform?entry.1729444934=Course+1%2C+Lesson+5%3A+Macronutrient%20Balance" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="hs-1-4.html" class="prev">← Previous Lesson</a>
+        <a href="hs-1-6.html" class="next">Next Lesson →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
