@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 1: Water's Role in Your Body — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax Middle School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Middle School Curriculum</a> / Course 2: Hydration / Lesson 1
+    </div>
+
+    <div class="lesson">
+      <h1>Water's Role in Your Body</h1>
+      <div class="meta">Course 2, Lesson 1</div>
+
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Watch: Video: Water's Role in Your Body <span class="module-time">20 min</span></h2>
+        <iframe src="https://www.youtube.com/embed/0OSTYoztedQ" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:10px;border:none;margin:1rem 0;"></iframe>
+      </div>
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Water's Role in the Body <span class="module-time">5-7 min</span></h2>
+        <p>Water makes up to 60% of an adult's body weight, and even more for a child's.</p>
+        <p><strong>The role of water in the body:</strong></p>
+        <ul>
+          <li>Carries nutrients and products of waste throughout the body</li>
+          <li>Helps maintain the structure of proteins and glycogen</li>
+          <li>Helps with metabolic reactions</li>
+          <li>Serves as the solvent for amino acids, minerals, vitamins</li>
+          <li>Cushions and lubricates joints, eyes, spinal cord</li>
+          <li>Helps regulate body temperature after sweating</li>
+          <li>Maintains the volume of blood</li>
+        </ul>
+        <p><strong>Body systems that rely on water:</strong></p>
+        <ul>
+          <li>Muscular and skeletal system: lubricate joints and help muscles move</li>
+          <li>Circulatory system: blood is 80% water</li>
+          <li>Urinary system: kidneys filter blood and water forms urine</li>
+          <li>Digestive system: water makes up saliva and digestive fluids</li>
+        </ul>
+        <p><strong>Water Balance:</strong> The balance between water intake and output. Too much water = overhydrated. Too little water = dehydrated.</p>
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Water Detective and Reflection <span class="module-time">30 min</span></h2>
+        <div class="activity-box">
+        <p><strong>Research portion:</strong> Research one role that water has in your body, why this role is important, and list one sign that the body needs more water.</p>
+        <p><strong>Reflection Questions (3-5 sentences each):</strong></p>
+        <p>• How much water do I drink daily?</p>
+        <p>• How does my body feel when I am properly hydrated?</p>
+        <p>• What can I change to make sure I drink enough water this week?</p>
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Water's Role in Your Body Quiz <span class="module-time">15 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+
+        <div class="quiz-question">
+          <p class="q">1. Which statement best describes why water is essential for digestion?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Water breaks down food using acids produced by muscles</li>
+            <li class="correct"><span class="letter">B.</span> Water helps dissolve nutrients so they can be absorbed in the intestines <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Water increases the number of digestive enzymes in the stomach</li>
+            <li class=""><span class="letter">D.</span> Water converts carbohydrates into fats for storage</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. Which body process depends most directly on water to remove liquid waste?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Respiration in the lungs</li>
+            <li class="correct"><span class="letter">B.</span> Filtration by the kidneys and urine production <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Absorption of oxygen by red blood cells</li>
+            <li class=""><span class="letter">D.</span> Bone remodeling in the skeletal system</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. How does adequate hydration help regulate body temperature during exercise?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> By increasing blood sugar levels so muscles have more fuel</li>
+            <li class="correct"><span class="letter">B.</span> By allowing sweat to evaporate and cool the skin <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> By making the heart stop beating faster</li>
+            <li class=""><span class="letter">D.</span> By preventing lungs from exchanging gases</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. Which of these is a correct effect of not drinking enough water (dehydration) on the body?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Improved concentration and memory</li>
+            <li class=""><span class="letter">B.</span> Increased urine production and clearer urine</li>
+            <li class="correct"><span class="letter">C.</span> Dizziness, headache, and reduced physical performance <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> Faster digestion and increased appetite</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. Water helps transport which of the following throughout the body?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Only oxygen and hormones</li>
+            <li class="correct"><span class="letter">B.</span> Nutrients, oxygen, and waste products <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Only heat and electrical impulses</li>
+            <li class=""><span class="letter">D.</span> Cellular DNA between organs</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A person who drinks a lot of water but has very little sodium and potassium (electrolytes) may experience:</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Electrolyte imbalance that can affect muscle and nerve function <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> Stronger bones because water builds calcium</li>
+            <li class=""><span class="letter">C.</span> Increased hair growth from better hydration</li>
+            <li class=""><span class="letter">D.</span> Higher blood oxygen because water carries oxygen</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. Which recommendation best helps maintain good hydration for a middle school student during a school day?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Drink large amounts of water only at the end of the day</li>
+            <li class="correct"><span class="letter">B.</span> Drink small amounts of water regularly, especially before and after activity <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Rely on caffeinated sodas for daily fluid needs</li>
+            <li class=""><span class="letter">D.</span> Avoid drinking water during class to prevent bathroom breaks</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. Why is water considered one of the six essential nutrients?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> It provides more calories than proteins and fats</li>
+            <li class="correct"><span class="letter">B.</span> It helps with chemical reactions, temperature control, and transport in the body <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> It is stored in large amounts as a primary energy reserve</li>
+            <li class=""><span class="letter">D.</span> It replaces vitamins and minerals in healthy diets</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. Which sign most likely indicates mild dehydration in a middle school student?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Frequently needing to nap after waking up</li>
+            <li class=""><span class="letter">B.</span> Having very clear, odorless urine all day</li>
+            <li class="correct"><span class="letter">C.</span> Dry mouth, decreased urine output, and feeling thirsty <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> Sudden increase in muscle strength</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. How do the kidneys help keep the body's water balance healthy?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> By producing digestive enzymes that absorb water from food</li>
+            <li class="correct"><span class="letter">B.</span> By filtering blood, returning needed water to the body, and excreting excess as urine <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> By storing extra water in the liver for future use</li>
+            <li class=""><span class="letter">D.</span> By sending water to the lungs to humidify inhaled air</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Submit your feedback to help us improve the curriculum.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeGlueYkU12AizcMFATVIi102sW6dXIOwUfZqgZDr1ZCKYm9w/viewform?entry.1512250099=Course+2%2C+Lesson+1%3A+Water%27s%20Role%20in%20Your%20Body" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="index.html" class="prev">← Course Outline</a>
+        <a href="lesson-2-2.html" class="next">Lesson 2 →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

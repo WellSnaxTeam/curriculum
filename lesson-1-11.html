@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 11: Special Dietary Needs — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax Middle School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Middle School Curriculum</a> / Course 1: Basic Nutrition / Lesson 11
+    </div>
+
+    <div class="lesson">
+      <h1>Special Dietary Needs</h1>
+      <div class="meta">Course 1, Lesson 11</div>
+
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Watch: Video: Special Dietary Needs <span class="module-time">2 min</span></h2>
+        <iframe src="https://www.youtube.com/embed/0DZ5DGxKOZc" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:10px;border:none;margin:1rem 0;"></iframe>
+      </div>
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Understanding Special Dietary Needs for Healthy Living <span class="module-time">5-10 min</span></h2>
+        <p><strong>What are special dietary needs?</strong></p>
+        <p>Some people need to eat different foods or avoid certain foods because of health conditions.</p>
+        <p><strong>Common types:</strong></p>
+        <ul>
+          <li>Food allergies (immune system reacts strongly) — requires epinephrine (Epi-Pen)</li>
+          <li>Food intolerances (body has trouble processing a food)</li>
+          <li>Medical diets for chronic diseases</li>
+        </ul>
+        <p><strong>Examples of chronic diseases and dietary needs:</strong></p>
+        <ul>
+          <li><strong>Celiac disease:</strong> Must follow a strict gluten-free diet (avoid wheat, barley, rye)</li>
+          <li><strong>Diabetes:</strong> Monitor carbohydrate intake, choose whole grains, lean proteins, healthy fats</li>
+          <li><strong>Crohn's disease:</strong> May need low-fiber diet during flare-ups</li>
+          <li><strong>Alpha-gal syndrome:</strong> Avoid red meat and mammal products</li>
+        </ul>
+        <p><strong>Practical tips:</strong></p>
+        <ul>
+          <li>Always tell an adult if you have a food allergy</li>
+          <li>Read ingredient labels</li>
+          <li>Respect classmates' dietary needs</li>
+          <li>In case of severe allergic reaction, get an adult and call emergency help immediately</li>
+        </ul>
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Problem Solving Dietary Needs <span class="module-time">30 min</span></h2>
+        <div class="activity-box">
+        <p>Select one health condition that requires special dietary needs. Answer the following questions:</p>
+        <p>• What the condition is and how it affects the body</p>
+        <p>• Dietary needs (ex. Low-sodium, gluten-free, dairy-free, etc.)</p>
+        <p>• Safe foods</p>
+        <p>• Foods to avoid</p>
+        <p>Choose from: Crohn's Disease, Type I/II Diabetes, Cardiovascular disease, Chronic Kidney Disease, Cancer, Lactose Intolerance, Celiac Disease, or a specific food allergy.</p>
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Special Dietary Needs Quiz <span class="module-time">15 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+
+        <div class="quiz-question">
+          <p class="q">1. Which of the following best describes a food allergy?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Feeling hungry after missing a meal</li>
+            <li class="correct"><span class="letter">B.</span> The body's immune system reacting to a specific food <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Choosing not to eat certain foods for religious reasons</li>
+            <li class=""><span class="letter">D.</span> Preferring one food over another</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A student with celiac disease must avoid foods that contain:</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> High amounts of sugar</li>
+            <li class="correct"><span class="letter">B.</span> Gluten found in wheat, barley, and rye <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Dairy products like milk and cheese</li>
+            <li class=""><span class="letter">D.</span> High-fat fried foods</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. Which practice helps prevent a severe allergic reaction (anaphylaxis) at school?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Letting students share food freely</li>
+            <li class="correct"><span class="letter">B.</span> Having epinephrine (EpiPen) available and staff trained to use it <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Only serving foods high in protein</li>
+            <li class=""><span class="letter">D.</span> Encouraging students to try new foods regularly</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. A diabetic student needs to manage blood sugar. Which of these is a safe strategy?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Skipping meals to avoid sugar altogether</li>
+            <li class="correct"><span class="letter">B.</span> Eating a balanced snack with carbohydrates and protein at predictable times <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Only drinking diet soda between meals</li>
+            <li class=""><span class="letter">D.</span> Taking extra servings of dessert after exercise</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. Which food is unsafe for someone with a severe peanut allergy?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Fresh apple slices</li>
+            <li class="correct"><span class="letter">B.</span> Sunflower seeds labeled "may contain peanuts" <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Plain carrot sticks</li>
+            <li class=""><span class="letter">D.</span> Bottled water</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. A student has lactose intolerance. Which lunch choice is most appropriate?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Yogurt parfait with regular milk and granola</li>
+            <li class=""><span class="letter">B.</span> Cheese pizza with extra cheese</li>
+            <li class="correct"><span class="letter">C.</span> Sandwich with lean turkey and a fruit cup (no milk) <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> Milkshake and fries</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. Why is it important for school staff to know students' special dietary needs?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> So they can make students eat everything on their plate</li>
+            <li class="correct"><span class="letter">B.</span> To plan safe meals, avoid allergens, and respond in an emergency <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> So staff can decide which students get extra snacks</li>
+            <li class=""><span class="letter">D.</span> To punish students who don't follow rules</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. Which label phrase should a student with a tree-nut allergy avoid?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> "Made in a facility that also processes tree nuts" <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> "Low sodium"</li>
+            <li class=""><span class="letter">C.</span> "No artificial colors"</li>
+            <li class=""><span class="letter">D.</span> "High in vitamin C"</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. If a student's medical plan says they need a gluten-free diet, the school should:</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Ignore the plan and offer regular meals</li>
+            <li class="correct"><span class="letter">B.</span> Provide or permit gluten-free alternatives and prevent cross-contact <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Only allow the student to eat outside school</li>
+            <li class=""><span class="letter">D.</span> Require the student to share meals with classmates</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. Cross-contact (cross-contamination) in food service means:</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Two students swapping seats in the cafeteria</li>
+            <li class=""><span class="letter">B.</span> All foods being cooked at the same temperature</li>
+            <li class="correct"><span class="letter">C.</span> Allergen proteins from one food getting onto another food or surface <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> Refrigerators being cleaned weekly</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Submit your feedback to help us improve the curriculum.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeGlueYkU12AizcMFATVIi102sW6dXIOwUfZqgZDr1ZCKYm9w/viewform?entry.1512250099=Course+1%2C+Lesson+11%3A+Special%20Dietary%20Needs" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="lesson-1-10.html" class="prev">← Lesson 10</a>
+        <a href="index.html" class="next">Course Outline →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

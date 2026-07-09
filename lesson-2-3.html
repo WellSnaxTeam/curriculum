@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 3: Building Daily Hydration Habits — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax Middle School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Middle School Curriculum</a> / Course 2: Hydration / Lesson 3
+    </div>
+
+    <div class="lesson">
+      <h1>Building Daily Hydration Habits</h1>
+      <div class="meta">Course 2, Lesson 3</div>
+
+
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Building Daily Hydration Habits <span class="module-time">5-7 min</span></h2>
+        <p>In the previous lesson, we discussed how it is recommended that 12-14 year olds drink at least 6-8 cups of water each day.</p>
+        <p><strong>Where to Start:</strong></p>
+        <ul>
+          <li>In the morning, drink 1 cup of water when you first get up</li>
+          <li>Use a fun water bottle with measurements on the side</li>
+          <li>After school, drink 1 cup of water when you get home</li>
+          <li>Replace sugary drinks with water at meals and snacks</li>
+        </ul>
+        <p><strong>Water Variations:</strong></p>
+        <ul>
+          <li>Fruit infusions (strawberries, citrus fruits, melons)</li>
+          <li>Flavor infusion water bottles like Cirkul</li>
+          <li>Water-rich snacks: strawberries, watermelon, celery, apples</li>
+          <li>Sparkling water</li>
+        </ul>
+        <p><strong>Tips:</strong></p>
+        <ul>
+          <li>Drink before, during, and after physical activity</li>
+          <li>If you are thirsty, you are already dehydrated</li>
+          <li>Drink water throughout the day</li>
+          <li>Hydration is a habit — start with one small change at a time</li>
+        </ul>
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Building a Hydration Plan <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+        <p>Create a hydration habits plan to help you set a goal to be more hydrated.</p>
+        <p><strong>Step 1: Goal Setting</strong> — What's your daily water goal?</p>
+        <p><strong>Step 2: Identify Barriers</strong> — What makes it hard to drink enough water?</p>
+        <p><strong>Step 3: Choose Your Strategy</strong> — Pick 2-3 strategies that will work for you.</p>
+        <p><strong>Step 4: Daily Hydration Schedule</strong> — Fill in 6-8 times when you will drink water.</p>
+        <p><strong>Step 5: Motivation</strong> — Why do YOU want to build this habit?</p>
+        <p>After filling out the form, write 3-5 sentences on how you will use this plan to consume more water each day.</p>
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Hydration Habits Quiz <span class="module-time">15 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+
+        <div class="quiz-question">
+          <p class="q">1. How much water should a teenager drink each day?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> 2-3 cups</li>
+            <li class="correct"><span class="letter">B.</span> 6-8 cups <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> 10-12 cups</li>
+            <li class=""><span class="letter">D.</span> As much as they want</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. What percentage of your body is made up of water?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> About 25%</li>
+            <li class=""><span class="letter">B.</span> About 40%</li>
+            <li class="correct"><span class="letter">C.</span> About 60% <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> About 85%</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. What is a sign that you might be dehydrated?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Bright yellow urine</li>
+            <li class="correct"><span class="letter">B.</span> Extreme thirst and dark urine <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Feeling very full</li>
+            <li class=""><span class="letter">D.</span> Wanting to eat more snacks</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. Which of these counts as hydration (helps your body get water)?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Water only</li>
+            <li class="correct"><span class="letter">B.</span> Water, milk, and juice <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Only sports drinks and soda</li>
+            <li class=""><span class="letter">D.</span> Only water with added flavoring</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. How much water is in one 8 oz cup?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> 1/2 cup</li>
+            <li class="correct"><span class="letter">B.</span> 1 cup <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> 2 cups</li>
+            <li class=""><span class="letter">D.</span> 4 cups</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. What is one benefit of drinking enough water?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> It makes you gain weight</li>
+            <li class="correct"><span class="letter">B.</span> It improves focus and concentration <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> It makes you thirsty</li>
+            <li class=""><span class="letter">D.</span> It replaces the need for sleep</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. When is a good time to drink water?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Only when you're very thirsty</li>
+            <li class=""><span class="letter">B.</span> Only during meals</li>
+            <li class="correct"><span class="letter">C.</span> Throughout the day, even before you feel thirsty <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> Only after exercising</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. How many 16 oz water bottles equal your daily 6-8 cup goal?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> 1 bottle</li>
+            <li class=""><span class="letter">B.</span> 2 bottles</li>
+            <li class="correct"><span class="letter">C.</span> 3-4 bottles <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> 5 bottles</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. Which statement about plain water is TRUE?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Plain water is boring and unhealthy</li>
+            <li class="correct"><span class="letter">B.</span> Plain water is the best and healthiest choice for hydration <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Plain water has too many calories</li>
+            <li class=""><span class="letter">D.</span> Plain water is only for athletes</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. What can help you remember to drink water throughout the day?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Waiting until you're extremely thirsty</li>
+            <li class=""><span class="letter">B.</span> Only drinking during lunch</li>
+            <li class="correct"><span class="letter">C.</span> Keeping a water bottle visible and setting phone reminders <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> Drinking all your water at once in the morning</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Submit your feedback to help us improve the curriculum.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeGlueYkU12AizcMFATVIi102sW6dXIOwUfZqgZDr1ZCKYm9w/viewform?entry.1512250099=Course+2%2C+Lesson+3%3A+Building%20Daily%20Hydration%20Habits" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="lesson-2-2.html" class="prev">← Lesson 2</a>
+        <a href="lesson-2-4.html" class="next">Lesson 4 →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

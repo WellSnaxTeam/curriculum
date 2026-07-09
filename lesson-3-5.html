@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 5: The Impact of Snack Choices on the Body — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax Middle School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Middle School Curriculum</a> / Course 3: Healthy Snacking / Lesson 5
+    </div>
+
+    <div class="lesson">
+      <h1>The Impact of Snack Choices on the Body</h1>
+      <div class="meta">Course 3, Lesson 5</div>
+
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Watch: Video: The Impact of Snack Choices on the Body <span class="module-time">3 min</span></h2>
+        <iframe src="https://www.youtube.com/embed/_3UUR6FWCPA" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:10px;border:none;margin:1rem 0;"></iframe>
+      </div>
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> The Impact of Snack Choices on the Body <span class="module-time">10 min</span></h2>
+        <p><strong>Sugary Snacks</strong> (candy, cookies, ice cream)</p>
+        <ul>
+          <li>Immediate: Energy rushes and crashes, increased cravings, brain fog</li>
+          <li>Long-term: Weight gain, tooth decay, Type 2 diabetes</li>
+        </ul>
+        <p><strong>Salty, Fried Snacks</strong> (chips, crackers, french fries)</p>
+        <ul>
+          <li>Immediate: Water retention, bloating</li>
+          <li>Long-term: High blood pressure, heart disease, inflammation</li>
+        </ul>
+        <p><strong>Healthy Snacks</strong> (veggies and hummus, fruit and peanut butter, nuts)</p>
+        <ul>
+          <li>Immediate: Boosts energy, balanced blood sugar, sharper focus</li>
+          <li>Long-term: Reduces risk of chronic illness, better weight management, improved heart and gut health</li>
+        </ul>
+        <p><strong>Why your snack choices matter now:</strong> Your body is transitioning to adulthood. Healthy muscle and bone development, brain development, mood, athletic performance, and metabolism all depend on good nutrition.</p>
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Body Systems Poster Project <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+        <p>Choose a body system (Brain, Teeth, Digestive system, Heart, Muscles, Bones, or Metabolic system). Create a poster showing how various snacks (sugary, salty, and healthy) affect that body system.</p>
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Impact of Snacks on the Body Quiz <span class="module-time">15 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+
+        <div class="quiz-question">
+          <p class="q">1. Which of the following is a healthy snack choice?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Potato chips</li>
+            <li class="correct"><span class="letter">B.</span> Fresh fruit and almonds <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Candy bar</li>
+            <li class=""><span class="letter">D.</span> Sugary cereal</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. What does eating too many sugary snacks do to your energy levels?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Keeps energy steady all day</li>
+            <li class="correct"><span class="letter">B.</span> Causes a quick energy boost followed by a crash <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Has no effect on energy</li>
+            <li class=""><span class="letter">D.</span> Gradually increases energy over time</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. Which nutrient is important for building strong bones and muscles?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Sugar</li>
+            <li class=""><span class="letter">B.</span> Sodium (salt)</li>
+            <li class="correct"><span class="letter">C.</span> Protein <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> Saturated fat</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. How do high-sodium (salty) snacks affect your body?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> They help you lose weight</li>
+            <li class="correct"><span class="letter">B.</span> They can increase thirst and raise blood pressure <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> They improve your heart health</li>
+            <li class=""><span class="letter">D.</span> They have no effect on the body</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. What happens to your teeth when you frequently eat sugary snacks?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Your teeth get stronger</li>
+            <li class="correct"><span class="letter">B.</span> Sugar feeds bacteria in your mouth that cause cavities <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Your teeth become whiter</li>
+            <li class=""><span class="letter">D.</span> Nothing — sugar doesn't affect teeth</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. Which snack would give you the most balanced nutrition?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> A soda and cookies</li>
+            <li class="correct"><span class="letter">B.</span> A granola bar with nuts and dried fruit <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Cheese puffs</li>
+            <li class=""><span class="letter">D.</span> Candy</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. What is one reason to limit processed snack foods?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> They taste better</li>
+            <li class="correct"><span class="letter">B.</span> They often contain added sugars, sodium, and unhealthy fats <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> They provide all your daily vitamins</li>
+            <li class=""><span class="letter">D.</span> They have no nutritional value</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. Eating healthy snacks can help you focus better in school.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. All snack foods are bad for your body.</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> True</li>
+            <li class="correct"><span class="letter">B.</span> False <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. Reading nutrition labels on snacks can help you make healthier choices.</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> True <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> False</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Submit your feedback to help us improve the curriculum.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeGlueYkU12AizcMFATVIi102sW6dXIOwUfZqgZDr1ZCKYm9w/viewform?entry.1512250099=Course+3%2C+Lesson+5%3A+The%20Impact%20of%20Snack%20Choices%20on%20the%20Body" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="lesson-3-4.html" class="prev">← Lesson 4</a>
+        <a href="lesson-3-6.html" class="next">Lesson 6 →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

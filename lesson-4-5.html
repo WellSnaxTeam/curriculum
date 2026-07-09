@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 5: Dinner Routine — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax Middle School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Middle School Curriculum</a> / Course 4: Building Healthy Routines / Lesson 5
+    </div>
+
+    <div class="lesson">
+      <h1>Dinner Routine</h1>
+      <div class="meta">Course 4, Lesson 5</div>
+
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Watch: Video: Dinner Routine <span class="module-time">5 min</span></h2>
+        <iframe src="https://www.youtube.com/embed/JAM2Apf6fyc" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:10px;border:none;margin:1rem 0;"></iframe>
+      </div>
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Building a Healthy Dinner Routine <span class="module-time">5 min</span></h2>
+        <p><strong>Healthy Dinner Routines</strong></p>
+        <p>A good routine starts with planning and preparation. For dinner, stick to meals that have complex carbohydrates, lean protein, and healthy fats. These nutrients help with balancing blood sugar levels, increase satiety, and improve sleep.</p>
+        <p><strong>Building a healthy routine:</strong></p>
+        <ol>
+          <li>Plan meals ahead of time — choose meals you enjoy, rotate meals</li>
+          <li>Prepare meals — prepping ahead makes cooking efficient, include the whole family</li>
+          <li>Eating dinner — eat at the same time each night, drink water or milk, limit fast food</li>
+          <li>After dinner — if still not satisfied, eat a healthy snack or drink water</li>
+        </ol>
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Creating a Healthy Dinner Routine <span class="module-time">25 min</span></h2>
+        <div class="activity-box">
+        <p>Create a dinner menu for 1 week (7 days). Each dinner should contain complex carbohydrates, lean protein, and healthy fats. You can also include a healthy snack to eat after dinner. Include a variety of foods to ensure you get a range of nutrients.</p>
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Dinner Routine Quiz <span class="module-time">15 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+
+        <div class="quiz-question">
+          <p class="q">1. Why is it important to include complex carbohydrates in your dinner as a middle school student?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Only needed at breakfast.</li>
+            <li class=""><span class="letter">B.</span> Should be avoided at dinner.</li>
+            <li class="correct"><span class="letter">C.</span> They help provide lasting energy. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> They make you feel tired after eating.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. Which of the following is an example of a lean protein that could be included in a healthy dinner?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Butter</li>
+            <li class=""><span class="letter">B.</span> White bread</li>
+            <li class=""><span class="letter">C.</span> Olive oil</li>
+            <li class="correct"><span class="letter">D.</span> Chicken breast <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. What is one benefit of including healthy fats in your dinner?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> They make food taste bad.</li>
+            <li class="correct"><span class="letter">B.</span> They support brain development and keep you full longer. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> They are not needed for growing bodies.</li>
+            <li class=""><span class="letter">D.</span> They should be avoided by middle school students.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. Which dinner is an example of a balanced meal for a middle school student?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Soda, chips, and candy</li>
+            <li class=""><span class="letter">B.</span> Only pasta and tomato sauce</li>
+            <li class="correct"><span class="letter">C.</span> Brown rice, grilled fish, and steamed broccoli <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> Fried chicken and fries</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. Why is it important for middle school students to build healthy dinner habits?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> They can help you make better food choices as you get older. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> They only matter in high school.</li>
+            <li class=""><span class="letter">C.</span> They are not important for your future.</li>
+            <li class=""><span class="letter">D.</span> They are only for adults.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. Where can you find complex carbohydrates to include in your dinner?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Whole grain bread and sweet potatoes. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> Soda and candy.</li>
+            <li class=""><span class="letter">C.</span> Only meat products.</li>
+            <li class=""><span class="letter">D.</span> Only dairy foods.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. What is the main reason to include lean protein in your dinner?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> It helps build and repair muscles. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> It only provides flavor to meals.</li>
+            <li class=""><span class="letter">C.</span> It is not needed for growth.</li>
+            <li class=""><span class="letter">D.</span> It should be eaten once a week.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. Which food is a source of healthy fat that could be included in a healthy dinner?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Avocado is a source of complex carbohydrates.</li>
+            <li class="correct"><span class="letter">B.</span> Avocado is a source of healthy fat for dinner. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Avocado is a source of lean protein.</li>
+            <li class=""><span class="letter">D.</span> Avocado is a source of added sugar.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. What should a healthy dinner include for middle school students?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Only vegetables.</li>
+            <li class=""><span class="letter">B.</span> Only protein.</li>
+            <li class="correct"><span class="letter">C.</span> A mix of complex carbohydrates, lean protein, and healthy fats. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> Only carbohydrates.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. How can planning your dinner ahead of time help you build healthy habits?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> It makes meals boring.</li>
+            <li class=""><span class="letter">B.</span> It is not helpful for health.</li>
+            <li class=""><span class="letter">C.</span> It is only for adults.</li>
+            <li class="correct"><span class="letter">D.</span> It helps you make healthier choices. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Submit your feedback to help us improve the curriculum.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeGlueYkU12AizcMFATVIi102sW6dXIOwUfZqgZDr1ZCKYm9w/viewform?entry.1512250099=Course+4%2C+Lesson+5%3A+Dinner%20Routine" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="lesson-4-4.html" class="prev">← Lesson 4</a>
+        <a href="index.html" class="next">Course Outline →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

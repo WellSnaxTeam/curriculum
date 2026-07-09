@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 5: Water vs. Other Beverages — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax Middle School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Middle School Curriculum</a> / Course 2: Hydration / Lesson 5
+    </div>
+
+    <div class="lesson">
+      <h1>Water vs. Other Beverages</h1>
+      <div class="meta">Course 2, Lesson 5</div>
+
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Watch: Video: Water vs. Other Beverages <span class="module-time">9 min</span></h2>
+        <iframe src="https://www.youtube.com/embed/HLqMuWzIefw" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:10px;border:none;margin:1rem 0;"></iframe>
+      </div>
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Water vs. Other Beverages for Hydration <span class="module-time">7 min</span></h2>
+        <p><strong>Water:</strong> The best option for keeping the body hydrated. No added sugars, caffeine, or calories. Easily absorbed by the body.</p>
+        <p><strong>Milk:</strong> Contains electrolytes and nutrients. Helpful for recovery after exercise. Good source of calcium.</p>
+        <p><strong>Sports Drinks (Powerade, Gatorade, etc.):</strong> Contains electrolytes and carbohydrates. Good for endurance or high-activity athletes.</p>
+        <p><strong>Fruit Juice and Sugary Drinks:</strong> High in sugar — causes weight gain and energy crashes. High caffeine content can cause greater fluid loss.</p>
+        <p><strong>Coffee and Tea:</strong> Provides some hydration. Contains antioxidants. Can cause slight fluid loss.</p>
+        <p><strong>Coconut Water:</strong> Contains natural electrolytes. Low sugar from natural sugars.</p>
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Water vs. Other Beverages <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+        <p>Research a beverage and compare its hydration effects to water. Create a Venn diagram to compare the information.</p>
+        <p>After creating the diagram, write one page about which one you would choose to hydrate yourself with after being outside on a hot day.</p>
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Hydration Comparison Quiz <span class="module-time">15 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+
+        <div class="quiz-question">
+          <p class="q">1. Which beverage is the best choice for staying hydrated during exercise?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Water <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> Soda</li>
+            <li class=""><span class="letter">C.</span> Energy drinks with high sugar</li>
+            <li class=""><span class="letter">D.</span> Fruit juice</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. What do sports drinks contain that plain water does NOT have?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Artificial flavoring only</li>
+            <li class="correct"><span class="letter">B.</span> Electrolytes like sodium and potassium <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Caffeine to boost energy</li>
+            <li class=""><span class="letter">D.</span> Vitamins that water cannot provide</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. Why is plain water better than soda for hydration?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Water has no sugar, which can slow down hydration <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> Soda tastes better, so people drink less</li>
+            <li class=""><span class="letter">C.</span> Water contains caffeine that helps you focus</li>
+            <li class=""><span class="letter">D.</span> Soda is too expensive to drink regularly</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. Which beverage can actually make dehydration WORSE?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Water</li>
+            <li class=""><span class="letter">B.</span> Low-sugar sports drinks</li>
+            <li class="correct"><span class="letter">C.</span> Drinks with high caffeine, like energy drinks <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> Coconut water</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. How much added sugar is typically in a can of soda compared to water?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> About 5 grams</li>
+            <li class=""><span class="letter">B.</span> About 15 grams</li>
+            <li class="correct"><span class="letter">C.</span> About 35-40 grams <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> Soda has no sugar — it's a myth</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. When is a sports drink a better choice than water?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Every time you drink something</li>
+            <li class="correct"><span class="letter">B.</span> During intense exercise lasting more than 60 minutes <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Only for professional athletes</li>
+            <li class=""><span class="letter">D.</span> Sports drinks are never better than water</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. What is one disadvantage of drinking juice instead of water for hydration?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Juice has no vitamins</li>
+            <li class=""><span class="letter">B.</span> Juice is too expensive</li>
+            <li class="correct"><span class="letter">C.</span> Juice has high sugar content that can cause a "sugar crash" <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> Juice makes you thirsty faster</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. Which beverage should you AVOID before or during sports?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Water</li>
+            <li class=""><span class="letter">B.</span> Coconut water</li>
+            <li class="correct"><span class="letter">C.</span> Carbonated sodas and drinks with high caffeine <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> Milk</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. How much of your daily fluid intake should ideally come from plain water?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> About 25%</li>
+            <li class=""><span class="letter">B.</span> About 50%</li>
+            <li class="correct"><span class="letter">C.</span> About 75-80% <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> 100% — only water counts</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. Why do some athletes drink coconut water instead of sports drinks?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> It has natural electrolytes and is less processed <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> It tastes exactly like water</li>
+            <li class=""><span class="letter">C.</span> It has more caffeine than energy drinks</li>
+            <li class=""><span class="letter">D.</span> Coconut water has no sugar at all</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Submit your feedback to help us improve the curriculum.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeGlueYkU12AizcMFATVIi102sW6dXIOwUfZqgZDr1ZCKYm9w/viewform?entry.1512250099=Course+2%2C+Lesson+5%3A+Water%20vs.%20Other%20Beverages" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="lesson-2-4.html" class="prev">← Lesson 4</a>
+        <a href="lesson-2-6.html" class="next">Lesson 6 →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

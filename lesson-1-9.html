@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 9: Food Marketing and Claims — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax Middle School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Middle School Curriculum</a> / Course 1: Basic Nutrition / Lesson 9
+    </div>
+
+    <div class="lesson">
+      <h1>Food Marketing and Claims</h1>
+      <div class="meta">Course 1, Lesson 9</div>
+
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Watch: Video: Food Marketing and Claims <span class="module-time">11 min</span></h2>
+        <iframe src="https://www.youtube.com/embed/0clxjwhhB5Y" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:10px;border:none;margin:1rem 0;"></iframe>
+      </div>
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> How to Read Food Marketing: Spotting Truth, Half-Truths, and False Claims <span class="module-time">15-20 min</span></h2>
+        <p><strong>Why this matters:</strong> Food companies use words, pictures, and labels to get you to notice their products. Learning how to read marketing helps you make healthier choices.</p>
+        <p><strong>What is food marketing?</strong> Any way a company promotes a food or drink — package labels, ads, in-store displays, celebrity endorsements.</p>
+        <p><strong>Common types of claims:</strong></p>
+        <ul>
+          <li>Nutrient claims: &quot;High in protein,&quot; &quot;Low fat&quot;</li>
+          <li>Health claims: &quot;Supports immune health&quot;</li>
+          <li>Structure/function claims: &quot;Calcium builds strong bones&quot;</li>
+          <li>Comparative claims: &quot;More vitamin C than leading brand&quot;</li>
+        </ul>
+        <p><strong>Questions to ask for every claim:</strong></p>
+        <ol>
+          <li>What exactly does the claim say?</li>
+          <li>Where on the package is it shown?</li>
+          <li>Is there a specific amount behind the claim?</li>
+          <li>Does it make a too-good-to-be-true promise?</li>
+          <li>Is there fine print?</li>
+        </ol>
+        <p><strong>Red flags:</strong> Vague promises, miracle cures, hiding serving size, too many qualifiers in small print.</p>
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Claims Analysis <span class="module-time">20 min</span></h2>
+        <div class="activity-box">
+        <p>Evaluate three packages of foods to determine if you can trust the food. Pick three packaged foods you often see (cereal, snack bar, drink, etc.). For each, write:</p>
+        <p>1. The main claim on the front.</p>
+        <p>2. Two things the claim might be trying to distract you from (e.g., high sugar).</p>
+        <p>3. One number from the Nutrition Facts that helps you judge the claim.</p>
+        <p>4. Your conclusion: Trust it / Be skeptical / Don't trust it — with one sentence why.</p>
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Food Marketing Quiz <span class="module-time">15 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+
+        <div class="quiz-question">
+          <p class="q">1. Which statement best describes a common advertising technique used to make a food product seem healthier than it is?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Listing the exact serving size on the Nutrition Facts label</li>
+            <li class="correct"><span class="letter">B.</span> Using phrases like "made with real fruit" while adding large amounts of sugar <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Providing the manufacturer's contact information on the package</li>
+            <li class=""><span class="letter">D.</span> Including the number of calories per serving</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A cereal box claims "whole grain" in big letters, but the ingredient list shows "enriched flour" as the first ingredient. What should a student conclude?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> The cereal is definitely high in fiber and low in sugar</li>
+            <li class="correct"><span class="letter">B.</span> The front claim may be misleading because ingredients are listed by weight <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Enriched flour is another name for whole grain, so the claim is accurate</li>
+            <li class=""><span class="letter">D.</span> The Nutrition Facts label is not required when ingredients are listed</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. Which part of the Nutrition Facts label tells you how much of a vitamin or mineral is in a serving relative to daily needs?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Ingredient list</li>
+            <li class="correct"><span class="letter">B.</span> Percent Daily Value (%DV) <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Serving size statement</li>
+            <li class=""><span class="letter">D.</span> Product name</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. A snack package says "low fat" but one serving contains 300 calories and 35 grams of sugar. Which most accurately describes this product?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Low fat means healthy, so it's a good choice for every diet</li>
+            <li class="correct"><span class="letter">B.</span> The claim focuses on one nutrient; other nutrients (like sugar and calories) may make it an unhealthy choice <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Low fat automatically means low calorie and low sugar</li>
+            <li class=""><span class="letter">D.</span> If a product is labeled low fat, the ingredient list is irrelevant</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A soda company uses cartoon characters and bright colors on its packaging aimed at children. Which concept from consumer health does this best illustrate?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Food safety rules</li>
+            <li class="correct"><span class="letter">B.</span> Advertising techniques that target children <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> How to read the Nutrition Facts label</li>
+            <li class=""><span class="letter">D.</span> The role of vitamins and minerals</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. When comparing two yogurts, one lists "natural flavors" and the other lists specific ingredients (milk, fruit, sugar). Why is the second label more helpful?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> "Natural flavors" always means the product is unhealthy</li>
+            <li class="correct"><span class="letter">B.</span> Specific ingredient lists give clearer information about added sugars and real ingredients <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Products that list "natural flavors" have no calories</li>
+            <li class=""><span class="letter">D.</span> Ingredient lists are not required to be accurate</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. A company advertises its chips as "baked, not fried." Which critical question should a student ask next?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Does the package include a picture of a person enjoying the chips?</li>
+            <li class="correct"><span class="letter">B.</span> What is the serving size, and how many calories, fat, and sodium are in one serving? <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Is the product made by a local company?</li>
+            <li class=""><span class="letter">D.</span> Does the product include a coupon on the box?</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. Which of the following is a reliable sign that a health claim on a food package may be exaggerated or misleading?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> The package includes a Nutrition Facts label and ingredient list</li>
+            <li class="correct"><span class="letter">B.</span> The claim uses vague words like "natural," "wholesome," or "healthy" without supporting details <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> The product lists allergens clearly on the label</li>
+            <li class=""><span class="letter">D.</span> The serving size is listed in common household measures</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student wants to choose a snack that provides lasting energy for after-school activities. Which label information is most useful?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> The color and design of the package</li>
+            <li class="correct"><span class="letter">B.</span> The grams of protein and fiber per serving and the total calories per serving <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Whether the product uses celebrity endorsements</li>
+            <li class=""><span class="letter">D.</span> The number of images of fruit on the front of the package</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. Which consumer right helps a person check whether a food company's health claim is accurate?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> The right to be heard</li>
+            <li class="correct"><span class="letter">B.</span> The right to consumer education (access to accurate information) <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> The right to have problems corrected only after purchase</li>
+            <li class=""><span class="letter">D.</span> The right to enjoy unlimited samples</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Submit your feedback to help us improve the curriculum.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeGlueYkU12AizcMFATVIi102sW6dXIOwUfZqgZDr1ZCKYm9w/viewform?entry.1512250099=Course+1%2C+Lesson+9%3A+Food%20Marketing%20and%20Claims" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="lesson-1-8.html" class="prev">← Lesson 8</a>
+        <a href="lesson-1-10.html" class="next">Lesson 10 →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

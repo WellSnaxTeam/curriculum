@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 4: What are Macronutrients? — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax Middle School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Middle School Curriculum</a> / Course 1: Basic Nutrition / Lesson 4
+    </div>
+
+    <div class="lesson">
+      <h1>What are Macronutrients?</h1>
+      <div class="meta">Course 1, Lesson 4</div>
+
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Watch: Video: What are Macronutrients? <span class="module-time">6 min</span></h2>
+        <iframe src="https://www.youtube.com/embed/smPR215SRzM" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:10px;border:none;margin:1rem 0;"></iframe>
+      </div>
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> What are Macronutrients? <span class="module-time">5-7 min</span></h2>
+        <p><strong>What are Macronutrients?</strong></p>
+        <p>Macronutrients are nutrients that your body needs in large amounts (&quot;macro&quot; means &quot;big&quot;). Your body uses them for energy, growth, and maintaining all its systems. There are 3 types: carbohydrates, protein, and fats.</p>
+        <p><strong>1. Carbohydrates</strong></p>
+        <p>What they are: Carbohydrates are molecules made of carbon, hydrogen, and oxygen. They're the body's preferred energy source.</p>
+        <p>Main functions:</p>
+        <ul>
+          <li>Provide quick energy for immediate use</li>
+          <li>Fuel your brain and muscles</li>
+          <li>Help you stay active and alert</li>
+        </ul>
+        <p>Where they come from:</p>
+        <ul>
+          <li>Simple carbohydrates (fast energy): fruits, honey, sugar, candy, soda</li>
+          <li>Complex carbohydrates (sustained energy): whole grains, oats, brown rice, beans, vegetables</li>
+        </ul>
+        <p><strong>2. Proteins</strong></p>
+        <p>What they are: Proteins are made up of amino acids—the building blocks of life.</p>
+        <p>Main functions:</p>
+        <ul>
+          <li>Build and maintain muscles</li>
+          <li>Create enzymes and hormones</li>
+          <li>Strengthen bones, hair, and skin</li>
+          <li>Support immune system function</li>
+        </ul>
+        <p>Where they come from:</p>
+        <ul>
+          <li>Animal sources: chicken, fish, eggs, milk, yogurt, beef</li>
+          <li>Plant sources: beans, lentils, nuts, seeds, tofu, chickpeas</li>
+        </ul>
+        <p><strong>3. Fats</strong></p>
+        <p>What they are: Fats store more than twice the energy of carbs or protein.</p>
+        <p>Main functions:</p>
+        <ul>
+          <li>Store long-term energy</li>
+          <li>Protect organs and insulate your body</li>
+          <li>Help absorb vitamins (A, D, E, K)</li>
+          <li>Support brain development</li>
+        </ul>
+        <p>Types of fats:</p>
+        <ul>
+          <li>Healthy fats (unsaturated): avocados, olive oil, nuts, fatty fish like salmon</li>
+          <li>Less healthy fats (saturated): butter, fatty meats, full-fat dairy</li>
+          <li>Unhealthy fats (trans fats): processed foods, fried foods (limit these!)</li>
+        </ul>
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Macronutrient Poster <span class="module-time">30-45 min</span></h2>
+        <div class="activity-box">
+        <p>Create a <strong>"Macronutrient Poster"</strong> about ONE macronutrient. Include: definition, function, why it is important to the body, food sources, and 1 fun fact.</p>
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Macronutrients Quiz <span class="module-time">15 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+
+        <div class="quiz-question">
+          <p class="q">1. Which macronutrient is the body's preferred immediate source of energy for cells and physical activity?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Protein</li>
+            <li class="correct"><span class="letter">B.</span> Carbohydrate <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Vitamin</li>
+            <li class=""><span class="letter">D.</span> Mineral</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. Which macronutrient is most important for building and repairing tissues such as muscles and skin?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Fat</li>
+            <li class=""><span class="letter">B.</span> Carbohydrate</li>
+            <li class="correct"><span class="letter">C.</span> Protein <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> Water</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. Which statement best describes the role of dietary fats (lipids)?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Fats are only harmful and should be completely avoided.</li>
+            <li class="correct"><span class="letter">B.</span> Fats provide stored energy, help absorb fat-soluble vitamins, and insulate organs. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Fats are the primary source of quick energy during high-intensity exercise.</li>
+            <li class=""><span class="letter">D.</span> Fats are the main components of enzymes and DNA.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. A student wants to increase endurance during long exercise sessions. Which macronutrient should they ensure is adequate before the activity?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Carbohydrates, because they supply readily available energy <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> Protein, because it replaces lost electrolytes</li>
+            <li class=""><span class="letter">C.</span> Fats, because they are used only for short bursts of energy</li>
+            <li class=""><span class="letter">D.</span> Vitamins, because they provide calories</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. Which food is the best source of high-quality (complete) protein?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> White bread</li>
+            <li class="correct"><span class="letter">B.</span> Chicken breast <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Apple</li>
+            <li class=""><span class="letter">D.</span> Olive oil</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. Which of these describes a healthy reason to include fats in the diet?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> They reduce hydration needs</li>
+            <li class="correct"><span class="letter">B.</span> They are required for fat-soluble vitamin absorption and long-term energy storage. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> They immediately rebuild muscle after exercise.</li>
+            <li class=""><span class="letter">D.</span> They eliminate the need for carbohydrates.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. If a person eats more calories than they expend over time, what is the most likely result?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> They will gain body fat because excess energy is stored, often as fat. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> Their body will convert protein into carbohydrates to balance energy.</li>
+            <li class=""><span class="letter">C.</span> They will automatically build more muscle without exercise.</li>
+            <li class=""><span class="letter">D.</span> Extra vitamins will be produced to use the calories.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. Which macronutrient yields about twice the calories per gram compared to carbohydrates and protein?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Fat <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> Protein</li>
+            <li class=""><span class="letter">C.</span> Carbohydrate</li>
+            <li class=""><span class="letter">D.</span> Fiber</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. Which statement about protein and physical activity is true?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Eating extra protein alone causes significant muscle growth without exercise.</li>
+            <li class="correct"><span class="letter">B.</span> Protein helps repair and build muscle after resistance exercise, combined with adequate calories and training. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Protein is not needed by adolescents because they are still growing.</li>
+            <li class=""><span class="letter">D.</span> Protein provides the fastest source of energy during sprinting.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. Which eating pattern best supports steady energy during the school day and physical activity?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Skipping breakfast and eating one large meal at night</li>
+            <li class="correct"><span class="letter">B.</span> Eating balanced meals with carbohydrates for energy, protein for repair, and moderate healthy fats; staying hydrated <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Eating only high-fat snacks between classes</li>
+            <li class=""><span class="letter">D.</span> Consuming only vitamin supplements instead of real food</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Submit your feedback to help us improve the curriculum.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeGlueYkU12AizcMFATVIi102sW6dXIOwUfZqgZDr1ZCKYm9w/viewform?entry.1512250099=Course+1%2C+Lesson+4%3A+What%20are%20Macronutrients%3F" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="lesson-1-3.html" class="prev">← Lesson 3</a>
+        <a href="lesson-1-5.html" class="next">Lesson 5 →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

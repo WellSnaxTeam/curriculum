@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 7: Analyzing Meals and Snacks — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax Middle School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Middle School Curriculum</a> / Course 1: Basic Nutrition / Lesson 7
+    </div>
+
+    <div class="lesson">
+      <h1>Analyzing Meals and Snacks</h1>
+      <div class="meta">Course 1, Lesson 7</div>
+
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Watch: Video: Analyzing Meals and Snacks <span class="module-time">11 min</span></h2>
+        <iframe src="https://www.youtube.com/embed/RcaiQ4ja1HU" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:10px;border:none;margin:1rem 0;"></iframe>
+      </div>
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> How to Analyze Meals and Snacks Using Ingredients Lists and Nutrition Facts Labels <span class="module-time">5-10 min</span></h2>
+        <p>Knowing how to read ingredient lists and nutrition facts helps you choose healthier meals and snacks.</p>
+        <p><strong>Ingredients: what to look for</strong></p>
+        <ul>
+          <li>Ingredients are listed from most to least by weight. The first ingredient is the main one.</li>
+          <li>Look for whole foods first (e.g., &quot;whole grain oats,&quot; &quot;brown rice,&quot; &quot;chicken breast&quot;).</li>
+          <li>Short ingredient lists are usually simpler and less processed.</li>
+          <li>Watch for added sugars: cane sugar, high-fructose corn syrup, dextrose, maltose, syrup, and words ending in &quot;-ose.&quot;</li>
+          <li>Watch for hidden unhealthy fats: &quot;partially hydrogenated&quot; means trans fat (avoid).</li>
+        </ul>
+        <p><strong>Step-by-step method to analyze a meal or snack:</strong></p>
+        <ol>
+          <li>Check the serving size and servings per container</li>
+          <li>Read the ingredient list</li>
+          <li>Compare calories and macronutrients per serving</li>
+          <li>Look at added sugars and fiber</li>
+          <li>Check fats: prefer unsaturated fats</li>
+          <li>Use %DV to spot high or low amounts of nutrients</li>
+          <li>Consider the whole meal: combine items to improve balance</li>
+        </ol>
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Product Analysis <span class="module-time">45 min</span></h2>
+        <div class="activity-box">
+        <p>Think about the meals and snacks you frequently consume. Make a list of the top 3 meals and top 3 snacks. Using the Product Analysis Sheet, compare them to determine if they are healthy.</p>
+        <p>For each product, analyze: serving size, ingredient list (first 3 ingredients, added sugars, red flags), nutrition facts (calories, fat, protein, carbs, fiber, sugar, sodium). Write your verdict: Would you choose this snack? Why or why not?</p>
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Analyzing Meals and Snacks Quiz <span class="module-time">15 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+
+        <div class="quiz-question">
+          <p class="q">1. Which item on a Nutrition Facts label tells you the amount considered one serving so you can compare calories and nutrients correctly?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> % Daily Value</li>
+            <li class="correct"><span class="letter">B.</span> Serving size <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Total sugars</li>
+            <li class=""><span class="letter">D.</span> Ingredients list</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. A snack lists "sugar" as the first ingredient. What does that most likely mean?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> The product has no added sweeteners.</li>
+            <li class="correct"><span class="letter">B.</span> Sugar is present in the largest amount by weight. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Sugar contributes the most vitamins.</li>
+            <li class=""><span class="letter">D.</span> The product is high in protein.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. Two packaged cereals have the same calories per serving. One has 3 g of fiber and 8 g of added sugars; the other has 1 g of fiber and 2 g of added sugars. Which is the better choice?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> The cereal with 1 g fiber and 2 g added sugars</li>
+            <li class="correct"><span class="letter">B.</span> The cereal with 3 g fiber and 8 g added sugars <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Both are equally healthy because calories are the same</li>
+            <li class=""><span class="letter">D.</span> Neither — calories are the only important factor</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. On a Nutrition Facts label, which percent is MOST useful to quickly see if a food is high in a particular nutrient?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> % Daily Value <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> Total grams</li>
+            <li class=""><span class="letter">C.</span> Serving size</li>
+            <li class=""><span class="letter">D.</span> Calories from fat</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. A product's ingredient list includes "partially hydrogenated oil." What concern should this raise?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> It indicates the snack contains trans fats, which raise heart disease risk. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> It means the product is low in calories.</li>
+            <li class=""><span class="letter">C.</span> It guarantees the product is high in fiber.</li>
+            <li class=""><span class="letter">D.</span> It shows the product is made only from whole grains.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. Which strategy best helps a student choose a lower-sodium snack when reading labels?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Choose products with the longest ingredient lists.</li>
+            <li class="correct"><span class="letter">B.</span> Compare the milligrams (mg) of sodium per serving across similar products. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Pick the product with the highest % Daily Value for sodium.</li>
+            <li class=""><span class="letter">D.</span> Choose the product with more added sugars.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. If a food label lists serving size as "1 cup (55 g)" and you eat 2 cups, how should you use the Nutrition Facts?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Use the listed calories and nutrient amounts as-is.</li>
+            <li class="correct"><span class="letter">B.</span> Double the calories and nutrient amounts shown for one serving. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Halve the calories because 2 cups is always less than a serving.</li>
+            <li class=""><span class="letter">D.</span> Only use % Daily Value and ignore serving size.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A granola bar lists: whole oats, brown rice syrup, almonds, dried fruit, natural flavors. Why might this bar be more nutrient-dense than one listing "corn syrup" first?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Ingredients like whole oats and almonds provide fiber, protein, and healthy fats; corn syrup-first bars are likely higher in added sugar. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> "Natural flavors" guarantees the bar has no added sugars.</li>
+            <li class=""><span class="letter">C.</span> Brown rice syrup always makes a product low in calories.</li>
+            <li class=""><span class="letter">D.</span> Dried fruit means the bar has no sugar.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. A student with a peanut allergy must avoid products that list "may contain traces of peanuts." What does this mean?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> The product definitely contains peanuts as a main ingredient.</li>
+            <li class="correct"><span class="letter">B.</span> The product was produced in a facility that may also process peanuts, so cross-contact is possible. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> The product was cleaned to remove all peanut proteins.</li>
+            <li class=""><span class="letter">D.</span> The product is safe because "traces" are too small to cause reactions.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. When analyzing a snack for healthier choice, which combination of label information is most important to consider together?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Serving size, calories, grams of saturated fat, grams of fiber, and ingredient order <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> Manufacturer address, type of packaging, and color of the label</li>
+            <li class=""><span class="letter">C.</span> Number of images on the front, price, and serving suggestions</li>
+            <li class=""><span class="letter">D.</span> Barcode number, lot number, and best-by date</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Submit your feedback to help us improve the curriculum.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeGlueYkU12AizcMFATVIi102sW6dXIOwUfZqgZDr1ZCKYm9w/viewform?entry.1512250099=Course+1%2C+Lesson+7%3A+Analyzing%20Meals%20and%20Snacks" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="lesson-1-6.html" class="prev">← Lesson 6</a>
+        <a href="lesson-1-8.html" class="next">Lesson 8 →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

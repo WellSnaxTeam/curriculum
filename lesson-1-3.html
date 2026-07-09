@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 3: Building a Balanced Plate — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax Middle School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Middle School Curriculum</a> / Course 1: Basic Nutrition / Lesson 3
+    </div>
+
+    <div class="lesson">
+      <h1>Building a Balanced Plate</h1>
+      <div class="meta">Course 1, Lesson 3</div>
+
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Watch: Video: Building a Balanced Plate <span class="module-time">9 min</span></h2>
+        <iframe src="https://www.youtube.com/embed/W458a21H0zo" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:10px;border:none;margin:1rem 0;"></iframe>
+      </div>
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> What is a Balanced Plate? <span class="module-time">5-7 min</span></h2>
+        <p><strong>What is a balanced plate?</strong></p>
+        <p>A balanced plate includes foods from the five food groups—grains, protein, vegetables, fruits, and dairy—so your body gets energy, vitamins, minerals, and protein to grow and stay healthy.</p>
+        <p><strong>The five food groups:</strong></p>
+        <ul>
+          <li>Grains — Choose whole grains most of the time. Examples: whole-wheat bread, brown rice, whole-grain pasta, oats.</li>
+          <li>Protein — Choose lean or plant proteins. Examples: chicken, beef, turkey, fish, beans, lentils, tofu, eggs, nuts.</li>
+          <li>Vegetables — Fill half your plate with vegetables when possible. Examples: spinach, broccoli, carrots, bell peppers, tomatoes, green beans.</li>
+          <li>Fruits — Choose whole fruits more often than juice. Examples: apples, oranges, berries, bananas, grapes.</li>
+          <li>Dairy — Choose full-fat with no added sugars. Examples: milk, yogurt, cheese, fortified plant milks (such as soy milk).</li>
+        </ul>
+        <p><strong>How to build a healthy plate:</strong></p>
+        <ol>
+          <li>Start with a plate divided roughly into halves and quarters:</li>
+        <ul>
+          <li>Half the plate = vegetables and fruits (more vegetables than fruit)</li>
+          <li>One quarter = protein</li>
+          <li>One quarter = grains (choose whole grains)</li>
+          <li>Add a small serving of dairy on the side (a cup of milk or a yogurt)</li>
+          <li>Use healthy cooking methods: bake, grill, steam, or sauté with a small amount of oil</li>
+          <li>Watch portion sizes: use your hand as a guide</li>
+          <li>Drink water most often; limit sugary drinks</li>
+        </ul>
+        <p><strong>Example balanced plate:</strong> Grilled chicken (protein), brown rice (grain), steamed broccoli and carrots (vegetables), an apple (fruit), and a cup of low-fat milk (dairy).</p>
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Building a Balanced Plate <span class="module-time">25-30 min</span></h2>
+        <div class="activity-box">
+        <p>Create 3 balanced meals (breakfast, lunch, and dinner) for 7 days. This will make 21 total meals. Be sure to use a variety of foods to create each balanced plate.</p>
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Building a Balanced Plate Quiz <span class="module-time">15 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+
+        <div class="quiz-question">
+          <p class="q">1. Which set lists the five main food groups used to build a balanced plate?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Protein, fruits, vegetables, dairy, grains <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> Protein, sugars, fats, vegetables, water</li>
+            <li class=""><span class="letter">C.</span> Fruits, candy, grains, dairy, oils</li>
+            <li class=""><span class="letter">D.</span> Vegetables, dairy, sweets, protein, vitamins</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. On a balanced plate, which food group should generally provide the largest portion by volume?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Grains</li>
+            <li class=""><span class="letter">B.</span> Dairy</li>
+            <li class="correct"><span class="letter">C.</span> Vegetables <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> Protein</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. Which choice is the best example of a lean protein that fits a balanced plate?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Fried chicken wings</li>
+            <li class="correct"><span class="letter">B.</span> Grilled salmon <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Potato chips</li>
+            <li class=""><span class="letter">D.</span> Chocolate milkshake</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. A student wants more calcium in their balanced plate. Which item is the best source?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Apple</li>
+            <li class="correct"><span class="letter">B.</span> Yogurt <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Whole-wheat bread</li>
+            <li class=""><span class="letter">D.</span> Carrots</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. Which grain choice is healthiest for including on a balanced plate most often?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> White bread made with enriched flour</li>
+            <li class=""><span class="letter">B.</span> Sugary cereal flakes</li>
+            <li class="correct"><span class="letter">C.</span> Whole-grain brown rice <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">D.</span> Donuts</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. If a student fills half their plate with vegetables and fruits, which rationale is most accurate?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Fruits and vegetables supply fiber, vitamins, and take up volume to control calories <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> Fruits and vegetables are high in saturated fat for energy</li>
+            <li class=""><span class="letter">C.</span> Filling with fruits and vegetables prevents any need for protein</li>
+            <li class=""><span class="letter">D.</span> Vegetables and fruits contain no nutrients but add color</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. Which plate-building habit shows proper balance and variety?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Large portion of fries (grains) and small apple (fruit) only</li>
+            <li class="correct"><span class="letter">B.</span> Half plate mixed vegetables, quarter lean protein, quarter whole grains, plus a cup of milk <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Only dairy products at every meal for convenience</li>
+            <li class=""><span class="letter">D.</span> Eating dessert first to feel full, then skipping other groups</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. A student with lactose intolerance wants dairy nutrients. Which alternative fits a balanced plate plan?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Skip calcium entirely</li>
+            <li class="correct"><span class="letter">B.</span> Choose fortified plant-based milk (soy or almond) and yogurt alternatives <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Drink only soda instead</li>
+            <li class=""><span class="letter">D.</span> Replace dairy with more candy for energy</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. Which statement about portion sizes for grains on a balanced plate is correct?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> A fist-sized portion of whole grains is an appropriate single serving for many teens <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> Grains should be eaten in unlimited amounts when paired with vegetables</li>
+            <li class=""><span class="letter">C.</span> Portion size doesn't matter if the food is labeled "whole grain"</li>
+            <li class=""><span class="letter">D.</span> Grains should be eliminated to make the plate balanced</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. For a balanced plate at lunchtime, which meal choice best demonstrates application of the five groups?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Turkey sandwich on whole-grain bread, side salad with mixed vegetables, apple, and a small container of low-fat yogurt <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> Cheeseburger with extra bacon, large fries, and a milkshake</li>
+            <li class=""><span class="letter">C.</span> Only a bag of chips and a cookie</li>
+            <li class=""><span class="letter">D.</span> Large bowl of sugary cereal with no fruit or milk</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Submit your feedback to help us improve the curriculum.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeGlueYkU12AizcMFATVIi102sW6dXIOwUfZqgZDr1ZCKYm9w/viewform?entry.1512250099=Course+1%2C+Lesson+3%3A+Building%20a%20Balanced%20Plate" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="lesson-1-2.html" class="prev">← Lesson 2</a>
+        <a href="lesson-1-4.html" class="next">Lesson 4 →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 4: Lunch Routines — WellSnax Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav h1 { font-size: 1.1rem; }
+    .nav a { color: #94a3b8; text-decoration: none; font-size: .85rem; }
+    .nav a:hover { color: white; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .breadcrumb {
+      padding: 1.5rem 0 .5rem;
+      font-size: .85rem;
+      color: #64748b;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .lesson {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+    .lesson h1 { font-size: 1.8rem; margin-bottom: .25rem; }
+    .lesson .meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section {
+      margin: 2.5rem 0;
+    }
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 .badge {
+      font-size: .65rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-video { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #f1f5f9; color: #475569; }
+    .badge-activity { background: #d1fae5; color: #065f46; }
+    .badge-quiz { background: #fce7f3; color: #9d174d; }
+
+    .section p { margin: .75rem 0; }
+    .section ul, .section ol { padding-left: 1.25rem; margin: .5rem 0; }
+    .section li { margin: .4rem 0; }
+    .section strong { color: #0f172a; }
+
+    .video-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: white;
+    }
+    .video-card .play-icon {
+      font-size: 3rem;
+      margin-bottom: .75rem;
+    }
+    .video-card p { margin: .25rem 0; }
+    .video-card .watch-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .video-card .watch-link:hover { background: #1d4ed8; }
+    .video-card .note {
+      font-size: .8rem;
+      color: #94a3b8;
+      margin-top: .75rem;
+    }
+
+    .activity-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .activity-box p { margin: .5rem 0; }
+
+    .quiz-question {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .quiz-question p.q { font-weight: 600; margin-bottom: .75rem; font-size: .95rem; }
+    .quiz-question .options { list-style: none; }
+    .quiz-question .options li {
+      padding: .45rem .75rem;
+      margin: .2rem 0;
+      border-radius: 6px;
+      font-size: .9rem;
+      border: 1px solid transparent;
+    }
+    .quiz-question .options li.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .quiz-question .options li .letter {
+      display: inline-block;
+      width: 1.4rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .correct-badge {
+      font-size: .7rem;
+      background: #86efac;
+      color: #065f46;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+      font-weight: 600;
+    }
+
+    .answer-key-toggle {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: .75rem 1.25rem;
+      margin: 1.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #2563eb;
+      font-size: .9rem;
+      display: inline-block;
+      user-select: none;
+    }
+    .answer-key-toggle:hover { background: #e2e8f0; }
+    #answer-key { display: none; margin-top: 1rem; }
+    #answer-key-toggle:checked ~ #answer-key { display: block; }
+    #answer-key-toggle { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+    }
+    .nav-buttons a {
+      padding: .6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      transition: background .15s;
+    }
+    .nav-buttons .prev {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .nav-buttons .prev:hover { background: #e2e8f0; }
+    .nav-buttons .next {
+      background: #2563eb;
+      color: white;
+    }
+    .nav-buttons .next:hover { background: #1d4ed8; }
+
+    .feedback-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .feedback-bar p { font-size: .9rem; margin-bottom: 1rem; color: #92400e; }
+    .feedback-btn {
+      display: inline-block;
+      background: #92400e;
+      color: white;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+    }
+    .feedback-btn:hover { background: #7a3410; }
+
+    .module-time {
+      font-size: .85rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax Middle School</h1>
+    <a href="index.html">Course Outline</a>
+  </div>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Middle School Curriculum</a> / Course 4: Building Healthy Routines / Lesson 4
+    </div>
+
+    <div class="lesson">
+      <h1>Lunch Routines</h1>
+      <div class="meta">Course 4, Lesson 4</div>
+
+      <div class="section">
+        <h2><span class="badge badge-video">Video</span> Watch: Video: Lunch Routines <span class="module-time">2 min</span></h2>
+        <iframe src="https://www.youtube.com/embed/YvBtCGfJNhc" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:10px;border:none;margin:1rem 0;"></iframe>
+      </div>
+      <!-- READING SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-reading">Reading</span> Lunch Routines <span class="module-time">5 min</span></h2>
+        <p><strong>Lunch Routines</strong></p>
+        <p>A good routine starts with planning and preparation. For lunch, stick to meals that have fruits and vegetables, protein, and carbohydrates that will help keep the body fueled throughout the afternoon.</p>
+        <p><strong>Building a good routine:</strong></p>
+        <ol>
+          <li>Plan meals ahead of time — removes &quot;decision fatigue&quot;</li>
+          <li>Prep meals — the week before or night before</li>
+          <li>Eating lunch — drink water or milk, chew thoroughly, eat at the same time each day</li>
+        </ol>
+        <p>Once you feel like you have a healthy lunch routine, you can add new healthy foods to try. Building a healthy habit takes time — make one small change at a time.</p>
+      </div>
+
+      <!-- ACTIVITY SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-activity">Activity</span> Creating a Healthy Lunch Routine <span class="module-time">25 min</span></h2>
+        <div class="activity-box">
+        <p>Create a lunch menu for 1 week (7 days). Each lunch should contain a balanced plate with lean protein, complex carbohydrates, and fruits and vegetables.</p>
+        </div>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div class="section">
+        <h2><span class="badge badge-quiz">Quiz</span> Lunch Routines Quiz <span class="module-time">15 min</span></h2>
+        <p style="font-size:.9rem;color:#64748b;">Passing score: 70%</p>
+
+        <div class="quiz-question">
+          <p class="q">1. Which of the following best describes a balanced lunch for a middle school student?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Only fruits and vegetables</li>
+            <li class="correct"><span class="letter">B.</span> Lean protein, complex carbohydrates, fruits, and vegetables <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Desserts and snacks</li>
+            <li class=""><span class="letter">D.</span> Only bread and cheese</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">2. Which food is an example of lean protein that can be included in a healthy lunch?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> Chicken breast <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> Potato chips</li>
+            <li class=""><span class="letter">C.</span> White bread</li>
+            <li class=""><span class="letter">D.</span> Soda</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">3. Why are complex carbohydrates important in a healthy lunch routine?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> They are only found in candy.</li>
+            <li class="correct"><span class="letter">B.</span> They provide lasting energy for your body. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> They make you feel tired quickly.</li>
+            <li class=""><span class="letter">D.</span> They do not help your body function.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">4. Which food is a good source of complex carbohydrates for a healthy lunch?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Ice cream</li>
+            <li class="correct"><span class="letter">B.</span> Whole grain pasta <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> Fried chicken</li>
+            <li class=""><span class="letter">D.</span> Fruit punch</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">5. Why should you include fruits and vegetables in your lunch?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> They add extra sugar.</li>
+            <li class=""><span class="letter">B.</span> They make your lunch unhealthy.</li>
+            <li class=""><span class="letter">C.</span> They are not necessary for growth.</li>
+            <li class="correct"><span class="letter">D.</span> They help your body get vitamins and minerals. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">6. How should a healthy lunch plate be divided for balanced nutrition?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> About half fruits and vegetables, a quarter lean protein, and a quarter complex carbohydrates. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> Mostly desserts and snacks.</li>
+            <li class=""><span class="letter">C.</span> Only lean protein.</li>
+            <li class=""><span class="letter">D.</span> Mostly bread and cheese.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">7. Which lunch option is the healthiest choice for a middle school student?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Candy bar with soda and chips</li>
+            <li class="correct"><span class="letter">B.</span> Turkey sandwich on whole grain bread with lettuce and tomato <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">C.</span> White bread with butter and jam</li>
+            <li class=""><span class="letter">D.</span> Pizza with extra cheese and pepperoni</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">8. What is the main benefit of including lean protein in your lunch?</p>
+          <ul class="options">
+            <li class="correct"><span class="letter">A.</span> It helps build and repair muscles. <span class="correct-badge">Correct</span></li>
+            <li class=""><span class="letter">B.</span> It only gives you energy for a short time.</li>
+            <li class=""><span class="letter">C.</span> It is not needed for growth.</li>
+            <li class=""><span class="letter">D.</span> It makes you feel sleepy.</li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">9. Why is it important to eat a variety of foods at lunch?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> Eating only one type of food is best.</li>
+            <li class=""><span class="letter">B.</span> Skipping lunch is healthiest.</li>
+            <li class=""><span class="letter">C.</span> Eating mostly sweets gives you all the nutrients you need.</li>
+            <li class="correct"><span class="letter">D.</span> A variety of foods helps your body get all the nutrients it needs. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+        <div class="quiz-question">
+          <p class="q">10. How can planning your lunch ahead of time benefit your health?</p>
+          <ul class="options">
+            <li class=""><span class="letter">A.</span> It makes it harder to eat healthy.</li>
+            <li class=""><span class="letter">B.</span> It is not important for nutrition.</li>
+            <li class=""><span class="letter">C.</span> It means you will eat more junk food.</li>
+            <li class="correct"><span class="letter">D.</span> It can help you make healthier choices. <span class="correct-badge">Correct</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- FEEDBACK -->
+      <div style="margin-top: 2rem;">
+        <div class="feedback-bar">
+          <p><strong>Reviewing this lesson?</strong> Submit your feedback to help us improve the curriculum.</p>
+          <a class="feedback-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeGlueYkU12AizcMFATVIi102sW6dXIOwUfZqgZDr1ZCKYm9w/viewform?entry.1512250099=Course+4%2C+Lesson+4%3A+Lunch%20Routines" target="_blank">Submit Feedback</a>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav-buttons">
+        <a href="lesson-4-3.html" class="prev">← Lesson 3</a>
+        <a href="lesson-4-5.html" class="next">Lesson 5 →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
