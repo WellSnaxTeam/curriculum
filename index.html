@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WellSnax Middle School Curriculum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.6;
+    }
+    .nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav h1 { font-size: 1.2rem; }
+    .nav small { color: #94a3b8; font-size: .8rem; }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem; }
+
+    /* Course block */
+    .course-block {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+    .course-block h2 {
+      font-size: 1.4rem;
+      margin-bottom: .25rem;
+    }
+    .course-block .course-meta {
+      color: #64748b;
+      font-size: .9rem;
+      margin-bottom: 1.25rem;
+    }
+    .lesson-list { list-style: none; }
+    .lesson-list li {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .7rem .75rem;
+      border-radius: 8px;
+      margin: .2rem 0;
+      transition: background .15s;
+    }
+    .lesson-list li:hover { background: #f1f5f9; }
+    .lesson-list .num {
+      width: 1.75rem;
+      height: 1.75rem;
+      background: #e2e8f0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .8rem;
+      font-weight: 600;
+      color: #475569;
+      flex-shrink: 0;
+    }
+    .lesson-list a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+      flex: 1;
+    }
+    .lesson-list a:hover { text-decoration: underline; }
+    .lesson-list .tags { display: flex; gap: .35rem; }
+    .tag {
+      font-size: .65rem;
+      padding: .1rem .45rem;
+      border-radius: 999px;
+      font-weight: 500;
+    }
+    .tag-video { background: #dbeafe; color: #1e40af; }
+    .tag-reading { background: #f1f5f9; color: #475569; }
+    .tag-activity { background: #d1fae5; color: #065f46; }
+    .tag-quiz { background: #fce7f3; color: #9d174d; }
+    .overview-badge {
+      font-size: .65rem;
+      background: #fef3c7;
+      color: #92400e;
+      padding: .1rem .5rem;
+      border-radius: 999px;
+      font-weight: 500;
+    }
+
+    .coming-soon { color: #94a3b8; padding: .7rem .75rem; font-style: italic; font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <h1>WellSnax Middle School Curriculum</h1>
+    <small>Education Partner Preview</small>
+  </div>
+
+  <div class="container">
+    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:1.25rem;margin-bottom:2rem;">
+      <strong>Welcome, reviewer.</strong> This is a preview of the WellSnax Middle School Nutrition Curriculum. Each lesson includes a video, reading material, an activity, and a quiz. Use the feedback link at the bottom of each lesson to submit your review.
+    </div>
+
+    <!-- Course 1 -->
+    <div class="course-block">
+      <h2>Course 1: Basic Nutrition</h2>
+      <div class="course-meta">11 lessons &bull; 1 course overview</div>
+      <ul class="lesson-list">
+        <li><span class="num">i</span><span class="overview-badge">Overview</span><span>Course Introduction</span></li>
+        <li><span class="num">1</span><a href="lesson-1-1.html">What is Nutrition?</a><span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">2</span>Food Groups<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">3</span>Building a Balanced Plate<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">4</span>Understanding Macronutrients<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">5</span>Understanding Micronutrients<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">6</span>Reading Food Labels<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">7</span>Analyzing Meals &amp; Snacks<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">8</span>Planning Meals for Daily Nutrition<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">9</span>Food Marketing &amp; Claims<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">10</span>Nutrition Across the World<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">11</span>Special Dietary Needs<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+      </ul>
+    </div>
+
+    <!-- Course 2 -->
+    <div class="course-block">
+      <h2>Course 2: Hydration</h2>
+      <div class="course-meta">8 lessons &bull; 1 course overview</div>
+      <ul class="lesson-list">
+        <li><span class="num">1</span>Water's Role in Your Body<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">2</span>Daily Hydration Guidelines<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">3</span>Building Daily Hydration Habits<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">4</span>Dehydration and its Effects<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">5</span>Water vs. Other Beverages<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">6</span>Hydration in Different Scenarios<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">7</span>Monitoring Your Hydration<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">8</span>Hydration and Health Conditions<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+      </ul>
+    </div>
+
+    <!-- Course 3 -->
+    <div class="course-block">
+      <h2>Course 3: Healthy Snacking</h2>
+      <div class="course-meta">8 lessons &bull; 1 course overview</div>
+      <ul class="lesson-list">
+        <li><span class="num">1</span>What is Snacking?<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">2</span>Snack Nutrients and Fueling the Body<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">3</span>Reading Snack Labels<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">4</span>Smart Swaps and Building Better Habits<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">5</span>The Impact of Snack Choices on the Body<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">6</span>Snacking in Different Scenarios<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">7</span>Snack Marketing and Advertising Claims<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">8</span>Food Allergies: Safe and Inclusive Snacking<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+      </ul>
+    </div>
+
+    <!-- Course 4 -->
+    <div class="course-block">
+      <h2>Course 4: Building Healthy Routines</h2>
+      <div class="course-meta">5 lessons &bull; 1 course overview</div>
+      <ul class="lesson-list">
+        <li><span class="num">1</span>Understanding Habits and Health<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">2</span>Nutrition Routines<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">3</span>Breakfast Routines<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">4</span>Lunch Routines<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+        <li><span class="num">5</span>Dinner Routines<span class="tags"><span class="tag tag-video">video</span><span class="tag tag-reading">reading</span><span class="tag tag-activity">activity</span><span class="tag tag-quiz">quiz</span></span></li>
+      </ul>
+    </div>
+
+    <div style="text-align:center;color:#64748b;padding:2rem;font-size:.9rem;">
+      WellSnax &mdash; Middle School Nutrition Curriculum &bull; 4 courses &bull; 36 lessons
+    </div>
+  </div>
+</body>
+</html>
