@@ -1,0 +1,33 @@
+[orphan]  hs-2-2.html: removed 2 stray option-fragment block(s)
+[orphan]  hs-2-3.html: removed 4 stray option-fragment block(s)
+[orphan]  hs-3-2.html: removed 2 stray option-fragment block(s)
+[orphan]  hs-3-3.html: removed 2 stray option-fragment block(s)
+[orphan]  hs-3-4.html: removed 2 stray option-fragment block(s)
+[orphan]  hs-4-1.html: removed 2 stray option-fragment block(s)
+[orphan]  hs-4-4.html: removed 2 stray option-fragment block(s)
+[orphan]  hs-4-5.html: removed 2 stray option-fragment block(s)
+[orphan]  hs-4-6.html: removed 2 stray option-fragment block(s)
+[orphan]  hs-5-1.html: removed 3 stray option-fragment block(s)
+[orphan]  hs-6-1.html: removed 2 stray option-fragment block(s)
+[orphan]  hs-6-2.html: removed 2 stray option-fragment block(s)
+[orphan]  hs-6-3.html: removed 4 stray option-fragment block(s)
+[orphan]  TOTAL removed: 31
+[restore] hs-2-4.html Q11: answer set to True (from Alexis's key)
+[restore] hs-2-4.html Q12: answer set to False (from Alexis's key)
+[restore] hs-2-4.html Q13: answer set to True (from Alexis's key)
+[restore] hs-2-4.html Q14: answer set to True (from Alexis's key)
+[restore] hs-2-4.html Q15: answer set to True (from Alexis's key)
+[restore] hs-1-2.html Q2: answer set to False (from Alexis's key)
+[restore] hs-1-2.html Q4: answer set to False (from Alexis's key)
+[restore] hs-1-2.html Q7: answer set to False (from Alexis's key)
+[restore] hs-1-2.html Q10: answer set to False (from Alexis's key)
+[restore] hs-1-2.html Q13: answer set to True (from Alexis's key)
+[invert]  hs-3-2.html Q4: False -> True  (Carbohydrates do help athletes maintain energy during intense exercise)  ** REVIEW **
+[invert]  hs-3-2.html Q10: False -> True  (Balanced macronutrients do help maintain steady energy)  ** REVIEW **
+[invert]  hs-3-3.html Q11: False -> True  (Several low %DV foods can leave daily iron needs unmet)  ** REVIEW **
+[invert]  hs-4-1.html Q12: True -> False  (Skipping meals is not recommended by dietary guidelines)  ** REVIEW **
+[invert]  hs-4-4.html Q11: False -> True  (Variety across food groups is the definition of a balanced plate)  ** REVIEW **
+[invert]  hs-4-6.html Q11: False -> True  (Celiac disease requires strict avoidance of wheat, barley and rye)  ** REVIEW **
+[invert]  hs-6-1.html Q10: False -> True  (Adequate protein supports recovery and reduces soreness)  ** REVIEW **
+[invert]  hs-6-2.html Q7: False -> True  (Low energy availability reduces bone density and raises injury risk)  ** REVIEW **
+[invert]  hs-6-3.html Q14: True -> False  (Thirst lags fluid loss, so athletes should not rely on it alone)  ** REVIEW **

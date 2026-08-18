@@ -1,0 +1,82 @@
+Scanned 64 files. 62 defects across 9 rules.
+
+R1-answer-count  (10)
+    hs-1-2.html    2. TRUE or FALSE: Eating 30 grams of carbs per meal is enough  0 options marked correct, expected 1
+    hs-1-2.html    4. TRUE or FALSE: Carbohydrates from whole grains, fruits, and 0 options marked correct, expected 1
+    hs-1-2.html    7. TRUE or FALSE: Each gram of carbohydrate provides your body 0 options marked correct, expected 1
+    hs-1-2.html    10. TRUE or FALSE: Eating lots of highly processed carbohydrat 0 options marked correct, expected 1
+    hs-1-2.html    13. TRUE or FALSE: Carbohydrates from whole grains, fruits, an 0 options marked correct, expected 1
+    hs-2-4.html    11. Eating a variety of fruits, vegetables, dairy, and lean pr 0 options marked correct, expected 1
+    hs-2-4.html    12. Avoiding dairy products automatically leads to low iron le 0 options marked correct, expected 1
+    hs-2-4.html    13. Muscle cramps during exercise may be influenced by several 0 options marked correct, expected 1
+    hs-2-4.html    14. High sodium intake combined with low potassium intake can  0 options marked correct, expected 1
+    hs-2-4.html    15. Improving mineral intake habits can influence energy, reco 0 options marked correct, expected 1
+
+R2-orphan-block  (31)
+    hs-2-2.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-2-2.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-2-3.html    1. True                                                        question text looks like an option fragment; opts=['False', 'A student feels tired, has skin rashes, and eats mostly refined grains with little variety. What is most likely happening?']
+    hs-2-3.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-2-3.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-2-3.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-3-2.html    1. False                                                       question text looks like an option fragment; opts=['True']
+    hs-3-2.html    1. False                                                       question text looks like an option fragment; opts=['True']
+    hs-3-3.html    1. False                                                       question text looks like an option fragment; opts=['True']
+    hs-3-3.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-3-4.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-3-4.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-4-1.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-4-1.html    1. False                                                       question text looks like an option fragment; opts=['True']
+    hs-4-4.html    1. False                                                       question text looks like an option fragment; opts=['True']
+    hs-4-4.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-4-5.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-4-5.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-4-6.html    1. False                                                       question text looks like an option fragment; opts=['True']
+    hs-4-6.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-5-1.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-5-1.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-5-1.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-6-1.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-6-1.html    1. False                                                       question text looks like an option fragment; opts=['True']
+    hs-6-2.html    1. False                                                       question text looks like an option fragment; opts=['True']
+    hs-6-2.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-6-3.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-6-3.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-6-3.html    1. True                                                        question text looks like an option fragment; opts=['False']
+    hs-6-3.html    1. False                                                       question text looks like an option fragment; opts=['True']
+
+R3-no-options  (5)
+    hs-2-4.html    11. Eating a variety of fruits, vegetables, dairy, and lean pr option list is empty
+    hs-2-4.html    12. Avoiding dairy products automatically leads to low iron le option list is empty
+    hs-2-4.html    13. Muscle cramps during exercise may be influenced by several option list is empty
+    hs-2-4.html    14. High sodium intake combined with low potassium intake can  option list is empty
+    hs-2-4.html    15. Improving mineral intake habits can influence energy, reco option list is empty
+
+R3-option-count  (2)
+    hs-2-3.html    1. The student is likely experiencing symptoms of folic acid d multiple choice item has 3 options, expected 4
+    hs-3-1.html    3. A student chooses a granola bar labeled "low fat" but notic multiple choice item has 1 options, expected 4
+
+R4-letter-sequence  (2)
+    hs-2-3.html    1. The student is likely experiencing symptoms of folic acid d letters BCD expected ABC
+    hs-3-1.html    3. A student chooses a granola bar labeled "low fat" but notic letters C expected A
+
+R5-tf-order  (1)
+    hs-3-1.html    8. True or False: A food's ingredient list lists ingredients b order is ['False', 'True'], expected ['True','False']
+
+R6-truncated-option  (5)
+    hs-1-7.html    11. A student wants to increase their intake of protein for at option D ends on a dangling word: ...'Vitamin A'
+    hs-3-3.html    4. A student eats a snack with 15% daily value for vitamin D.  option A ends on a dangling word: ...' than the recommended daily amount of vitamin'
+    lesson-1-4.html 1. Which macronutrient is the body's preferred immediate sourc option C ends on a dangling word: ...'Vitamin'
+    lesson-1-5.html 3. A deficiency of which micronutrient can cause anemia (a red option C ends on a dangling word: ...'Vitamin A'
+    lesson-2-4.html 1. What is dehydration?                                        option A ends on a dangling word: ...'n your body loses more water than it takes in'
+
+R8-tf-absorbed  (5)
+    hs-2-4.html    11. Eating a variety of fruits, vegetables, dairy, and lean pr True/False prompt absorbed into stem, options dropped
+    hs-2-4.html    12. Avoiding dairy products automatically leads to low iron le True/False prompt absorbed into stem, options dropped
+    hs-2-4.html    13. Muscle cramps during exercise may be influenced by several True/False prompt absorbed into stem, options dropped
+    hs-2-4.html    14. High sodium intake combined with low potassium intake can  True/False prompt absorbed into stem, options dropped
+    hs-2-4.html    15. Improving mineral intake habits can influence energy, reco True/False prompt absorbed into stem, options dropped
+
+R9-numbering  (1)
+    hs-2-3.html    (file level)                                                   question numbers [1, 2, 3, 1, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] not sequential; repeated [1]
+
