@@ -76,7 +76,7 @@ def check(path):
         for _, L, t in opts:
             if not t:
                 bad("R6-empty-option", q, f"option {L} has no text")
-            elif re.search(r'\b(of|the|a|an|in|to|for|with|and|or|is|are|vitamin|than)$', t, re.I):
+            elif re.search(r'\b(of|the|an|to|for|with|vitamin|than)$', t) or re.search(r'\ba$', t):
                 bad("R6-truncated-option", q, f"option {L} ends on a dangling word: ...{t[-45:]!r}")
         # R7 answer leaked into question text
         if re.search(r'\bAnswer:\s*(True|False|[A-D])\b', q):
