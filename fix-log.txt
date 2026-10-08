@@ -31,3 +31,186 @@
 [invert]  hs-6-1.html Q10: False -> True  (Adequate protein supports recovery and reduces soreness)  ** REVIEW **
 [invert]  hs-6-2.html Q7: False -> True  (Low energy availability reduces bone density and raises injury risk)  ** REVIEW **
 [invert]  hs-6-3.html Q14: True -> False  (Thirst lags fluid loss, so athletes should not rely on it alone)  ** REVIEW **
+
+
+=== Final soft-launch pass (2026-10-09) ===
+Source: Final Punch List (37 items) + cross-check companion edits + Devon approval tweaks 1-4.
+Record: Claude Doc "Final Punch List: Cross-Check Against the Live Curriculum".
+Script: apply_soft_launch_final.py (every replacement must match exactly once).
+Not changed (already done on live site): item 16 Q11-Q13 keys, item 20 Q4 key. lesson-2-2 ranges already say needs vary.
+
+[2] lesson-1-2.html: '<li>Dark green vegetables = extra healthy (spinach, broccoli, kale)</l'
+[2] lesson-1-2.html: '<li>Lean proteins = healthier (chicken, fish, beans)</li>'
+[4] lesson-1-2.html: '<h2><span class="badge badge-activity">Activity</span> Food Group Inve'
+[3] lesson-1-2.html: Q10 rewritten (key B)
+[5] lesson-1-3.html: '<li>Grains — Choose whole grains most of the time. Examples:'
+[5] lesson-1-3.html: '<li>Vegetables — Fill half your plate with vegetables when possible. E'
+[5] lesson-1-3.html: '<li>A balanced plate often has vegetables and fruit as the largest sha'
+[5] lesson-1-3.html: 'steamed broccoli and carrots (vegetables), an apple (fruit), and a cup'
+[5] lesson-1-3.html: Q2 rewritten (key B)
+[5] lesson-1-3.html: '<p class="q">5. Which grain choice is healthiest for including on a ba'
+[5] lesson-1-3.html: '<p class="q">6. If a student fills half their plate with vegetables an'
+[6] lesson-1-5.html: '<li>Boosting immune system function</li>'
+[6] lesson-1-5.html: '<li>Converting food into energy</li>'
+[6] lesson-1-5.html: '<li>Vitamin D: Calcium absorption, bone health, mood regulation —'
+[7] lesson-1-6.html: Q5 option B reworded
+[8] lesson-2-3.html: '<p>In the previous lesson, we discussed how it is recommended that 12-'
+[8] lesson-2-3.html: '<h2><span class="badge badge-activity">Activity</span> Building a Hydr'
+[8] lesson-2-3.html: Q1 rewritten (key B)
+[8] lesson-2-3.html: Q8 rewritten (key B)
+[8] lesson-2-3.html: Q9 option B reworded
+[8 companion] lesson-2-7.html: Q5 rewritten (key B)
+[9] lesson-2-6.html: 'Drink water throughout the day — aim for 5–8 cups total, including wat'
+[9] lesson-2-6.html: '<p><strong>Short Practice / PE Class (under 60 minutes)</strong><br>'
+[9] lesson-2-6.html: '<p><strong>Long or Hot Practice / Game (60+ minutes in heat)</strong><'
+[9] lesson-2-6.html: 'Try to sip water or an oral rehydration solution often, even if you do'
+[9 companion] lesson-2-6.html: Q5 option B reworded
+[9 companion] lesson-2-6.html: Q5 option C reworded
+[9 companion] lesson-2-6.html: Q9 rewritten (key C)
+[9 companion] lesson-2-6.html: Q10 option B reworded
+[9 companion] lesson-2-4.html: Q6 option B reworded
+[28 companion] lesson-2-5.html: Q10 rewritten (key A)
+[28 companion] lesson-2-7.html: Q7 option C reworded
+[10] lesson-3-5.html: '<li>Over time: Frequent high added-sugar intake can contribute to toot'
+[10] lesson-3-5.html: 'Create a poster showing how various snacks (sugary, salty, and healthy'
+[10] lesson-3-5.html: '<p class="q">1. Which of the following is a healthy snack choice?</p>'
+[10] lesson-3-5.html: Q2 rewritten (key B)
+[10] lesson-3-5.html: Q4 option B reworded
+[10] lesson-3-5.html: Q7 option B reworded
+[10] lesson-3-5.html: Q8 rewritten (key A)
+[10] lesson-3-5.html: Q10 rewritten (key A)
+[1] index.html: '<a href="hs-1-7.html">Counting Macronutrients</a>'
+[1 companion] hs-1-7.html: 'Counting Macronutrients Quiz <span class="module-time">'
+[1 companion] hs-1-7.html: '<p class="q">5. Samantha is tracking her macronutrients and notices th'
+[1 companion] hs-1-7.html: '<p class="q">10. If you are counting macronutrients and your breakfast'
+[1 companion] hs-1-7.html: '<p class="q">15. If you are counting macronutrients and your lunch inc'
+[1 companion] hs-1-7.html: Q15 option B reworded
+[11] hs-1-1.html: 'Activity</span> Macronutrients Reflection <span class="module-time">45'
+[11] hs-1-1.html: replaced block starting '<p>Daily Life Reflection</p>'
+[11] hs-1-1.html: '<li>Which athlete will likely perform better in school and sports?</li'
+[11] hs-1-1.html: "<li>How might Athlete A's habits affect energy, focus, recovery, and p"
+[11] hs-1-1.html: replaced block starting '<p>Part 4: Action Plan for Change</p>'
+[12] hs-1-1.html: Q1 option B reworded
+[13] hs-1-1.html: Q6 rewritten (key B)
+[13] hs-1-1.html: Q7 option A reworded
+[13] hs-1-1.html: Q13 option A reworded
+[13] hs-1-1.html: Q14 rewritten (key A)
+[14] hs-2-4.html: Calcium bullets rewritten
+[14] hs-2-4.html: Phosphorus bullets rewritten
+[14] hs-2-4.html: Sodium bullets rewritten
+[14] hs-2-4.html: Potassium bullets rewritten
+[14] hs-2-4.html: Chloride bullets rewritten
+[14] hs-2-4.html: Sulfur bullets rewritten
+[14] hs-2-4.html: Iron bullets rewritten
+[14] hs-2-4.html: Zinc bullets rewritten
+[14] hs-2-4.html: Iodine bullets rewritten
+[14] hs-2-4.html: Fluoride bullets rewritten
+[14] hs-2-4.html: Selenium bullets rewritten
+[14] hs-2-4.html: Copper bullets rewritten
+[14] hs-2-4.html: Manganese bullets rewritten
+[14] hs-2-4.html: Chromium bullets rewritten
+[14] hs-2-4.html: Molybdenum bullets rewritten
+[15] hs-2-4.html: '<li>reflecting on how you think your energy, focus, or recovery might'
+[15 (empty bullets)] hs-2-4.html: '<li></li>\n          <li></li>'
+[15] hs-2-4.html: Q5 rewritten (key C)
+[15] hs-2-4.html: Q6 rewritten (key B)
+[15] hs-2-4.html: Q7 rewritten (key B)
+[15] hs-2-4.html: Q8 rewritten (key B)
+[15] hs-2-4.html: Q9 rewritten (key C)
+[16] hs-2-4.html: Q14 rewritten (key A)
+[16 + Devon tweak 3] hs-2-4.html: Q15 rewritten (key A)
+[17] hs-3-1.html: 'What you ate — and how much — directly affected your energy, focus, mo'
+[17] hs-3-1.html: 9 "Personal consequence" lines replaced
+[17] hs-3-1.html: '(example: yogurt with fruit and nuts). This supports sustained focus a'
+[17] hs-3-1.html: 'A small bag may contain 2-3 servings; eating the whole bag could cause'
+[17] hs-3-1.html: '<li>Scan sugar and fiber: low added sugar + higher fiber = steadier en'
+[17 companion] hs-3-1.html: Q3 rewritten (key C)
+[17 companion] hs-3-1.html: Q5 rewritten (key B)
+[17 companion] hs-3-1.html: Q11 rewritten (key B)
+[18] hs-3-1.html: replaced block starting '<h2><span class="badge badge-activity">Activity</span> Energ'
+[19] hs-3-2.html: replaced block starting '<p><strong>How Macronutrients and Calories Power Your Day</s'
+[19] hs-3-2.html: '<li>Your teacher will provide two food labels (or bring in two similar'
+[19] hs-3-2.html: '<p>Brand New Habit:</p>\n        <p>Write one specific habit you will p'
+[19] hs-3-2.html: '<p class="q">5. A student is tracking their calorie intake. Which macr'
+[20] hs-3-2.html: Q10 rewritten (key A)
+[Devon tweak 1] hs-3-2.html: Q12 option C reworded
+[21] hs-3-4.html: 'That choice can change how you feel in the next hour - sharper, slower'
+[21] hs-3-4.html: 'If sugar or corn syrup is listed first or second, that snack will like'
+[21] hs-3-4.html: 'These ingredients release energy slowly, helping you sustain attention'
+[21] hs-3-4.html: 'give fast but brief energy. That burst often causes irritability and d'
+[21] hs-3-4.html: '<li>Read from top to bottom: the first three ingredients mat'
+[21] hs-3-4.html: '<p>Every snack is a small decision that shapes how you think, move, an'
+[21 companion] hs-3-4.html: '<p>Objective: Examine personal eating habits through ingredient lists.'
+[21 companion] hs-3-4.html: '<li>Make a list of 10 foods you eat most often.</li>'
+[21 companion] hs-3-4.html: '<p>5. - Do most of the foods you eat have whole-food ingredients, some'
+[21 companion] hs-3-4.html: '<li>- Do you choose foods high in added sugars?</li>'
+[21 companion] hs-3-4.html: '<p>8. Calculate how many of your foods have added sugars listed within'
+[21 companion] hs-3-4.html: '<li>Which foods keep you energized?</li>\n          <li>Which'
+[21 companion] hs-3-4.html: '<p>Healthy Habit Commitment</p>\n        <p>Create a simple goal to mak'
+[22] hs-3-4.html: Q9 rewritten (key B)
+[23] hs-4-1.html: '<p>These are packed with vitamins, minerals, and fiber. What they do f'
+[23] hs-4-1.html: '<p>Real talk: Aim for variety-different colors mean different nutrient'
+[23] hs-4-1.html: '<p>Whole grains like oatmeal, brown rice, and whole wheat bread contai'
+[23] hs-4-1.html: '<p>Real talk: At least half your grains should be whole grains. Refine'
+[23] hs-4-1.html: '<p>Found in meat, fish, eggs, beans, nuts, and dairy. What they do for'
+[23] hs-4-1.html: '<p>Real talk: You need it at every meal, not just dinner. A protein-he'
+[Devon tweak 2] hs-4-1.html: '<li>Dairy (Or Dairy Alternatives)</li>'
+[23] hs-4-1.html: '<p>Milk, yogurt, and cheese are rich in calcium and vitamin D. What th'
+[Devon tweak 2] hs-4-1.html: "<p>Real talk: If you're lactose intolerant or vegan, fortified plant-b"
+[23] hs-4-1.html: '<p>Found in olive oil, nuts, avocados, and fatty fish. What they do fo'
+[23] hs-4-1.html: '<p>Real talk: Not all fats are equal. Olive oil and avocado are your f'
+[23] hs-4-1.html: 'Eating too much of anything-even good stuff-can leave you feeling slug'
+[23] hs-4-1.html: '<li>Hydration is non-negotiable. Water affects everything: your energy'
+[23] hs-4-1.html: '<li>Limit added sugars and sodium. Too much sugar causes energy crashe'
+[23] hs-4-1.html: "<li>Don't skip meals. Skipping breakfast or lunch tanks your energy an"
+[23] hs-4-1.html: 'shape your energy levels, your athletic potential, your skin, your foc'
+[24] hs-4-4.html: Q2 rewritten (key A)
+[24] hs-4-4.html: Q3 rewritten (key A)
+[24] hs-4-4.html: Q5 rewritten (key A)
+[24] hs-4-4.html: Q7 rewritten (key B)
+[24] hs-4-4.html: Q8 rewritten (key B)
+[24] hs-4-4.html: Q9 rewritten (key D)
+[24] hs-4-4.html: Q12 rewritten (key B)
+[25] hs-4-6.html: Q2 rewritten (key B)
+[25] hs-4-6.html: Q6 rewritten (key B)
+[25 (key D -> C)] hs-4-6.html: Q15 rewritten (key C)
+[26] hs-5-4.html: "When you have adequate carbs before exercise, you'll have better endur"
+[26] hs-5-4.html: '<p>Protein helps preserve muscle and provides sustained energy. Includ'
+[26] hs-5-4.html: '<li>Nuts and nut butters</li>\n          <li>Protein powder</'
+[27 + 28] hs-5-4.html: replaced block starting '<p>Why Mid-Activity Nutrition Matters</p>'
+[28] hs-5-4.html: '<p>Drink 16-24 ounces of fluid for every pound of body weight lost dur'
+[28] hs-5-4.html: 'Sports drinks, coconut water, or even chocolate milk work well. The so'
+[27] hs-5-4.html: 3 scenario lines no longer use the 60 minute rule
+[27] hs-5-4.html: 'you can dramatically change how you feel and perform.'
+[27] hs-5-4.html: "This completes your recovery and ensures you're fully refueled for you"
+[27] hs-5-4.html: 'When you fuel strategically—with the right foods at the right times—yo'
+[27 companion] hs-5-4.html: Q2 option A reworded
+[27 companion] hs-5-4.html: Q12 option C reworded
+[29] hs-6-1.html: replaced block starting '<h2><span class="badge badge-activity">Activity</span> Recov'
+[30] hs-6-1.html: Q10 rewritten (key A)
+[31 companion / 37] hs-6-2.html: 'Activity</span> Fuel and Energy Patterns <span class="module-time">0 m'
+[31 companion] hs-6-2.html: '<p>You will connect nutrition to athletic performance.</p>'
+[31] hs-6-2.html: replaced block starting '<p>Part 2: My Energy Pattern</p>'
+[32] hs-6-2.html: Q3 option A reworded
+[32] hs-6-2.html: Q4 option D reworded
+[32] hs-6-2.html: Q5 rewritten (key A)
+[32] hs-6-2.html: Q10 option B reworded
+[33] hs-6-3.html: 'how much and what you drink can directly impact your energy, mood, foc'
+[33] hs-6-3.html: 'You might even notice your skin looking dull or dry, since water help'
+[33] hs-6-3.html: "<p>Proper hydration isn't just about avoiding negative consequences-it"
+[34 companion] hs-6-3.html: '<p>Think about your most recent practice, workout, or PE class.</p>'
+[34] hs-6-3.html: replaced block starting '<p>Part 2: Build A Personal Hydration Plan</p>'
+[Devon tweak 4] hs-5-5.html: Q1 option C reworded
+[Devon tweak 4] hs-5-5.html: Q2 option A reworded
+[Devon tweak 4] hs-5-5.html: Q3 option D reworded
+[Devon tweak 4] hs-5-5.html: Q4 option C reworded
+[Devon tweak 4] hs-5-5.html: Q5 option A reworded
+[Devon tweak 4] hs-5-5.html: Q6 option B reworded
+[Devon tweak 4] hs-5-5.html: Q7 option D reworded
+[Devon tweak 4] hs-5-5.html: Q9 option A reworded
+[Devon tweak 4] hs-5-5.html: Q11 option A reworded
+[Devon tweak 4] hs-5-5.html: Q13 option B reworded
+[Devon tweak 4] hs-6-4.html: Q5 option C reworded
+[Devon tweak 4] hs-6-4.html: Q12 option A reworded
+
+173 edits across 26 files
